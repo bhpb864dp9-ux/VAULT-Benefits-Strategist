@@ -1,0 +1,220 @@
+================================================================================
+                        PROPRIETARY SOFTWARE LICENSE
+                      VAULT | Veterans Benefits Platform
+================================================================================
+
+COPYRIGHT © 2025 DONTRELL-TATE INTELLIGENCE LLC
+ALL RIGHTS RESERVED
+
+================================================================================
+                              LEGAL NOTICE
+================================================================================
+
+This software, including but not limited to all source code, object code,
+documentation, user interface designs, algorithms, data structures, and
+associated intellectual property (collectively, the "Software"), is the
+exclusive property of Dontrell-Tate Intelligence LLC, a limited liability
+company organized under the laws of the United States ("Company").
+
+================================================================================
+                          TERMS AND CONDITIONS
+================================================================================
+
+1. PROPRIETARY RIGHTS
+   ------------------
+   The Software contains proprietary information and trade secrets belonging
+   to the Company. All title, ownership rights, and intellectual property
+   rights in and to the Software shall remain exclusively with the Company.
+
+2. RESTRICTIONS
+   ------------
+   You may NOT, without prior written consent from the Company:
+   
+   a) Copy, reproduce, or duplicate the Software or any portion thereof
+   b) Modify, adapt, alter, translate, or create derivative works
+   c) Reverse engineer, disassemble, decompile, or otherwise attempt to
+      derive the source code of the Software
+   d) Distribute, sublicense, lease, rent, loan, or transfer the Software
+   e) Remove, alter, or obscure any proprietary notices
+   f) Use the Software for any commercial purpose
+   g) Publish or disclose to third parties any evaluation of the Software
+
+3. TRADE SECRET PROTECTION
+   -----------------------
+   The following elements constitute trade secrets protected under the
+   Defend Trade Secrets Act (18 U.S.C. § 1836) and applicable state law:
+   
+   a) Mind Reader™ Natural Language Processing Algorithm
+   b) Keyword Matrix symptom-to-code mapping data
+   c) Disability Rating Computation formulas and coefficients
+   d) Titanium Glass™ Design System specifications
+   e) Zero-Trust Client Architecture implementation details
+
+4. INTELLECTUAL PROPERTY REGISTRATIONS
+   ------------------------------------
+   U.S. Copyright Registration: [Pending]
+   U.S. Patent Application:     [Pending]
+   
+   The following trademarks are claimed:
+   • VAULT™
+   • Mind Reader™
+   • Titanium Glass™
+   • Zero-Trust Claims Intelligence™
+
+5. CONFIDENTIALITY OBLIGATIONS
+   ---------------------------
+   Any person or entity accessing this Software agrees to:
+   
+   a) Maintain the Software in strict confidence
+   b) Use the Software only for authorized evaluation purposes
+   c) Not disclose the Software or any information derived therefrom
+   d) Protect the Software using at least the same degree of care used
+      to protect their own confidential information
+   e) Promptly notify the Company of any unauthorized disclosure
+
+6. NO LICENSE GRANTED
+   ------------------
+   NOTHING IN THIS NOTICE SHALL BE CONSTRUED AS GRANTING ANY LICENSE OR
+   RIGHT TO USE THE SOFTWARE EXCEPT AS EXPLICITLY AUTHORIZED IN WRITING
+   BY THE COMPANY.
+   
+   Viewing this source code does not grant any license to:
+   • Use the Software for any purpose
+   • Create derivative works
+   • Distribute or sublicense the Software
+   • Claim any ownership interest
+
+7. RESERVATION OF RIGHTS
+   ---------------------
+   The Company reserves all rights not expressly granted herein. No rights
+   or licenses are granted by implication, estoppel, or otherwise.
+
+8. WARRANTY DISCLAIMER
+   -------------------
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+   
+   THE COMPANY DOES NOT WARRANT THAT:
+   a) The Software will meet your requirements
+   b) The Software will be uninterrupted, timely, secure, or error-free
+   c) The results obtained from use of the Software will be accurate
+   d) Any errors in the Software will be corrected
+
+9. LIMITATION OF LIABILITY
+   -----------------------
+   IN NO EVENT SHALL THE COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED
+   TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES,
+   RESULTING FROM:
+   
+   a) Your access to or use of or inability to access or use the Software
+   b) Any conduct or content of any third party related to the Software
+   c) Any unauthorized access, use, or alteration of the Software
+
+10. INDEMNIFICATION
+    ---------------
+    You agree to indemnify, defend, and hold harmless the Company and its
+    officers, directors, employees, agents, and successors from and against
+    any claims, liabilities, damages, losses, and expenses arising out of
+    or in any way connected with your access to or use of the Software.
+
+11. GOVERNING LAW
+    -------------
+    This License shall be governed by and construed in accordance with the
+    laws of the United States and the State of [State], without regard to
+    its conflict of law provisions.
+
+12. DISPUTE RESOLUTION
+    ------------------
+    Any dispute arising out of or relating to this License shall be
+    resolved through binding arbitration in accordance with the rules of
+    the American Arbitration Association.
+
+13. ENTIRE AGREEMENT
+    ----------------
+    This License constitutes the entire agreement between you and the
+    Company regarding the Software and supersedes all prior agreements
+    and understandings.
+
+14. SEVERABILITY
+    ------------
+    If any provision of this License is held to be invalid or
+    unenforceable, the remaining provisions shall continue in full force
+    and effect.
+
+15. WAIVER
+    ------
+    No waiver of any term of this License shall be deemed a further or
+    continuing waiver of such term or any other term.
+
+================================================================================
+                            ENFORCEMENT NOTICE
+================================================================================
+
+Unauthorized use, copying, or distribution of this Software may result in:
+
+• Civil liability for copyright infringement (17 U.S.C. § 504)
+  - Statutory damages up to $150,000 per willful infringement
+  
+• Criminal prosecution for copyright infringement (17 U.S.C. § 506)
+  - Fines up to $250,000 and imprisonment up to 5 years
+  
+• Trade secret misappropriation claims under federal and state law
+  - Injunctive relief and compensatory damages
+  - Exemplary damages up to 2x compensatory damages
+  
+• Patent infringement liability (35 U.S.C. § 271)
+  - Compensatory damages and enhanced damages for willful infringement
+
+================================================================================
+                           THIRD-PARTY LICENSES
+================================================================================
+
+This Software incorporates open-source components under the following licenses:
+
+1. Bootstrap v5.3.2 - MIT License
+   Copyright (c) 2011-2024 The Bootstrap Authors
+   https://getbootstrap.com/docs/5.3/about/license/
+
+2. Font Awesome Free v6.4.0 - Font Awesome Free License
+   Copyright (c) Fonticons, Inc.
+   https://fontawesome.com/license/free
+
+3. JSZip v3.10.1 - MIT License
+   Copyright (c) 2009-2016 Stuart Knightley
+   https://github.com/Stuk/jszip/blob/main/LICENSE.markdown
+
+4. FileSaver.js v2.0.5 - MIT License
+   Copyright (c) 2016 Eli Grey
+   https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+
+5. Canvas Confetti v1.6.0 - ISC License
+   Copyright (c) 2020, Kiril Vatev
+   https://github.com/catdad/canvas-confetti/blob/master/LICENSE
+
+6. Inter Tight Font - SIL Open Font License 1.1
+   Copyright 2020 The Inter Project Authors
+   https://fonts.google.com/specimen/Inter+Tight
+
+These third-party components remain under their respective licenses.
+No ownership claim is made to these components.
+
+================================================================================
+                             CONTACT INFORMATION
+================================================================================
+
+For licensing inquiries, permissions, or legal matters:
+
+Dontrell-Tate Intelligence LLC
+[Address Line 1]
+[Address Line 2]
+[City, State ZIP]
+
+Email: legal@[domain].com
+Phone: [Phone Number]
+
+================================================================================
+
+Document Version: 2.0
+Last Updated: 2025

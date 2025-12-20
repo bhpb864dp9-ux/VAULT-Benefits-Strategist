@@ -1,0 +1,57 @@
+{
+  "name": "VAULT | Veterans Automated Universal Lookup Tool",
+  "short_name": "VAULT",
+  "description": "VAULT Benefits Strategist - Beta v1.0. Privacy-first VA disability claims intelligence platform with body-system navigation and VBIO training. Your data never leaves your device.",
+  "version": "1.0.0-beta",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": ["productivity", "utilities", "government"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230f172a'/><text x='256' y='350' font-size='300' text-anchor='middle' fill='white'>🛡️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "New Claim",
+      "short_name": "New",
+      "description": "Start a new disability claim",
+      "url": "./index.html?mode=new",
+      "icons": []
+    },
+    {
+      "name": "Supplemental Claim",
+      "short_name": "Supplemental",
+      "description": "Add evidence to existing claim",
+      "url": "./index.html?mode=supplemental",
+      "icons": []
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "serviceworker": {
+    "src": "./service-worker.js",
+    "scope": "./"
+  },
+  "features": [
+    "offline_capable",
+    "zero_trust_architecture",
+    "client_side_processing",
+    "no_account_required"
+  ],
+  "permissions_policy": {
+    "geolocation": [],
+    "microphone": [],
+    "camera": []
+  }
+}

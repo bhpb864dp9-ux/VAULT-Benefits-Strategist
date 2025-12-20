@@ -1,0 +1,80 @@
+{
+  "name": "vault-veterans-benefits",
+  "version": "1.1.0",
+  "description": "VAULT - Veterans Automated Universal Lookup Tool. A privacy-first, offline-capable Progressive Web Application for veterans benefits claim preparation.",
+  "author": {
+    "name": "Dontrell-Tate Intelligence LLC",
+    "email": "info@[domain].com",
+    "url": "https://[website].com"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "homepage": "https://[website].com",
+  "repository": {
+    "type": "git",
+    "url": "[repository-url]"
+  },
+  "bugs": {
+    "url": "[issues-url]",
+    "email": "support@[domain].com"
+  },
+  "keywords": [
+    "veterans",
+    "va-claims",
+    "disability-benefits",
+    "military",
+    "pwa",
+    "progressive-web-app",
+    "offline-first",
+    "zero-trust",
+    "privacy",
+    "claims-preparation",
+    "veterans-benefits",
+    "va-disability"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "main": "src/main/public/index.html",
+  "scripts": {
+    "start": "npx serve src/main/public -l 8080",
+    "serve": "npx serve src/main/public -l 8080",
+    "build:docker": "docker build -t vault-v1 .",
+    "docker:run": "docker run -p 80:80 vault-v1",
+    "test": "echo \"No tests configured - static PWA\" && exit 0",
+    "lint": "echo \"No linting configured - vanilla JS\" && exit 0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "files": [
+    "src/main/public/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "vault": {
+    "codename": "Ashley",
+    "releaseDate": "2025",
+    "architecture": "Zero-Trust Client-Side",
+    "features": {
+      "mindReader": true,
+      "offlineMode": true,
+      "zeroTrust": true,
+      "pwa": true
+    },
+    "legal": {
+      "copyright": "2025 Dontrell-Tate Intelligence LLC",
+      "patent": "pending",
+      "trademarks": [
+        "VAULT",
+        "Mind Reader",
+        "Titanium Glass"
+      ]
+    }
+  }
+}

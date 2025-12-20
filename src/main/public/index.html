@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0f14">
+    <meta name="description" content="VAULT Benefits Strategist - Beta v1.0. Privacy-first VA disability claims intelligence platform with body-system navigation and VBIO training.">
+    <title>VAULT | Benefits Strategist — Beta v1.0</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- External Libraries -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --slate-950: #0a0f14;
+            --slate-900: #111820;
+            --slate-800: #1c252f;
+            --slate-700: #2d3a47;
+            --slate-600: #4a5a6a;
+            --slate-400: #8899aa;
+            --slate-200: #c8d4e0;
+            --slate-100: #e8eef4;
+            --slate-50: #f4f7fa;
+            --brass: #c9a227;
+            --brass-muted: rgba(201, 162, 39, 0.12);
+            --brass-glow: rgba(201, 162, 39, 0.3);
+            --intent-mild: #38bdf8;
+            --intent-moderate: #fbbf24;
+            --intent-severe: #fb7185;
+            --intent-invited: #a78bfa;
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.333rem;
+            --text-2xl: 1.777rem;
+            --text-3xl: 2.369rem;
+            --text-5xl: 4.209rem;
+            --text-7xl: 7.478rem;
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-base: 0.6s;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'DM Sans', -apple-system, sans-serif; font-weight: 400; line-height: 1.6; color: var(--slate-200); background: var(--slate-950); min-height: 100vh; overflow-x: hidden; }
+        .serif { font-family: 'Instrument Serif', Georgia, serif; }
+        h1, h2, h3, h4 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: var(--slate-50); }
+        .display-hero { font-size: clamp(3rem, 8vw, var(--text-7xl)); line-height: 0.95; letter-spacing: -0.03em; }
+        .display-section { font-size: clamp(2rem, 5vw, var(--text-5xl)); }
+        .display-large { font-size: clamp(1.5rem, 4vw, var(--text-3xl)); }
+        .eyebrow { font-family: 'DM Sans', sans-serif; font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); }
+        .body-large { font-size: var(--text-lg); line-height: 1.7; color: var(--slate-400); }
+        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 var(--space-6); }
+        .container-narrow { max-width: 720px; }
+        section { padding: var(--space-8) 0; }
+        .section-massive { padding: 0; }
+        .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: var(--space-6) 0; background: transparent; transition: background var(--duration-base) var(--ease-out-expo); }
+        .site-header.scrolled { background: rgba(10, 15, 20, 0.95); backdrop-filter: blur(12px); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+        .logo-mark { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--slate-700); color: var(--brass); font-size: var(--text-lg); }
+        .logo-text { font-family: 'DM Sans', sans-serif; font-size: var(--text-sm); font-weight: 500; letter-spacing: 0.15em; color: var(--slate-100); text-transform: uppercase; }
+        .nav-progress { display: flex; align-items: center; gap: var(--space-2); }
+        .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--slate-700); transition: all var(--duration-base) var(--ease-out-expo); cursor: pointer; }
+        .progress-dot.active { background: var(--brass); width: 24px; border-radius: 4px; }
+        .progress-dot.complete { background: var(--slate-400); }
+        .btn { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-8); font-family: 'DM Sans', sans-serif; font-size: var(--text-sm); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all var(--duration-base) var(--ease-out-expo); }
+        .btn-primary { background: var(--slate-50); color: var(--slate-950); }
+        .btn-primary:hover:not(:disabled) { background: var(--brass); color: var(--slate-950); transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-ghost { background: transparent; color: var(--slate-200); border: 1px solid var(--slate-700); }
+        .btn-ghost:hover { border-color: var(--slate-400); color: var(--slate-50); }
+        .btn-icon { font-size: var(--text-base); transition: transform 0.3s var(--ease-out-expo); }
+        .btn:hover .btn-icon { transform: translateX(4px); }
+        .btn-sm { padding: var(--space-2) var(--space-4); font-size: var(--text-xs); }
+        .phase-section { display: none; opacity: 0; padding-top: 120px; padding-bottom: var(--space-16); }
+        .phase-section.active { display: block; animation: phaseIn 0.8s var(--ease-out-expo) forwards; }
+        .phase-section.hero { min-height: 100vh; padding-top: 0; display: none; }
+        .phase-section.hero.active { display: flex; }
+        @keyframes phaseIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .phase-header { margin-bottom: var(--space-12); padding-top: var(--space-4); }
+        .phase-number { font-family: 'Instrument Serif', serif; font-size: var(--text-7xl); line-height: 1; color: var(--slate-800); position: absolute; left: -5%; top: -10%; opacity: 0.5; pointer-events: none; }
+        .phase-content { position: relative; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding-top: 0 !important; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-eyebrow { margin-bottom: var(--space-6); opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards; }
+        .hero-title { margin-bottom: var(--space-8); opacity: 0; transform: translateY(40px); animation: fadeUp 1s var(--ease-out-expo) 0.4s forwards; }
+        .hero-title em { font-style: italic; color: var(--brass); }
+        .hero-description { max-width: 540px; margin-bottom: var(--space-12); opacity: 0; transform: translateY(30px); animation: fadeUp 0.8s var(--ease-out-expo) 0.6s forwards; }
+        .hero-cta { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); }
+        .selection-card { padding: var(--space-8); background: transparent; border: 1px solid var(--slate-800); cursor: pointer; transition: all var(--duration-base) var(--ease-out-expo); position: relative; overflow: hidden; }
+        .selection-card::before { content: ''; position: absolute; inset: 0; background: var(--brass-muted); opacity: 0; transition: opacity var(--duration-base) var(--ease-out-expo); }
+        .selection-card:hover, .selection-card.selected { border-color: var(--brass); }
+        .selection-card:hover::before, .selection-card.selected::before { opacity: 1; }
+        .selection-card-content { position: relative; z-index: 1; }
+        .selection-icon { font-size: var(--text-2xl); margin-bottom: var(--space-4); display: block; color: var(--brass); }
+        .selection-title { font-family: 'Instrument Serif', serif; font-size: var(--text-xl); color: var(--slate-50); margin-bottom: var(--space-2); }
+        .selection-description { font-size: var(--text-sm); color: var(--slate-400); line-height: 1.6; }
+        .selection-indicator { position: absolute; top: var(--space-4); right: var(--space-4); width: 24px; height: 24px; border: 1px solid var(--slate-700); display: flex; align-items: center; justify-content: center; font-size: var(--text-sm); color: transparent; transition: all 0.3s var(--ease-out-expo); }
+        .selection-card.selected .selection-indicator { background: var(--brass); border-color: var(--brass); color: var(--slate-950); }
+        .form-group { margin-bottom: var(--space-6); }
+        .form-label { display: block; font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-400); margin-bottom: var(--space-3); }
+        .form-input { width: 100%; padding: var(--space-4) 0; font-family: 'DM Sans', sans-serif; font-size: var(--text-lg); color: var(--slate-50); background: transparent; border: none; border-bottom: 1px solid var(--slate-700); outline: none; transition: border-color var(--duration-base) var(--ease-out-expo); }
+        .form-input:focus { border-color: var(--brass); }
+        .form-input::placeholder { color: var(--slate-600); }
+        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-8); }
+        .form-textarea { width: 100%; min-height: 180px; padding: var(--space-6); font-family: 'DM Sans', sans-serif; font-size: var(--text-base); line-height: 1.8; color: var(--slate-50); background: var(--slate-900); border: 1px solid var(--slate-800); resize: vertical; outline: none; transition: border-color var(--duration-base) var(--ease-out-expo); }
+        .form-textarea:focus { border-color: var(--brass); }
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+        .system-tile { padding: var(--space-4); background: transparent; border: 1px solid var(--slate-800); cursor: pointer; transition: all 0.3s var(--ease-out-expo); display: flex; align-items: center; gap: var(--space-3); }
+        .system-tile:hover { border-color: var(--slate-600); }
+        .system-tile.highlighted { border-color: var(--brass); background: var(--brass-muted); }
+        .system-tile.selected { background: var(--slate-800); border-color: var(--brass); }
+        .system-checkbox { width: 18px; height: 18px; border: 1px solid var(--slate-600); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s ease; }
+        .system-tile.selected .system-checkbox { background: var(--brass); border-color: var(--brass); }
+        .system-checkbox svg { width: 12px; height: 12px; opacity: 0; color: var(--slate-950); }
+        .system-tile.selected .system-checkbox svg { opacity: 1; }
+        .system-name { font-size: var(--text-sm); color: var(--slate-200); }
+        .body-map-container { width: 100%; max-width: 320px; margin: 0 auto; position: relative; filter: drop-shadow(0 0 40px rgba(201, 162, 39, 0.1)); }
+        .body-map-container svg { animation: idleBreath 7s ease-in-out infinite; }
+        @keyframes idleBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.003); } }
+        .body-part { fill: rgba(200, 212, 224, 0.04); stroke: var(--slate-700); stroke-width: 0.5; opacity: 0.6; cursor: pointer; transition: all 0.25s ease; }
+        .body-part:hover { opacity: 0.9; stroke: var(--slate-400); fill: rgba(200, 212, 224, 0.08); }
+        .body-part.intent-1 { opacity: 0.85; fill: rgba(56, 189, 248, 0.15); stroke: var(--intent-mild); stroke-width: 1; }
+        .body-part.intent-2 { opacity: 0.95; fill: rgba(251, 191, 36, 0.2); stroke: var(--intent-moderate); stroke-width: 1.2; }
+        .body-part.intent-3 { opacity: 1; fill: rgba(251, 113, 133, 0.25); stroke: var(--intent-severe); stroke-width: 1.5; animation: severePulse 2s ease-in-out infinite; }
+        @keyframes severePulse { 0%, 100% { filter: drop-shadow(0 0 8px rgba(251, 113, 133, 0.4)); } 50% { filter: drop-shadow(0 0 16px rgba(251, 113, 133, 0.6)); } }
+        .intent-legend { display: flex; justify-content: center; gap: var(--space-6); margin-top: var(--space-4); }
+        .intent-legend-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--slate-400); }
+        .intent-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .results-header { text-align: center; margin-bottom: var(--space-12); }
+        .results-rating { display: flex; flex-direction: column; align-items: center; margin-bottom: var(--space-8); padding: var(--space-12); border: 1px solid var(--slate-800); }
+        .rating-value { font-family: 'Instrument Serif', serif; font-size: var(--text-7xl); line-height: 1; color: var(--brass); }
+        .rating-label { font-size: var(--text-sm); letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-400); margin-top: var(--space-2); }
+        .rating-sublabel { font-size: var(--text-sm); color: var(--slate-600); margin-top: var(--space-2); }
+        .results-actions { display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap; }
+        .info-panel { padding: var(--space-6); background: var(--slate-900); border: 1px solid var(--slate-800); margin-bottom: var(--space-4); }
+        .info-panel-title { font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+        .info-panel-content { font-size: var(--text-sm); color: var(--slate-400); line-height: 1.7; }
+        .audit-step { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--slate-800); }
+        .audit-step:last-child { border-bottom: none; }
+        .audit-num { width: 24px; height: 24px; border-radius: 50%; background: var(--slate-800); color: var(--slate-400); display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 600; flex-shrink: 0; }
+        .audit-text { font-size: var(--text-sm); color: var(--slate-400); }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
+        .tool-card { padding: var(--space-6); background: transparent; border: 1px solid var(--slate-800); text-align: center; cursor: pointer; transition: all 0.3s ease; }
+        .tool-card:hover { border-color: var(--brass); background: var(--brass-muted); }
+        .tool-icon { font-size: var(--text-2xl); color: var(--brass); margin-bottom: var(--space-3); }
+        .tool-name { font-size: var(--text-sm); color: var(--slate-200); }
+        .modal-section { display: none; padding-top: 120px; padding-bottom: var(--space-16); }
+        .modal-section.active { display: block; animation: phaseIn 0.5s var(--ease-out-expo) forwards; }
+        .site-footer { padding: var(--space-16) 0; border-top: 1px solid var(--slate-800); }
+        #toastContainer { position: fixed; bottom: var(--space-6); right: var(--space-6); z-index: 1000; }
+        .toast { padding: var(--space-4) var(--space-6); background: var(--slate-800); border: 1px solid var(--slate-700); color: var(--slate-100); font-size: var(--text-sm); margin-top: var(--space-2); animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .text-center { text-align: center; }
+        .text-brass { color: var(--brass); }
+        .mt-4 { margin-top: var(--space-4); }
+        .mt-8 { margin-top: var(--space-8); }
+        .mt-12 { margin-top: var(--space-12); }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-8 { margin-bottom: var(--space-8); }
+        .gap-4 { gap: var(--space-4); }
+        .d-flex { display: flex; }
+        .flex-wrap { flex-wrap: wrap; }
+        .justify-center { justify-content: center; }
+        .landing-hero { background: linear-gradient(135deg, var(--slate-950) 0%, var(--slate-900) 100%); padding: var(--space-24) 0 var(--space-16); position: relative; overflow: hidden; min-height: 70vh; display: flex; align-items: center; justify-content: center; }
+        .landing-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 50%, var(--brass-muted) 0%, transparent 60%); pointer-events: none; }
+        .landing-hero-content { position: relative; z-index: 2; max-width: 720px; text-align: center; margin: 0 auto; }
+        .landing-hero-badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); background: var(--brass-muted); border: 1px solid var(--brass); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass); margin-bottom: var(--space-6); }
+        .landing-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: var(--space-6); }
+        .landing-hero-desc { font-size: var(--text-lg); color: var(--slate-400); line-height: 1.7; margin-bottom: var(--space-8); max-width: 540px; margin-left: auto; margin-right: auto; }
+        .landing-hero-actions { display: flex; gap: var(--space-4); flex-wrap: wrap; justify-content: center; }
+        .official-banner { background: var(--slate-900); border-bottom: 1px solid var(--slate-800); padding: var(--space-3) 0; font-size: var(--text-xs); }
+        .banner-content { display: flex; align-items: center; gap: var(--space-3); color: var(--slate-400); }
+        .banner-icon { color: var(--brass); }
+        .banner-content a { color: var(--brass); text-decoration: underline; }
+        .entry-section { padding: var(--space-16) 0; background: var(--slate-950); }
+        .entry-section-header { text-align: center; margin-bottom: var(--space-12); }
+        .entry-section-header h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: var(--space-4); }
+        .entry-section-header p { color: var(--slate-400); max-width: 600px; margin: 0 auto; }
+        .entry-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+        .entry-card { background: var(--slate-900); border: 1px solid var(--slate-800); padding: var(--space-8); text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
+        .entry-card:hover { border-color: var(--brass); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .entry-card-icon { width: 64px; height: 64px; margin: 0 auto var(--space-6); display: flex; align-items: center; justify-content: center; background: var(--brass-muted); border-radius: 50%; font-size: var(--text-2xl); color: var(--brass); }
+        .entry-card h3 { font-family: 'DM Sans', sans-serif; font-size: var(--text-lg); font-weight: 600; color: var(--slate-100); margin-bottom: var(--space-3); }
+        .entry-card p { font-size: var(--text-sm); color: var(--slate-400); line-height: 1.6; margin-bottom: var(--space-6); }
+        .entry-card-cta { font-size: var(--text-sm); font-weight: 500; color: var(--brass); text-transform: uppercase; letter-spacing: 0.1em; }
+        .entry-card-badge { position: absolute; top: var(--space-4); right: var(--space-4); padding: var(--space-1) var(--space-3); background: var(--brass); color: var(--slate-950); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+        .services-section { padding: var(--space-16) 0; background: var(--slate-900); border-top: 1px solid var(--slate-800); border-bottom: 1px solid var(--slate-800); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); }
+        .service-card { background: var(--slate-950); border: 1px solid var(--slate-800); padding: var(--space-6); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: flex-start; gap: var(--space-4); }
+        .service-card:hover { border-color: var(--brass); background: var(--slate-900); }
+        .service-card-icon { width: 48px; height: 48px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--brass-muted); color: var(--brass); font-size: var(--text-xl); }
+        .service-card-content h4 { font-family: 'DM Sans', sans-serif; font-size: var(--text-base); font-weight: 600; color: var(--slate-100); margin-bottom: var(--space-2); }
+        .service-card-content p { font-size: var(--text-sm); color: var(--slate-400); line-height: 1.5; }
+        .crisis-banner { background: linear-gradient(90deg, #1e3a5f 0%, #0d2137 100%); padding: var(--space-6) 0; border-top: 3px solid var(--brass); }
+        .crisis-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
+        .crisis-text h4 { font-family: 'DM Sans', sans-serif; font-size: var(--text-base); font-weight: 600; color: var(--slate-50); margin-bottom: var(--space-1); }
+        .crisis-text p { font-size: var(--text-sm); color: var(--slate-300); }
+        .crisis-actions { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+        .crisis-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); background: var(--brass); color: var(--slate-950); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: all 0.2s ease; }
+        .crisis-btn:hover { background: var(--slate-50); }
+        .crisis-btn-ghost { background: transparent; border: 1px solid var(--slate-400); color: var(--slate-100); }
+        .crisis-btn-ghost:hover { border-color: var(--slate-50); background: rgba(255,255,255,0.1); }
+        @media (max-width: 900px) { .entry-cards { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .phase-number { display: none; } .body-map-container { max-width: 260px; } .systems-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <header class="site-header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo" onclick="event.preventDefault()">
+                    <div class="logo-mark">⟁</div>
+                    <span class="logo-text">Vault</span>
+                </a>
+                <nav class="nav-progress" id="navProgress">
+                    <div class="progress-dot active" data-phase="0" onclick="VAULT.goToPhase(0)"></div>
+                    <div class="progress-dot" data-phase="1" onclick="VAULT.goToPhase(1)"></div>
+                    <div class="progress-dot" data-phase="2" onclick="VAULT.goToPhase(2)"></div>
+                    <div class="progress-dot" data-phase="3" onclick="VAULT.goToPhase(3)"></div>
+                    <div class="progress-dot" data-phase="4" onclick="VAULT.goToPhase(4)"></div>
+                    <div class="progress-dot" data-phase="5" onclick="VAULT.goToPhase(5)"></div>
+                </nav>
+                <button class="btn btn-ghost btn-sm" onclick="VAULT.reset()"><i class="fas fa-rotate-right"></i></button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- PHASE 0: LANDING -->
+        <section class="phase-section active" id="phase-0" style="padding-top: 80px;">
+            <div class="official-banner">
+                <div class="container">
+                    <div class="banner-content">
+                        <i class="fas fa-shield-halved banner-icon"></i>
+                        <span>This is <strong>NOT</strong> an official VA website. VAULT is a private claims preparation tool by <a href="#">Northstar-Insight Inc.</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="landing-hero">
+                <div class="container">
+                    <div class="landing-hero-content">
+                        <div class="landing-hero-badge"><i class="fas fa-lock"></i> Privacy-First Technology</div>
+                        <h1>Prepare your VA disability claim with <span style="color: var(--brass);">confidence</span></h1>
+                        <p class="landing-hero-desc">VAULT Benefits Strategist guides you through the claims process with intelligent automation. Your data stays on your device—we never transmit or store your personal information.</p>
+                        <div class="landing-hero-actions">
+                            <button class="btn btn-primary" onclick="VAULT.nextPhase()">Start Your Claim <span class="btn-icon">→</span></button>
+                            <a href="https://www.va.gov/disability/how-to-file-claim/" target="_blank" class="btn btn-ghost"><i class="fas fa-external-link-alt"></i> Official VA.gov</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="entry-section">
+                <div class="container">
+                    <div class="entry-section-header">
+                        <p class="eyebrow">Choose Your Path</p>
+                        <h2>Who are you?</h2>
+                        <p>Select your role to get started with the right experience.</p>
+                    </div>
+                    <div class="entry-cards">
+                        <div class="entry-card" onclick="VAULT.nextPhase()">
+                            <span class="entry-card-badge">Start Here</span>
+                            <div class="entry-card-icon"><i class="fas fa-user-shield"></i></div>
+                            <h3>I'm a Veteran or Family Member</h3>
+                            <p>Prepare your disability claim with step-by-step guidance. Get your documentation organized and ready for submission.</p>
+                            <span class="entry-card-cta">Begin Claim Preparation →</span>
+                        </div>
+                        <div class="entry-card" onclick="VAULT.toast('VBIO Program coming soon')">
+                            <span class="entry-card-badge" style="background: var(--intent-moderate);">Coming Soon</span>
+                            <div class="entry-card-icon"><i class="fas fa-star"></i></div>
+                            <h3>Become a VBIO</h3>
+                            <p>Join the Veteran Benefits Intelligence Officer program. Master policy-as-code methodology and help transform how veterans receive their earned benefits.</p>
+                            <span class="entry-card-cta">Learn About VBIO →</span>
+                        </div>
+                        <div class="entry-card" onclick="VAULT.toast('Organization Portal coming soon')">
+                            <div class="entry-card-icon"><i class="fas fa-building"></i></div>
+                            <h3>Organization Portal</h3>
+                            <p>For American Legion, VFW, DAV chapters and veteran service organizations. View analytics and manage your VBIO team.</p>
+                            <span class="entry-card-cta">Organization Dashboard →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="services-section">
+                <div class="container">
+                    <div class="entry-section-header">
+                        <p class="eyebrow">Claim Types Supported</p>
+                        <h2>What kind of claim are you filing?</h2>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card" onclick="VAULT.setMissionAndStart('INITIAL')">
+                            <div class="service-card-icon"><i class="fas fa-file-circle-plus"></i></div>
+                            <div class="service-card-content"><h4>New / Initial Claim</h4><p>Filing for disability compensation for the first time, or adding a new condition to your existing rating.</p></div>
+                        </div>
+                        <div class="service-card" onclick="VAULT.setMissionAndStart('INCREASE')">
+                            <div class="service-card-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                            <div class="service-card-content"><h4>Claim for Increase</h4><p>Your service-connected condition has worsened since your last rating decision. Request a higher rating.</p></div>
+                        </div>
+                        <div class="service-card" onclick="VAULT.setMissionAndStart('SECONDARY')">
+                            <div class="service-card-icon"><i class="fas fa-link"></i></div>
+                            <div class="service-card-content"><h4>Secondary Condition</h4><p>A new condition caused or aggravated by an existing service-connected disability (38 CFR § 3.310).</p></div>
+                        </div>
+                        <div class="service-card" onclick="VAULT.setMissionAndStart('SUPPLEMENTAL')">
+                            <div class="service-card-icon"><i class="fas fa-folder-plus"></i></div>
+                            <div class="service-card-content"><h4>Supplemental Claim</h4><p>Submit new and relevant evidence for a previously denied claim using the AMA review lane.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="crisis-banner">
+                <div class="container">
+                    <div class="crisis-content">
+                        <div class="crisis-text">
+                            <h4>Veterans Crisis Line — We're here anytime, day or night</h4>
+                            <p>If you're a Veteran in crisis or concerned about one, connect with caring responders.</p>
+                        </div>
+                        <div class="crisis-actions">
+                            <a href="tel:988" class="crisis-btn"><i class="fas fa-phone"></i> Call 988, Press 1</a>
+                            <a href="sms:838255" class="crisis-btn crisis-btn-ghost"><i class="fas fa-comment"></i> Text 838255</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- PHASE 1: CLAIM TYPE -->
+        <section class="section-massive phase-section" id="phase-1">
+            <div class="container container-narrow">
+                <div class="phase-header">
+                    <p class="eyebrow">Step 1 of 5</p>
+                    <h2 class="display-section mt-4">What type of claim?</h2>
+                </div>
+                <div class="phase-content">
+                    <span class="phase-number">01</span>
+                    <div class="selection-grid">
+                        <div class="selection-card" data-value="INITIAL" onclick="VAULT.selectMission(this)">
+                            <div class="selection-indicator">✓</div>
+                            <div class="selection-card-content">
+                                <span class="selection-icon"><i class="fas fa-file-circle-plus"></i></span>
+                                <h3 class="selection-title">New Claim</h3>
+                                <p class="selection-description">Filing for disability compensation for the first time or adding new conditions.</p>
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="INCREASE" onclick="VAULT.selectMission(this)">
+                            <div class="selection-indicator">✓</div>
+                            <div class="selection-card-content">
+                                <span class="selection-icon"><i class="fas fa-arrow-trend-up"></i></span>
+                                <h3 class="selection-title">Increase</h3>
+                                <p class="selection-description">Your service-connected condition has worsened since your last rating.</p>
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="SECONDARY" onclick="VAULT.selectMission(this)">
+                            <div class="selection-indicator">✓</div>
+                            <div class="selection-card-content">
+                                <span class="selection-icon"><i class="fas fa-link"></i></span>
+                                <h3 class="selection-title">Secondary</h3>
+                                <p class="selection-description">A new condition caused or aggravated by an existing service-connected disability.</p>
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="SUPPLEMENTAL" onclick="VAULT.selectMission(this)">
+                            <div class="selection-indicator">✓</div>
+                            <div class="selection-card-content">
+                                <span class="selection-icon"><i class="fas fa-file-circle-plus"></i></span>
+                                <h3 class="selection-title">Supplemental</h3>
+                                <p class="selection-description">Submitting new and relevant evidence for a previously denied claim.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 text-center">
+                        <button class="btn btn-ghost" onclick="VAULT.prevPhase()">← Back</button>
+                        <button class="btn btn-primary" onclick="VAULT.nextPhase()" id="phase1-next" disabled style="margin-left: var(--space-4);">Continue <span class="btn-icon">→</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- PHASE 2: IDENTITY -->
+        <section class="section-massive phase-section" id="phase-2">
+            <div class="container container-narrow">
+                <div class="phase-header">
+                    <p class="eyebrow">Step 2 of 5</p>
+                    <h2 class="display-section mt-4">Your information</h2>
+                    <p class="body-large mt-8">This data stays on your device. We never transmit or store your personal information.</p>
+                </div>
+                <div class="phase-content">
+                    <span class="phase-number">02</span>
+                    <form id="identity-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Legal Name <span style="color: var(--intent-severe);">*</span></label>
+                                <input type="text" class="form-input" id="veteranName" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" id="veteranEmail" placeholder="you@example.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">SSN (Last 4)</label>
+                                <input type="text" class="form-input" id="veteranSSN4" placeholder="••••" maxlength="4">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Branch of Service <span style="color: var(--intent-severe);">*</span></label>
+                                <select class="form-input" id="veteranBranch" required style="padding: var(--space-3); background: var(--slate-900); border: 1px solid var(--slate-700);">
+                                    <option value="">Select branch...</option>
+                                    <option value="Army">U.S. Army</option>
+                                    <option value="Navy">U.S. Navy</option>
+                                    <option value="Air Force">U.S. Air Force</option>
+                                    <option value="Marine Corps">U.S. Marine Corps</option>
+                                    <option value="Coast Guard">U.S. Coast Guard</option>
+                                    <option value="Space Force">U.S. Space Force</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Service Dates <span style="color: var(--intent-severe);">*</span></label>
+                                <input type="text" class="form-input" id="veteranServiceDates" placeholder="e.g., 2010-2018" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Intent to File Date</label>
+                                <input type="date" class="form-input" id="itfDate">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-12 text-center">
+                        <button class="btn btn-ghost" onclick="VAULT.prevPhase()">← Back</button>
+                        <button class="btn btn-primary" onclick="VAULT.saveIdentity(); VAULT.nextPhase()" style="margin-left: var(--space-4);">Continue <span class="btn-icon">→</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- PHASE 3: BODY MAP -->
+        <section class="section-massive phase-section" id="phase-3">
+            <div class="container">
+                <div class="phase-header" style="max-width: 800px; margin: 0 auto;">
+                    <p class="eyebrow">Step 3 of 5</p>
+                    <h2 class="display-section mt-4">Map Your Service Impact</h2>
+                    <p class="body-large mt-8">Click on the body map to indicate affected areas. Click multiple times for severity: <span class="text-brass">1× mild, 2× moderate, 3× severe</span>.</p>
+                </div>
+                <div class="phase-content" style="max-width: 1200px; margin: 0 auto;">
+                    <span class="phase-number">03</span>
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-12); align-items: start;">
+                        <div>
+                            <p class="form-label mb-4">Interactive Body Map <span class="text-brass" id="partCount">(0 areas)</span></p>
+                            <div class="body-map-container">
+                                <svg viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg">
+                                    <defs><linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(200,212,224,0.08)"/><stop offset="100%" stop-color="rgba(200,212,224,0.02)"/></linearGradient></defs>
+                                    <path fill="url(#skinGrad)" opacity="0.4" style="pointer-events:none" d="M100,15 C115,15 125,28 125,42 C125,56 115,65 110,70 L110,75 C130,85 140,130 142,180 C144,230 135,260 130,300 C127,330 140,380 145,420 C148,445 140,460 125,465 L125,470 L75,470 L75,465 C60,460 52,445 55,420 C60,380 73,330 70,300 C65,260 56,230 58,180 C60,130 70,85 90,75 L90,70 C85,65 75,56 75,42 C75,28 85,15 100,15 Z"/>
+                                    <ellipse id="part_head" class="body-part" cx="100" cy="30" rx="20" ry="22" onclick="VAULT.togglePart('head')"/>
+                                    <ellipse id="part_l_ear" class="body-part" cx="78" cy="30" rx="4" ry="7" onclick="VAULT.togglePart('l_ear')"/>
+                                    <ellipse id="part_r_ear" class="body-part" cx="122" cy="30" rx="4" ry="7" onclick="VAULT.togglePart('r_ear')"/>
+                                    <rect id="part_neck" class="body-part" x="92" y="52" width="16" height="14" rx="2" onclick="VAULT.togglePart('neck')"/>
+                                    <path id="part_upper_back" class="body-part" d="M72,67 h56 l4,45 h-64 z" onclick="VAULT.togglePart('upper_back')"/>
+                                    <path id="part_lower_back" class="body-part" d="M68,114 h64 l6,55 h-76 z" onclick="VAULT.togglePart('lower_back')"/>
+                                    <ellipse id="part_chest" class="body-part" cx="100" cy="92" rx="22" ry="16" onclick="VAULT.togglePart('chest')"/>
+                                    <ellipse id="part_stomach" class="body-part" cx="100" cy="145" rx="18" ry="14" onclick="VAULT.togglePart('stomach')"/>
+                                    <ellipse id="part_l_shoulder" class="body-part" cx="55" cy="76" rx="11" ry="9" onclick="VAULT.togglePart('l_shoulder')"/>
+                                    <ellipse id="part_r_shoulder" class="body-part" cx="145" cy="76" rx="11" ry="9" onclick="VAULT.togglePart('r_shoulder')"/>
+                                    <circle id="part_l_elbow" class="body-part" cx="32" cy="140" r="7" onclick="VAULT.togglePart('l_elbow')"/>
+                                    <circle id="part_r_elbow" class="body-part" cx="168" cy="140" r="7" onclick="VAULT.togglePart('r_elbow')"/>
+                                    <ellipse id="part_l_hand" class="body-part" cx="14" cy="232" rx="9" ry="12" onclick="VAULT.togglePart('l_hand')"/>
+                                    <ellipse id="part_r_hand" class="body-part" cx="186" cy="232" rx="9" ry="12" onclick="VAULT.togglePart('r_hand')"/>
+                                    <ellipse id="part_l_hip" class="body-part" cx="78" cy="185" rx="12" ry="10" onclick="VAULT.togglePart('l_hip')"/>
+                                    <ellipse id="part_r_hip" class="body-part" cx="122" cy="185" rx="12" ry="10" onclick="VAULT.togglePart('r_hip')"/>
+                                    <path id="part_l_thigh" class="body-part" d="M65,198 L55,280 L78,285 L88,205 Z" onclick="VAULT.togglePart('l_thigh')"/>
+                                    <path id="part_r_thigh" class="body-part" d="M135,198 L145,280 L122,285 L112,205 Z" onclick="VAULT.togglePart('r_thigh')"/>
+                                    <circle id="part_l_knee" class="body-part" cx="66" cy="300" r="10" onclick="VAULT.togglePart('l_knee')"/>
+                                    <circle id="part_r_knee" class="body-part" cx="134" cy="300" r="10" onclick="VAULT.togglePart('r_knee')"/>
+                                    <path id="part_l_calf" class="body-part" d="M56,312 L48,385 L72,390 L78,318 Z" onclick="VAULT.togglePart('l_calf')"/>
+                                    <path id="part_r_calf" class="body-part" d="M144,312 L152,385 L128,390 L122,318 Z" onclick="VAULT.togglePart('r_calf')"/>
+                                    <ellipse id="part_l_ankle" class="body-part" cx="58" cy="402" rx="7" ry="9" onclick="VAULT.togglePart('l_ankle')"/>
+                                    <ellipse id="part_r_ankle" class="body-part" cx="142" cy="402" rx="7" ry="9" onclick="VAULT.togglePart('r_ankle')"/>
+                                    <ellipse id="part_l_foot" class="body-part" cx="48" cy="430" rx="16" ry="9" onclick="VAULT.togglePart('l_foot')"/>
+                                    <ellipse id="part_r_foot" class="body-part" cx="152" cy="430" rx="16" ry="9" onclick="VAULT.togglePart('r_foot')"/>
+                                </svg>
+                            </div>
+                            <div class="intent-legend">
+                                <div class="intent-legend-item"><div class="intent-legend-dot" style="background: var(--intent-mild);"></div><span>Mild</span></div>
+                                <div class="intent-legend-item"><div class="intent-legend-dot" style="background: var(--intent-moderate);"></div><span>Moderate</span></div>
+                                <div class="intent-legend-item"><div class="intent-legend-dot" style="background: var(--intent-severe);"></div><span>Severe</span></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="form-label mb-4">Select Affected Body Systems</p>
+                            <div class="systems-grid" id="systems-grid"></div>
+                            <div class="form-group mt-8">
+                                <label class="form-label">Describe Your Experience <span class="text-brass">(Mind Reader Active)</span></label>
+                                <textarea class="form-textarea" id="narrative" placeholder="In your own words, describe how your service has impacted your body and mind..." oninput="VAULT.analyzeNarrative()"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 text-center">
+                        <button class="btn btn-ghost" onclick="VAULT.prevPhase()">← Back</button>
+                        <button class="btn btn-primary" onclick="VAULT.nextPhase()" style="margin-left: var(--space-4);">Continue to Exam Prep <span class="btn-icon">→</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- PHASE 4: C&P EXAM -->
+        <section class="section-massive phase-section" id="phase-4">
+            <div class="container container-narrow">
+                <div class="phase-header">
+                    <p class="eyebrow">Step 4 of 5</p>
+                    <h2 class="display-section mt-4">C&P Exam Practice</h2>
+                    <p class="body-large mt-8">Practice answering examiner questions. The C&P Practice Coach will guide you.</p>
+                </div>
+                <div class="phase-content">
+                    <span class="phase-number">04</span>
+                    <div class="info-panel" style="min-height: 300px; max-height: 400px; overflow-y: auto;" id="examChat"></div>
+                    <div class="form-group mt-4">
+                        <label class="form-label">Your Response</label>
+                        <textarea class="form-textarea" id="examResponse" style="min-height: 100px;" placeholder="Be specific: describe frequency, severity, duration, and impact on work/life..."></textarea>
+                    </div>
+                    <div class="d-flex justify-center gap-4 mt-8" style="flex-wrap: wrap;">
+                        <button class="btn btn-ghost" onclick="VAULT.prevPhase()">← Back</button>
+                        <button class="btn btn-primary" onclick="VAULT.submitExamResponse()">Submit Answer <span class="btn-icon">→</span></button>
+                        <button class="btn btn-ghost" onclick="VAULT.skipExam()">Skip to Results →</button>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <p class="eyebrow">Readiness Score</p>
+                        <p class="display-large text-brass" id="readinessScore">0%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- PHASE 5: RESULTS -->
+        <section class="section-massive phase-section" id="phase-5">
+            <div class="container">
+                <div class="results-header">
+                    <p class="eyebrow">Step 5 of 5 — Review & Download</p>
+                    <h2 class="display-section mt-4">Your claim package</h2>
+                </div>
+                <div style="max-width: 900px; margin: 0 auto var(--space-8); padding: var(--space-4); background: var(--brass-muted); border: 1px solid var(--brass); font-size: var(--text-sm);">
+                    <p style="color: var(--slate-100); margin: 0;"><i class="fas fa-exclamation-triangle" style="color: var(--brass); margin-right: var(--space-2);"></i><strong>Important:</strong> The rating range shown below is based on 38 CFR Part 4 criteria. <strong>Final ratings are determined solely by VA adjudication</strong> based on your specific evidence and examination findings.</p>
+                </div>
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <div class="results-rating">
+                        <span class="rating-value" id="ratingValue">—</span>
+                        <span class="rating-label">Estimated Combined Rating</span>
+                        <span class="rating-sublabel" id="monthlyEstimate"></span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
+                        <div class="info-panel"><div class="info-panel-title"><i class="fas fa-file-lines"></i> Required Forms</div><div class="info-panel-content" id="requiredForms"></div></div>
+                        <div class="info-panel"><div class="info-panel-title"><i class="fas fa-folder-open"></i> Evidence Checklist</div><div class="info-panel-content" id="evidenceChecklist"></div></div>
+                        <div class="info-panel"><div class="info-panel-title"><i class="fas fa-scale-balanced"></i> The Lawyer — Nexus Logic</div><div class="info-panel-content" id="nexusLogic"></div></div>
+                        <div class="info-panel"><div class="info-panel-title"><i class="fas fa-stethoscope"></i> DBQ Requirements</div><div class="info-panel-content" id="dbqLogic"></div></div>
+                    </div>
+                    <div class="info-panel mt-4"><div class="info-panel-title"><i class="fas fa-route"></i> Decision Audit Trail</div><div id="auditTrail"></div></div>
+                    <div class="results-actions mt-12">
+                        <button class="btn btn-primary" onclick="VAULT.downloadPackage()">Download Package <span class="btn-icon">↓</span></button>
+                        <button class="btn btn-ghost" onclick="VAULT.reset()">Start Over</button>
+                    </div>
+                    <div class="mt-12">
+                        <p class="eyebrow mb-8 text-center">Document Generators</p>
+                        <div class="tools-grid">
+                            <div class="tool-card" onclick="VAULT.showTool('secondary')"><div class="tool-icon"><i class="fas fa-diagram-project"></i></div><div class="tool-name">Secondary Mapper</div></div>
+                            <div class="tool-card" onclick="VAULT.showTool('buddy')"><div class="tool-icon"><i class="fas fa-user-friends"></i></div><div class="tool-name">Buddy Statement</div></div>
+                            <div class="tool-card" onclick="VAULT.showTool('nexus')"><div class="tool-icon"><i class="fas fa-file-medical"></i></div><div class="tool-name">Nexus Letter</div></div>
+                            <div class="tool-card" onclick="VAULT.showTool('timeline')"><div class="tool-icon"><i class="fas fa-timeline"></i></div><div class="tool-name">Timeline Builder</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- MODAL: SECONDARY -->
+        <section class="section-massive modal-section" id="modal-secondary">
+            <div class="container container-narrow">
+                <div class="phase-header"><p class="eyebrow">Document Generator</p><h2 class="display-section mt-4">Secondary Condition Mapper</h2></div>
+                <div class="form-group">
+                    <label class="form-label">Primary Service-Connected Condition</label>
+                    <select class="form-input" id="primaryConditionSelect" onchange="VAULT.updateSecondaryGraph()" style="padding: var(--space-4); background: var(--slate-900);">
+                        <option value="">Select condition...</option>
+                        <option value="knee">Knee Condition</option>
+                        <option value="back">Lumbar Spine / Back</option>
+                        <option value="ptsd">PTSD</option>
+                        <option value="tbi">Traumatic Brain Injury</option>
+                        <option value="tinnitus">Tinnitus</option>
+                        <option value="diabetes">Diabetes Type II</option>
+                    </select>
+                </div>
+                <div class="info-panel mt-8" id="secondaryResults"><p class="text-center" style="color: var(--slate-600);">Select a primary condition to see connections</p></div>
+                <div class="mt-8 text-center"><button class="btn btn-ghost" onclick="VAULT.hideTool()">← Back to Results</button></div>
+            </div>
+        </section>
+        <!-- MODAL: BUDDY -->
+        <section class="section-massive modal-section" id="modal-buddy">
+            <div class="container container-narrow">
+                <div class="phase-header"><p class="eyebrow">Document Generator</p><h2 class="display-section mt-4">Buddy Statement Generator</h2></div>
+                <div class="form-group"><label class="form-label">Witness Full Name</label><input type="text" class="form-input" id="buddyName" placeholder="Enter witness name"></div>
+                <div class="form-group"><label class="form-label">Relationship to Veteran</label><input type="text" class="form-input" id="buddyRelation" placeholder="e.g., Spouse, Fellow Marine"></div>
+                <div class="form-group"><label class="form-label">Observations</label><textarea class="form-textarea" id="buddyObservations" placeholder="Describe what symptoms you have witnessed..."></textarea></div>
+                <div class="d-flex justify-center gap-4 mt-8">
+                    <button class="btn btn-ghost" onclick="VAULT.hideTool()">← Back</button>
+                    <button class="btn btn-primary" onclick="VAULT.downloadBuddyStatement()">Download Statement</button>
+                </div>
+            </div>
+        </section>
+        <!-- MODAL: NEXUS -->
+        <section class="section-massive modal-section" id="modal-nexus">
+            <div class="container container-narrow">
+                <div class="phase-header"><p class="eyebrow">Document Generator</p><h2 class="display-section mt-4">Nexus Letter Template</h2></div>
+                <div class="info-panel" style="background: #fffef5; color: #1a1a1a; font-family: 'Times New Roman', serif; line-height: 1.8;">
+                    <h4 style="text-align: center; text-decoration: underline; margin-bottom: var(--space-6); color: #1a1a1a;">MEDICAL NEXUS OPINION</h4>
+                    <p><strong>Date:</strong> <span id="nexusDate">[DATE]</span></p>
+                    <p><strong>Patient:</strong> <span id="nexusPatient">[VETERAN NAME]</span></p>
+                    <p><strong>Condition:</strong> <span id="nexusCondition">[CONDITION]</span></p><br>
+                    <p>I have reviewed the medical records and examined the patient regarding their claimed condition.</p>
+                    <p><strong>OPINION:</strong> It is my professional medical opinion that the veteran's current condition is <strong>AT LEAST AS LIKELY AS NOT</strong> (50% or greater probability) related to their military service.</p>
+                </div>
+                <div class="d-flex justify-center gap-4 mt-8">
+                    <button class="btn btn-ghost" onclick="VAULT.hideTool()">← Back</button>
+                    <button class="btn btn-primary" onclick="VAULT.downloadNexusTemplate()">Download Template</button>
+                </div>
+            </div>
+        </section>
+        <!-- MODAL: TIMELINE -->
+        <section class="section-massive modal-section" id="modal-timeline">
+            <div class="container container-narrow">
+                <div class="phase-header"><p class="eyebrow">Document Generator</p><h2 class="display-section mt-4">Service Timeline Builder</h2></div>
+                <div id="timelineEvents" class="mb-8"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Event Date</label><input type="date" class="form-input" id="eventDate"></div>
+                    <div class="form-group"><label class="form-label">Event Type</label><select class="form-input" id="eventType" style="padding: var(--space-4); background: var(--slate-900);"><option value="service">Service Event</option><option value="incident">Incident/Injury</option><option value="diagnosis">Diagnosis</option></select></div>
+                </div>
+                <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" id="eventTitle" placeholder="Brief title"></div>
+                <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="eventDesc" style="min-height: 80px;" placeholder="Details..."></textarea></div>
+                <div class="d-flex justify-center gap-4 mt-8">
+                    <button class="btn btn-ghost" onclick="VAULT.hideTool()">← Back</button>
+                    <button class="btn btn-ghost" onclick="VAULT.addTimelineEvent()">Add Event</button>
+                    <button class="btn btn-primary" onclick="VAULT.downloadTimeline()">Export Timeline</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="container" style="text-align: center;">
+            <p style="font-size: var(--text-sm); color: var(--slate-100);">Copyright © 2025 Northstar-Insight Inc. All Rights Reserved.</p>
+            <p style="font-size: var(--text-xs); color: var(--slate-600); margin-top: var(--space-4);">VAULT | Benefits Strategist — Beta v1.0 · Your data never leaves this device</p>
+            <p style="font-size: var(--text-xs); color: var(--slate-500); margin-top: var(--space-2);"><strong>Veterans Crisis Line:</strong> Call <a href="tel:988" style="color: var(--brass);">988</a> then press 1, or text <strong>838255</strong></p>
+        </div>
+    </footer>
+    <div id="toastContainer"></div>
+    <script>
+const VAULT = {
+    currentPhase: 0,
+    maxPhaseReached: 0,
+    config: { version: 'Beta v1.0', rulesDate: '2025-01', buildDate: '2025-12-20' },
+    data: {
+        mission: null, identity: {}, condition: null, narrative: '',
+        selectedSystems: [], bodyParts: {}, intentLevels: {}, rating: 0,
+        timeline: [], auditTrail: []
+    },
+    bodySystems: [
+        { id: 'musculoskeletal', name: 'Musculoskeletal', keywords: ['back', 'knee', 'shoulder', 'joint', 'spine', 'arthritis', 'pain', 'neck', 'hip', 'ankle'] },
+        { id: 'mental', name: 'Mental Health', keywords: ['anxiety', 'depression', 'ptsd', 'sleep', 'nightmare', 'stress', 'panic', 'mood', 'trauma'] },
+        { id: 'neurological', name: 'Neurological', keywords: ['nerve', 'numbness', 'tingling', 'migraine', 'headache', 'seizure', 'neuropathy', 'tbi', 'brain'] },
+        { id: 'auditory', name: 'Auditory', keywords: ['hearing', 'ear', 'tinnitus', 'ringing', 'deaf'] },
+        { id: 'vision', name: 'Vision', keywords: ['eye', 'vision', 'blind', 'sight', 'glasses', 'blur'] },
+        { id: 'respiratory', name: 'Respiratory', keywords: ['breathing', 'lung', 'asthma', 'apnea', 'cough', 'shortness', 'cpap'] },
+        { id: 'cardiovascular', name: 'Cardiovascular', keywords: ['heart', 'blood pressure', 'hypertension', 'chest', 'cardiac'] },
+        { id: 'digestive', name: 'Digestive', keywords: ['stomach', 'bowel', 'ibs', 'gerd', 'acid', 'digestive', 'nausea'] },
+        { id: 'genitourinary', name: 'Genitourinary', keywords: ['bladder', 'kidney', 'urinary', 'prostate', 'erectile'] },
+        { id: 'endocrine', name: 'Endocrine', keywords: ['diabetes', 'thyroid', 'hormone', 'insulin'] },
+        { id: 'skin', name: 'Skin', keywords: ['skin', 'rash', 'eczema', 'scar', 'burn', 'dermatitis'] }
+    ],
+    conditions: [
+        { name: 'PTSD', dbq: '21-0960A-1', ratings: [0, 10, 30, 50, 70, 100], system: 'mental' },
+        { name: 'Back Condition', dbq: '21-0960M-14', ratings: [0, 10, 20, 40, 50, 100], system: 'musculoskeletal' },
+        { name: 'Knee Condition', dbq: '21-0960M-9', ratings: [0, 10, 20, 30, 40, 50, 60], system: 'musculoskeletal' },
+        { name: 'Tinnitus', dbq: '21-0960J-1', ratings: [10], system: 'auditory' },
+        { name: 'Sleep Apnea', dbq: '21-0960C-1', ratings: [0, 30, 50, 100], system: 'respiratory' },
+        { name: 'Migraines', dbq: '21-0960C-8', ratings: [0, 10, 30, 50], system: 'neurological' }
+    ],
+    secondaryMap: {
+        knee: [{ name: 'Hip Condition', rationale: 'Altered gait causes hip strain' }, { name: 'Lumbar Spine', rationale: 'Compensatory posture affects lower back' }],
+        back: [{ name: 'Radiculopathy', rationale: 'Nerve compression from spinal damage' }, { name: 'Hip Condition', rationale: 'Spinal instability affects hip mechanics' }],
+        ptsd: [{ name: 'Sleep Apnea', rationale: 'Hypervigilance disrupts sleep patterns' }, { name: 'Hypertension', rationale: 'Chronic stress elevates blood pressure' }],
+        tbi: [{ name: 'Migraines', rationale: 'Post-concussive headaches' }, { name: 'Tinnitus', rationale: 'Auditory processing damage' }],
+        tinnitus: [{ name: 'Hearing Loss', rationale: 'Common co-occurring condition' }],
+        diabetes: [{ name: 'Peripheral Neuropathy', rationale: 'Nerve damage from high blood sugar' }, { name: 'Erectile Dysfunction', rationale: 'Vascular and nerve damage' }]
+    },
+    examQuestions: [
+        { q: "Describe the frequency of your symptoms.", keywords: ["daily", "weekly", "constant", "flare", "episode", "always"] },
+        { q: "How do your symptoms affect your daily activities?", keywords: ["cannot", "unable", "difficulty", "limit", "impact", "prevent"] },
+        { q: "Rate your pain on a 0-10 scale and describe it.", keywords: ["severe", "moderate", "10", "8", "9", "7", "sharp", "burning"] },
+        { q: "What treatments have you tried?", keywords: ["medication", "surgery", "therapy", "injection", "cpap", "brace"] },
+        { q: "How do your symptoms affect your work?", keywords: ["miss", "absent", "quit", "fired", "unable", "accommodate"] }
+    ],
+    examIndex: 0, readiness: 0,
+    init() {
+        this.renderSystems();
+        this.setupScrollHeader();
+        console.log('⟁ VAULT Benefits Strategist — ' + this.config.version + ' Initialized');
+    },
+    setupScrollHeader() {
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); });
+    },
+    renderSystems() {
+        const grid = document.getElementById('systems-grid');
+        if (!grid) return;
+        grid.innerHTML = this.bodySystems.map(sys => '<div class="system-tile" data-system="' + sys.id + '" onclick="VAULT.toggleSystem(\'' + sys.id + '\')"><div class="system-checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="system-name">' + sys.name + '</span></div>').join('');
+    },
+    setMissionAndStart(mission) {
+        this.data.mission = mission;
+        this.addAudit('Mission Selected', mission);
+        this.currentPhase = 2;
+        this.maxPhaseReached = 2;
+        this.updatePhase();
+        this.toast('Starting ' + mission.toLowerCase() + ' claim');
+    },
+    nextPhase() {
+        if (this.currentPhase < 5) {
+            this.currentPhase++;
+            if (this.currentPhase > this.maxPhaseReached) this.maxPhaseReached = this.currentPhase;
+            this.updatePhase();
+            if (this.currentPhase === 4) this.startExam();
+            if (this.currentPhase === 5) this.generateResults();
+        }
+    },
+    prevPhase() { if (this.currentPhase > 0) { this.currentPhase--; this.updatePhase(); } },
+    goToPhase(phase) { if (phase <= this.maxPhaseReached) { this.currentPhase = phase; this.updatePhase(); } },
+    updatePhase() {
+        document.querySelectorAll('.phase-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.modal-section').forEach(el => el.classList.remove('active'));
+        const current = document.getElementById('phase-' + this.currentPhase);
+        if (current) { current.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+            dot.classList.remove('active', 'complete');
+            if (i < this.currentPhase) dot.classList.add('complete');
+            else if (i === this.currentPhase) dot.classList.add('active');
+        });
+    },
+    selectMission(card) {
+        document.querySelectorAll('#phase-1 .selection-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        this.data.mission = card.dataset.value;
+        this.addAudit('Mission Selected', this.data.mission);
+        document.getElementById('phase1-next').disabled = false;
+    },
+    saveIdentity() {
+        this.data.identity = {
+            name: document.getElementById('veteranName')?.value || '',
+            email: document.getElementById('veteranEmail')?.value || '',
+            ssn4: document.getElementById('veteranSSN4')?.value || '',
+            branch: document.getElementById('veteranBranch')?.value || '',
+            serviceDates: document.getElementById('veteranServiceDates')?.value || '',
+            itfDate: document.getElementById('itfDate')?.value || ''
+        };
+        this.addAudit('Identity Saved', this.data.identity.name);
+    },
+    togglePart(partId) {
+        const el = document.getElementById('part_' + partId);
+        if (!el) return;
+        if (!this.data.intentLevels[partId]) this.data.intentLevels[partId] = 0;
+        this.data.intentLevels[partId] = (this.data.intentLevels[partId] + 1) % 4;
+        const level = this.data.intentLevels[partId];
+        el.classList.remove('intent-1', 'intent-2', 'intent-3');
+        if (level === 1) el.classList.add('intent-1');
+        else if (level === 2) el.classList.add('intent-2');
+        else if (level === 3) el.classList.add('intent-3');
+        const count = Object.values(this.data.intentLevels).filter(v => v > 0).length;
+        const countEl = document.getElementById('partCount');
+        if (countEl) countEl.textContent = '(' + count + ' areas)';
+        this.mapPartToSystem(partId);
+    },
+    mapPartToSystem(partId) {
+        const mapping = { 'head': 'mental', 'l_ear': 'auditory', 'r_ear': 'auditory', 'neck': 'musculoskeletal', 'upper_back': 'musculoskeletal', 'lower_back': 'musculoskeletal', 'chest': 'respiratory', 'stomach': 'digestive', 'l_shoulder': 'musculoskeletal', 'r_shoulder': 'musculoskeletal', 'l_hip': 'musculoskeletal', 'r_hip': 'musculoskeletal', 'l_knee': 'musculoskeletal', 'r_knee': 'musculoskeletal', 'l_ankle': 'musculoskeletal', 'r_ankle': 'musculoskeletal', 'l_foot': 'musculoskeletal', 'r_foot': 'musculoskeletal' };
+        const sysId = mapping[partId];
+        if (sysId && this.data.intentLevels[partId] > 0) {
+            const tile = document.querySelector('[data-system="' + sysId + '"]');
+            if (tile && !tile.classList.contains('selected')) {
+                tile.classList.add('selected');
+                if (!this.data.selectedSystems.includes(sysId)) this.data.selectedSystems.push(sysId);
+            }
+        }
+    },
+    analyzeNarrative() {
+        const text = document.getElementById('narrative')?.value.toLowerCase() || '';
+        this.data.narrative = text;
+        document.querySelectorAll('.system-tile').forEach(tile => tile.classList.remove('highlighted'));
+        this.bodySystems.forEach(sys => {
+            const hasMatch = sys.keywords.some(kw => text.includes(kw));
+            if (hasMatch) {
+                const tile = document.querySelector('[data-system="' + sys.id + '"]');
+                if (tile) tile.classList.add('highlighted');
+            }
+        });
+    },
+    toggleSystem(systemId) {
+        const tile = document.querySelector('[data-system="' + systemId + '"]');
+        if (!tile) return;
+        tile.classList.toggle('selected');
+        const idx = this.data.selectedSystems.indexOf(systemId);
+        if (idx > -1) this.data.selectedSystems.splice(idx, 1);
+        else this.data.selectedSystems.push(systemId);
+    },
+    startExam() {
+        this.examIndex = 0; this.readiness = 0;
+        document.getElementById('examChat').innerHTML = '';
+        document.getElementById('readinessScore').textContent = '0%';
+        this.askExamQuestion();
+    },
+    askExamQuestion() {
+        if (this.examIndex >= this.examQuestions.length) { this.finishExam(); return; }
+        const q = this.examQuestions[this.examIndex];
+        const chat = document.getElementById('examChat');
+        chat.innerHTML += '<div style="margin-bottom: var(--space-4); padding: var(--space-4); border-left: 2px solid var(--brass);"><p style="font-size: var(--text-xs); color: var(--brass); margin-bottom: var(--space-2);">C&P PRACTICE COACH</p><p style="color: var(--slate-200);">' + q.q + '</p></div>';
+        chat.scrollTop = chat.scrollHeight;
+    },
+    submitExamResponse() {
+        const response = document.getElementById('examResponse')?.value;
+        if (!response?.trim()) return;
+        const q = this.examQuestions[this.examIndex];
+        const chat = document.getElementById('examChat');
+        chat.innerHTML += '<div style="margin-bottom: var(--space-4); padding: var(--space-4); margin-left: var(--space-8); border-left: 2px solid var(--slate-600);"><p style="font-size: var(--text-xs); color: var(--slate-400); margin-bottom: var(--space-2);">YOUR RESPONSE</p><p style="color: var(--slate-200);">' + response + '</p></div>';
+        const lower = response.toLowerCase();
+        const found = q.keywords.filter(kw => lower.includes(kw));
+        if (found.length > 0) { this.readiness += 20; chat.innerHTML += '<div style="margin-bottom: var(--space-4); padding: var(--space-2) var(--space-4); color: var(--brass); font-size: var(--text-xs);">✓ Keywords detected: ' + found.join(', ') + '</div>'; }
+        document.getElementById('readinessScore').textContent = Math.min(100, this.readiness) + '%';
+        document.getElementById('examResponse').value = '';
+        this.examIndex++;
+        setTimeout(() => this.askExamQuestion(), 800);
+        chat.scrollTop = chat.scrollHeight;
+    },
+    finishExam() {
+        const chat = document.getElementById('examChat');
+        chat.innerHTML += '<div style="margin-top: var(--space-8); padding: var(--space-6); border: 1px solid var(--brass); text-align: center;"><p class="eyebrow">Exam Complete</p><p class="display-large text-brass mt-4">' + Math.min(100, this.readiness) + '% Ready</p><button class="btn btn-primary mt-8" onclick="VAULT.nextPhase()">View Results <span class="btn-icon">→</span></button></div>';
+        this.addAudit('C&P Exam Completed', this.readiness + '% readiness');
+    },
+    skipExam() { this.nextPhase(); },
+    generateResults() {
+        const conditionInfo = this.conditions.find(c => c.name === this.data.condition) || this.conditions[0];
+        const ratings = conditionInfo?.ratings || [0, 10, 30, 50];
+        const minRating = Math.min(...ratings);
+        const maxRating = Math.max(...ratings);
+        this.data.ratingRange = { min: minRating, max: maxRating };
+        document.getElementById('ratingValue').textContent = minRating + '–' + maxRating + '%';
+        document.getElementById('monthlyEstimate').innerHTML = '<span style="color: var(--slate-400);">Possible ratings: ' + ratings.join('%, ') + '%</span><br><span style="font-size: var(--text-xs); color: var(--slate-500);">Final rating determined by VA</span>';
+        const forms = [];
+        if (this.data.mission === 'INITIAL' || this.data.mission === 'INCREASE') forms.push('VA Form 21-526EZ');
+        if (this.data.mission === 'SUPPLEMENTAL') forms.push('VA Form 20-0995');
+        if (this.data.mission === 'SECONDARY') forms.push('VA Form 21-526EZ (Secondary)');
+        forms.push('VA Form 21-4138 (Personal Statement)');
+        document.getElementById('requiredForms').innerHTML = forms.map(f => '<p>• ' + f + '</p>').join('');
+        const evidence = ['DD-214', 'Service Treatment Records', 'VA Blue Button Records', 'Private Medical Records'];
+        if (conditionInfo?.dbq) evidence.push('DBQ: ' + conditionInfo.dbq);
+        document.getElementById('evidenceChecklist').innerHTML = evidence.map(e => '<p>☐ ' + e + '</p>').join('');
+        let nexusGuidance = '';
+        if (this.data.mission === 'INITIAL') nexusGuidance = 'Direct service connection requires in-service event + current diagnosis + medical nexus.';
+        else if (this.data.mission === 'SECONDARY') nexusGuidance = '38 CFR § 3.310 requires showing primary condition caused or aggravated current condition.';
+        else if (this.data.mission === 'INCREASE') nexusGuidance = 'Must demonstrate worsening since last rating with current medical evidence.';
+        document.getElementById('nexusLogic').innerHTML = '<p><strong>Claim Type:</strong> ' + (this.data.mission || 'Initial') + '</p><p><strong>Standard:</strong> At least as likely as not (50% probability)</p><p style="margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--slate-700);"><em>' + nexusGuidance + '</em></p>';
+        document.getElementById('dbqLogic').innerHTML = '<p><strong>Required DBQ:</strong> ' + (conditionInfo?.dbq || 'General Medical Examination') + '</p><p><strong>Rating Criteria:</strong> ' + ratings.join('%, ') + '%</p>';
+        document.getElementById('auditTrail').innerHTML = this.data.auditTrail.map((a, i) => '<div class="audit-step"><div class="audit-num">' + (i + 1) + '</div><div class="audit-text"><strong>' + a.action + ':</strong> ' + a.value + '</div></div>').join('');
+        document.getElementById('nexusDate').textContent = new Date().toLocaleDateString();
+        document.getElementById('nexusPatient').textContent = this.data.identity.name || '[VETERAN NAME]';
+        document.getElementById('nexusCondition').textContent = this.data.condition || '[CONDITION]';
+        this.addAudit('Package Generated', 'Rating range: ' + minRating + '-' + maxRating + '%');
+    },
+    addAudit(action, value) { this.data.auditTrail.push({ action, value, time: new Date().toISOString() }); },
+    async downloadPackage() {
+        if (typeof JSZip === 'undefined') { this.toast('Loading ZIP library...'); await new Promise(r => setTimeout(r, 1500)); }
+        const zip = new JSZip();
+        const date = new Date().toISOString().split('T')[0];
+        const condition = this.data.condition || 'Claim';
+        zip.file('VAULT_Package_Summary.json', JSON.stringify(this.data, null, 2));
+        const statement = 'STATEMENT IN SUPPORT OF CLAIM (VA Form 21-4138)\n\nDate: ' + new Date().toLocaleDateString() + '\nVeteran: ' + (this.data.identity.name || '[NAME]') + '\nSSN (Last 4): ' + (this.data.identity.ssn4 || 'XXXX') + '\nClaimed Condition: ' + condition + '\n\n' + (this.data.narrative || '[DESCRIBE YOUR CONDITION]') + '\n\nBody Areas Affected: ' + Object.keys(this.data.intentLevels).filter(k => this.data.intentLevels[k] > 0).join(', ') + '\n\nI certify that the above statements are true and correct.\n\n________________________\nSignature\n\n________________________\nDate';
+        zip.file('Personal_Statement_21-4138.txt', statement);
+        const checklist = 'VA CLAIM SUBMISSION CHECKLIST\n\nCondition: ' + condition + '\nClaim Type: ' + (this.data.mission || 'Initial') + '\nGenerated: ' + date + '\n\nREQUIRED FORMS:\n☐ VA Form 21-526EZ\n☐ VA Form 21-4138\n\nREQUIRED EVIDENCE:\n☐ DD-214\n☐ Service Treatment Records\n☐ VA Blue Button Records\n☐ Private Medical Records\n☐ Nexus Letter\n☐ DBQ';
+        zip.file('Submission_Checklist.txt', checklist);
+        const blob = await zip.generateAsync({ type: 'blob' });
+        saveAs(blob, 'VAULT_Package_' + condition.replace(/\s/g, '_') + '_' + date + '.zip');
+        this.toast('Package downloaded successfully!');
+        if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    },
+    showTool(tool) {
+        document.querySelectorAll('.phase-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.modal-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('modal-' + tool).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    hideTool() {
+        document.querySelectorAll('.modal-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('phase-5').classList.add('active');
+    },
+    updateSecondaryGraph() {
+        const primary = document.getElementById('primaryConditionSelect').value;
+        const container = document.getElementById('secondaryResults');
+        if (!primary || !this.secondaryMap[primary]) { container.innerHTML = '<p style="color: var(--slate-600); text-align: center;">Select a condition to see connections</p>'; return; }
+        const secondaries = this.secondaryMap[primary];
+        container.innerHTML = '<div class="info-panel-title"><i class="fas fa-link"></i> Secondary Conditions</div>' + secondaries.map(s => '<div style="padding: var(--space-4) 0; border-bottom: 1px solid var(--slate-800);"><p style="color: var(--slate-100); font-weight: 500;">' + s.name + '</p><p style="color: var(--slate-400); font-size: var(--text-sm);">' + s.rationale + '</p></div>').join('');
+    },
+    downloadBuddyStatement() {
+        const name = document.getElementById('buddyName')?.value || '[WITNESS NAME]';
+        const relation = document.getElementById('buddyRelation')?.value || '[RELATIONSHIP]';
+        const observations = document.getElementById('buddyObservations')?.value || '[OBSERVATIONS]';
+        const content = 'STATEMENT IN SUPPORT OF CLAIM (VA Form 21-10210)\n\nI, ' + name + ', declare under penalty of perjury:\n\nRelationship to Veteran: ' + relation + '\n\nI have personally observed the following:\n\n' + observations + '\n\nDate: ' + new Date().toLocaleDateString() + '\nSignature: ________________________';
+        const blob = new Blob([content], { type: 'text/plain' });
+        saveAs(blob, 'Buddy_Statement_21-10210.txt');
+        this.toast('Statement downloaded!');
+    },
+    downloadNexusTemplate() {
+        const content = document.querySelector('#modal-nexus .info-panel').innerText;
+        const blob = new Blob([content], { type: 'text/plain' });
+        saveAs(blob, 'Nexus_Letter_Template.txt');
+        this.toast('Template downloaded!');
+    },
+    addTimelineEvent() {
+        const date = document.getElementById('eventDate')?.value;
+        const type = document.getElementById('eventType')?.value;
+        const title = document.getElementById('eventTitle')?.value;
+        const desc = document.getElementById('eventDesc')?.value;
+        if (!date || !title) { this.toast('Please fill in date and title'); return; }
+        this.data.timeline.push({ date, type, title, desc });
+        this.data.timeline.sort((a, b) => new Date(a.date) - new Date(b.date));
+        this.renderTimeline();
+        document.getElementById('eventDate').value = '';
+        document.getElementById('eventTitle').value = '';
+        document.getElementById('eventDesc').value = '';
+        this.toast('Event added');
+    },
+    renderTimeline() {
+        const container = document.getElementById('timelineEvents');
+        if (!container) return;
+        container.innerHTML = this.data.timeline.map(e => '<div style="padding: var(--space-4); border-left: 2px solid ' + (e.type === 'incident' ? 'var(--brass)' : 'var(--slate-600)') + '; margin-bottom: var(--space-4);"><p style="font-size: var(--text-xs); color: var(--slate-400);">' + e.date + ' — ' + e.type.toUpperCase() + '</p><p style="color: var(--slate-100); font-weight: 500;">' + e.title + '</p>' + (e.desc ? '<p style="color: var(--slate-400); font-size: var(--text-sm);">' + e.desc + '</p>' : '') + '</div>').join('') || '<p style="color: var(--slate-600); text-align: center;">No events yet</p>';
+    },
+    downloadTimeline() {
+        if (this.data.timeline.length === 0) { this.toast('No events to export'); return; }
+        let content = 'SERVICE TIMELINE\nVeteran: ' + (this.data.identity.name || '[NAME]') + '\nGenerated: ' + new Date().toLocaleDateString() + '\n\n';
+        this.data.timeline.forEach(e => { content += e.date + ' — ' + e.type.toUpperCase() + '\n' + e.title + '\n' + (e.desc || '') + '\n\n'; });
+        const blob = new Blob([content], { type: 'text/plain' });
+        saveAs(blob, 'Service_Timeline.txt');
+        this.toast('Timeline exported!');
+    },
+    toast(msg) {
+        const t = document.createElement('div');
+        t.className = 'toast';
+        t.innerHTML = '<i class="fas fa-check-circle" style="color: var(--brass); margin-right: var(--space-2);"></i> ' + msg;
+        document.getElementById('toastContainer').appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+    },
+    reset() {
+        if (!confirm('Reset all data? This cannot be undone.')) return;
+        this.currentPhase = 0; this.maxPhaseReached = 0; this.examIndex = 0; this.readiness = 0;
+        this.data = { mission: null, identity: {}, condition: null, narrative: '', selectedSystems: [], bodyParts: {}, intentLevels: {}, rating: 0, timeline: [], auditTrail: [] };
+        document.querySelectorAll('.selection-card').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('.system-tile').forEach(t => t.classList.remove('selected', 'highlighted'));
+        document.querySelectorAll('.body-part').forEach(p => p.classList.remove('intent-1', 'intent-2', 'intent-3'));
+        const narrative = document.getElementById('narrative');
+        if (narrative) narrative.value = '';
+        document.getElementById('identity-form')?.reset();
+        document.getElementById('phase1-next').disabled = true;
+        this.updatePhase();
+        this.toast('Reset complete');
+    }
+};
+document.addEventListener('DOMContentLoaded', () => VAULT.init());
+    </script>
+</body>
+</html>

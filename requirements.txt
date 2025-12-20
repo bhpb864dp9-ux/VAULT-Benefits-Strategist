@@ -1,0 +1,65 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# VAULT PYTHON REQUIREMENTS
+# Veterans Automated Universal Lookup Tool
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# COPYRIGHT © 2025 DONTRELL-TATE INTELLIGENCE LLC
+# ALL RIGHTS RESERVED
+#
+# This file lists Python dependencies for development and tooling purposes.
+# VAULT itself is a static PWA with no Python runtime dependencies.
+#
+# INSTALLATION:
+#   pip install -r requirements.txt
+#
+# NOTE: These are DEVELOPMENT/TOOLING dependencies only.
+#       The VAULT application is pure HTML/CSS/JavaScript and requires
+#       no server-side language runtime.
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LOCAL DEVELOPMENT SERVER
+# ─────────────────────────────────────────────────────────────────────────────
+# Python's built-in http.server is used for local development.
+# No additional packages needed for basic serving.
+
+# Optional: Enhanced development server
+# watchdog>=3.0.0          # File watching for auto-reload (optional)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DOCUMENTATION TOOLS (Optional)
+# ─────────────────────────────────────────────────────────────────────────────
+# mkdocs>=1.5.0            # Documentation site generator
+# mkdocs-material>=9.0.0   # Material theme for MkDocs
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LINTING AND FORMATTING (Optional)
+# ─────────────────────────────────────────────────────────────────────────────
+# No Python linting needed - VAULT is JavaScript/HTML/CSS
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NOTE ON ARCHITECTURE
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# VAULT is designed as a ZERO-DEPENDENCY static web application.
+# The only "server" requirement is the ability to serve static files.
+#
+# Serving options:
+#   1. Python:  python -m http.server 8080
+#   2. Node.js: npx serve src/main/public
+#   3. Docker:  docker run -p 80:80 vault-v1
+#   4. nginx:   Copy files to /usr/share/nginx/html
+#   5. Apache:  Copy files to /var/www/html
+#   6. S3/CloudFront: Upload to S3 bucket
+#   7. Netlify/Vercel: Deploy directly from Git
+#
+# This architecture ensures:
+#   - No server-side vulnerabilities
+#   - No database to secure
+#   - No API keys to protect
+#   - Minimal hosting costs
+#   - Maximum deployment flexibility
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+

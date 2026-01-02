@@ -10,8 +10,6 @@
       radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.03) 0%, transparent 50%),
       radial-gradient(circle at 80% 10%, rgba(201, 162, 39, 0.04) 0%, transparent 40%);
     background-attachment: fixed;
-    font-feature-settings: 'kern' 1, 'liga' 1;
-    -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 { @apply font-serif font-normal tracking-tight; }
 }
@@ -19,6 +17,7 @@
 @layer components {
   /* THE PAUL RAND GLASS ENGINE */
   .glass-premium {
+    /* 🍎 THE SECRET SAUCE: Saturate 180% */
     background: rgba(12, 18, 26, 0.60);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -29,9 +28,15 @@
     box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   }
 
-  .glass-panel, .card {
+  /* Replace old classes with the Premium Engine */
+  .glass-panel, .card, .glass-chip, .glass-surface {
     @apply glass-premium rounded-3xl p-8 transition-all duration-500 ease-apple-ease;
   }
+  
+  .glass-chip {
+    @apply px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider;
+  }
+
   .glass-panel:hover, .card:hover {
     transform: translateY(-2px) scale(1.002);
     box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.7);
@@ -46,6 +51,11 @@
     @apply bg-slate-50 text-slate-950;
     @apply hover:bg-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)];
   }
+  .btn-ghost {
+    @apply text-slate-300 border border-slate-700/50;
+    @apply hover:bg-slate-800/40 hover:text-white hover:border-slate-500;
+  }
+
   .input, .textarea {
     @apply w-full bg-slate-900/30 border border-slate-700/50 rounded-xl px-4 py-3;
     @apply text-slate-100 placeholder-slate-600 outline-none;

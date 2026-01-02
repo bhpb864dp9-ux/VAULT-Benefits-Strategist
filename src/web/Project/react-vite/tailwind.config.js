@@ -16,7 +16,10 @@ export default {
         intent: {
           mild: '#38bdf8', moderate: '#fbbf24', severe: '#fb7185',
           success: '#22c55e', invited: '#a78bfa'
-        }
+        },
+        success: { DEFAULT: '#22c55e', muted: 'rgba(34, 197, 94, 0.15)' },
+        warning: { DEFAULT: '#f59e0b', muted: 'rgba(245, 158, 11, 0.15)' },
+        error: { DEFAULT: '#ef4444', muted: 'rgba(239, 68, 68, 0.15)' }
       },
       fontFamily: {
         sans: ['DM Sans', 'system-ui', '-apple-system', 'sans-serif'],
@@ -25,6 +28,9 @@ export default {
       transitionTimingFunction: {
         'apple-ease': 'cubic-bezier(0.25, 1, 0.5, 1)',
         'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)'
+      },
+      animation: {
+        'glass-shimmer': 'shimmer 8s ease-in-out infinite',
       }
     }
   },

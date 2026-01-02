@@ -1,6 +1,6 @@
 /**
  * VAULT DEM Engine — Claim Store
- * Zustand state management with localStorage persistence
+ * Zustand state management with sessionStorage persistence (Zero-Knowledge)
  */
 
 import { create } from 'zustand';
@@ -559,8 +559,6 @@ export const useClaimStore = create<ClaimStore>()(
           next.data.ocrResults = [];
         }
 
-        // Clamp persisted workflow phase to current registry range (0..4).
-        // Older persisted states may have phases 5/6 from earlier iterations.
         if (typeof next.currentPhase === 'number') {
           next.currentPhase = Math.max(0, Math.min(MAX_WORKFLOW_PHASE, next.currentPhase));
         } else {
@@ -593,5 +591,3 @@ export const useUploadedFiles = () => useClaimStore((s) => s.data.uploadedFiles)
 export const useOCRResults = () => useClaimStore((s) => s.data.ocrResults);
 
 export default useClaimStore;
-
-

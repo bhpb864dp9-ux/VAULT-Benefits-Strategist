@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
 export default defineConfig({
+  base: '/VAULT-Benefits-Strategist/',
   plugins: [
     react(),
     VitePWA({
@@ -29,7 +30,7 @@ export default defineConfig({
         skipWaiting: true
       },
       devOptions: {
-        // IMPORTANT: keep dev un-cached to avoid “stale UI” while iterating.
+        // IMPORTANT: keep dev un-cached to avoid "stale UI" while iterating.
         // PWA should be validated via `npm run preview`/production builds instead.
         enabled: false,
         type: 'module'

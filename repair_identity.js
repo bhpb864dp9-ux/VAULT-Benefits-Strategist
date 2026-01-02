@@ -1,69 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// repair_identity.js
+// THE STEVE JOBS PROTOCOL: IDENTITY PHASE CSS REPAIR
+// Usage: node repair_identity.js
 
-@layer base {
-  :root { --bg-depth: #050a10; }
-  body {
-    @apply bg-slate-950 text-slate-200 font-sans;
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 10%, rgba(201, 162, 39, 0.04) 0%, transparent 40%);
-    background-attachment: fixed;
-  }
-  h1, h2, h3, h4 { @apply font-serif font-normal tracking-tight; }
-}
+const fs = require('fs');
+const path = require('path');
 
-@layer components {
-  /* THE PAUL RAND GLASS ENGINE */
-  .glass-premium {
-    /* 🍎 THE SECRET SAUCE: Saturate 180% */
-    background: rgba(12, 18, 26, 0.60);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    border-left: 1px solid rgba(255, 255, 255, 0.06);
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-  }
+const CSS_FILE = 'src/web/Project/react-vite/src/styles/index.css';
 
-  /* Replace old classes with the Premium Engine */
-  .glass-panel, .card, .glass-chip, .glass-surface {
-    @apply glass-premium rounded-3xl p-8 transition-all duration-500 ease-apple-ease;
-  }
-  
-  .glass-chip {
-    @apply px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider;
-  }
+console.log("🍎 INITIATING STEVE JOBS PROTOCOL (IDENTITY EDITION)...");
 
-  .glass-panel:hover, .card:hover {
-    transform: translateY(-2px) scale(1.002);
-    box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.7);
-    border-top-color: rgba(255, 255, 255, 0.2);
-  }
+// Read current CSS
+let cssContent = fs.readFileSync(CSS_FILE, 'utf8');
 
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl;
-    @apply font-medium text-sm tracking-wide uppercase transition-all duration-300 ease-apple-ease;
-  }
-  .btn-primary {
-    @apply bg-slate-50 text-slate-950;
-    @apply hover:bg-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)];
-  }
-  .btn-ghost {
-    @apply text-slate-300 border border-slate-700/50;
-    @apply hover:bg-slate-800/40 hover:text-white hover:border-slate-500;
-  }
-
-  .input, .textarea {
-    @apply w-full bg-slate-900/30 border border-slate-700/50 rounded-xl px-4 py-3;
-    @apply text-slate-100 placeholder-slate-600 outline-none;
-    @apply focus:border-brass/50 focus:bg-slate-900/50 transition-all duration-300;
-    backdrop-filter: blur(12px);
-  }
-}
-
+// Check if identity-specific classes already exist
+if (cssContent.includes('.form-group')) {
+    console.log("✅ Identity CSS classes already present.");
+} else {
+    // Append identity-specific styles
+    const identityStyles = `
 
 /* ================================================
    IDENTITY PHASE COMPONENTS (Phase 2)
@@ -189,3 +143,11 @@
   @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
   @apply focus:px-4 focus:py-2 focus:bg-brass focus:text-slate-950 focus:rounded-lg;
 }
+`;
+
+    cssContent += identityStyles;
+    fs.writeFileSync(CSS_FILE, cssContent);
+    console.log("✅ Identity CSS: INJECTED (Form Groups, Labels, Buttons, Animations).");
+}
+
+console.log("🚀 IDENTITY REPAIR COMPLETE. PLEASE RESTART DEV SERVER.");

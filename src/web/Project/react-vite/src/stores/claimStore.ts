@@ -528,7 +528,7 @@ export const useClaimStore = create<ClaimStore>()(
     }),
     {
       name: 'vault-dem-claim',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage), // Tab closes = data vanishes (Zero-Knowledge)
       version: 4,
       migrate: (persisted: any) => {
         const next = { ...persisted };

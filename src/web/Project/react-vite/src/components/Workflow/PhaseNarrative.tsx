@@ -1,6 +1,8 @@
 /**
  * VAULT DEM Engine — Phase: Personal Narrative
  * Veteran's statement in support of claim
+ * 
+ * UX: The typing area should feel like high-end stationery on a glass desk
  */
 
 import { useMemo, useState } from 'react';
@@ -74,11 +76,11 @@ export default function PhaseNarrative() {
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           {conditions.length > 0 && (
-            <div className="mb-4 card">
+            <div className="mb-4 glass-premium rounded-2xl p-4">
               <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Addressing these conditions:</p>
               <div className="flex flex-wrap gap-2">
                 {conditions.map((c) => (
-                  <span key={c.id} className="px-2 py-1 bg-brass/10 text-brass text-xs rounded-full">
+                  <span key={c.id} className="px-2 py-1 bg-brass/10 text-brass text-xs rounded-full border border-brass/20">
                     {c.name}
                   </span>
                 ))}
@@ -86,7 +88,7 @@ export default function PhaseNarrative() {
             </div>
           )}
 
-          <div className="mb-4 card">
+          <div className="mb-4 glass-premium rounded-2xl p-5">
             <h3 className="text-lg font-serif text-slate-100 mb-4 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-brass" />
               Mind Reader
@@ -99,7 +101,7 @@ export default function PhaseNarrative() {
                   {mindReader.map((d) => (
                     <button
                       key={d.condition.id}
-                      className="w-full text-left p-3 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/70 rounded-2xl transition-colors flex items-start justify-between gap-3"
+                      className="w-full text-left p-3 glass-premium-interactive rounded-xl flex items-start justify-between gap-3"
                       onClick={() => addSuggestedCondition(d.condition)}
                     >
                       <div>
@@ -117,7 +119,7 @@ export default function PhaseNarrative() {
                 </div>
               </div>
             ) : (
-              <div className="mb-5 p-4 bg-slate-900/35 border border-slate-800/60 rounded-2xl text-sm text-slate-400">
+              <div className="mb-5 p-4 bg-slate-900/20 border border-slate-800/40 rounded-xl text-sm text-slate-400">
                 Start typing your statement and VAULT will suggest likely conditions based on your wording (offline).
               </div>
             )}
@@ -131,7 +133,7 @@ export default function PhaseNarrative() {
                   {patternSuggestions.map((c) => (
                     <button
                       key={c.id}
-                      className="px-3 py-2 bg-brass/10 text-brass text-xs rounded-full border border-brass/20 hover:border-brass/40 transition-colors"
+                      className="px-3 py-2 bg-brass/10 text-brass text-xs rounded-full border border-brass/20 hover:border-brass/40 transition-apple"
                       onClick={() => addSuggestedCondition(c)}
                     >
                       + {c.name}
@@ -146,14 +148,17 @@ export default function PhaseNarrative() {
             )}
           </div>
 
-          <div className="relative">
-            <textarea
-              className="textarea min-h-[400px] text-base leading-relaxed"
-              placeholder="I am writing to support my claim for disability compensation..."
-              value={narrative}
-              onChange={(e) => setNarrative(e.target.value)}
-            />
-            <div className="absolute bottom-4 right-4 text-xs text-slate-500">
+          {/* THE STATIONERY — High-end writing surface on glass */}
+          <div className="relative glass-premium rounded-2xl p-1">
+            <div className="stationery-surface rounded-xl overflow-hidden">
+              <textarea
+                className="stationery-textarea w-full min-h-[400px] text-base leading-relaxed resize-none"
+                placeholder="I am writing to support my claim for disability compensation..."
+                value={narrative}
+                onChange={(e) => setNarrative(e.target.value)}
+              />
+            </div>
+            <div className="absolute bottom-5 right-5 text-xs text-slate-500/70 pointer-events-none">
               {narrative.length.toLocaleString()} characters
             </div>
           </div>
@@ -177,7 +182,7 @@ export default function PhaseNarrative() {
 
         <div className="lg:col-span-1">
           <div className="sticky top-32 space-y-4">
-            <div className="card">
+            <div className="glass-premium rounded-2xl p-5">
               <h3 className="text-lg font-serif text-slate-100 mb-4 flex items-center gap-2">
                 <Lightbulb className="w-5 h-5 text-brass" />
                 Writing Prompts
@@ -187,7 +192,7 @@ export default function PhaseNarrative() {
                   <button
                     key={index}
                     onClick={() => insertPrompt(item.prompt)}
-                    className="w-full text-left p-3 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/70 rounded-2xl transition-colors"
+                    className="w-full text-left p-3 glass-premium-interactive rounded-xl"
                   >
                     <div className="text-sm text-slate-200 font-medium mb-1">{item.title}</div>
                     <div className="text-xs text-slate-500 line-clamp-2">{item.prompt}</div>

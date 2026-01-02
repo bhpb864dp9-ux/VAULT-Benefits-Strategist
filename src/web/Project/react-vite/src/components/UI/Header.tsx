@@ -1,6 +1,6 @@
 /**
  * VAULT DEM Engine — Header Component
- * Sticky navigation with progress and FREE FOREVER badge
+ * Cockpit-style navigation — minimal, focused, mission-critical
  */
 
 import { useState, useEffect } from 'react';
@@ -104,12 +104,6 @@ export default function Header() {
           )}
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:block">
-              <span className="px-3 py-1 bg-success/20 text-success text-xs font-bold tracking-wider uppercase border border-success/30">
-                FREE FOREVER
-              </span>
-            </div>
-
             <nav className="hidden md:flex items-center gap-6">
               {getHeaderNavRoutes().map((r) => (
                 <NavLink key={r.id} to={r.path}>
@@ -127,14 +121,17 @@ export default function Header() {
               )}
             </nav>
 
-            <button
-              className="md:hidden p-2 text-slate-400 hover:text-slate-100"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Hide hamburger in claim workflow — lock focus on the mission */}
+            {!isWorkflow && (
+              <button
+                className="md:hidden p-2 text-slate-400 hover:text-slate-100"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileMenuOpen}
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            )}
           </div>
         </div>
 
@@ -151,11 +148,6 @@ export default function Header() {
                 <Link to={claimCtaHref} className="btn btn-primary w-full">
                   {isClaimStarted() ? 'Continue Claim' : 'Start Free Now'}
                 </Link>
-              </div>
-              <div className="text-center pt-2">
-                <span className="px-3 py-1 bg-success/20 text-success text-xs font-bold tracking-wider uppercase">
-                  🎖️ FREE FOREVER FOR VETERANS
-                </span>
               </div>
             </div>
           </nav>

@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "id": "VAULT-FEATURE-REGISTRY-IMMUTABLE-002",
+    "name": "VAULT Immutable Feature Registry (Reconciled)",
+    "schemaVersion": "1.0.0",
+    "baseVersion": "VAULT-FEATURE-REGISTRY-IMMUTABLE-001",
+    "reconciliationSource": "VAULT-Master-Execution-Plan-v2.1",
+    "executionPlanVersion": "6.1.0",
+    "exportedAt": "2026-01-02T00:00:00Z",
+    "exportedBy": "vault-registry-generator",
+    "corporateEntity": "VAULT LLC",
+    "parentCorporation": "Northstar|Insight Inc.",
+    "tagline": "Security by Absence™"
+  },
+  "themes": [
+    {
+      "id": "VAULT-TH-001",
+      "name": "Privacy-First, Offline by Default",
+      "tagline": "Security by Absence™",
+      "vision": "Enable veterans to build claims with zero cloud dependency and minimal privacy risk.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-TH-002",
+      "name": "Claim Quality & Evidence Strength",
+      "tagline": "Make the claim legible, coherent, and complete",
+      "vision": "Help veterans build stronger submissions with structured narratives and evidence extraction.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-TH-003",
+      "name": "Deterministic Entitlement Maximization (DEM)",
+      "tagline": "Exact math, not 'close enough'",
+      "vision": "Maximize lawful disability ratings through precise calculations and algorithmic evidence optimization.",
+      "status": "PLANNED",
+      "patentEligible": true
+    }
+  ],
+  "epics": [
+    {
+      "id": "VAULT-EP-001",
+      "code": "PF",
+      "name": "Profile & Service History",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-002",
+      "code": "MR",
+      "name": "Mind Reader Engine",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-003",
+      "code": "LW",
+      "name": "Lawyer Engine",
+      "priority": "P0",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-004",
+      "code": "ST",
+      "name": "Strategist Engine",
+      "priority": "P1",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-005",
+      "code": "DG",
+      "name": "Document Generation",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-006",
+      "code": "WF",
+      "name": "7-Phase Workflow",
+      "priority": "P0",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-007",
+      "code": "BB",
+      "name": "Blue Button Integration",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-008",
+      "code": "PW",
+      "name": "PWA & Offline",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-009",
+      "code": "CF",
+      "name": "C-File Processing",
+      "priority": "P0",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-010",
+      "code": "MIL",
+      "name": "Military Records",
+      "priority": "P0",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-011",
+      "code": "PHR",
+      "name": "Private Health Records",
+      "priority": "P1",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-012",
+      "code": "EI",
+      "name": "Edge Intelligence",
+      "priority": "P1",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-013",
+      "code": "CIT",
+      "name": "Citation Engine",
+      "priority": "P0",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-014",
+      "code": "AC",
+      "name": "Accessibility",
+      "priority": "P2",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-015",
+      "code": "VC",
+      "name": "VSO Collaboration",
+      "priority": "P2",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "VAULT-EP-016",
+      "code": "TD",
+      "name": "The Doctor AR",
+      "priority": "P3",
+      "status": "FUTURE"
+    },
+    {
+      "id": "VAULT-EP-017",
+      "code": "SV",
+      "name": "Spatial Visualization",
+      "priority": "P3",
+      "status": "FUTURE"
+    },
+    {
+      "id": "VAULT-EP-018",
+      "code": "LC",
+      "name": "Licensing",
+      "priority": "P2",
+      "status": "PLANNED"
+    },
+    {
+      "id": "VAULT-EP-019",
+      "code": "EO",
+      "name": "Evidence Optimizer Engine",
+      "priority": "P0",
+      "status": "PLANNED",
+      "patentEligible": true,
+      "patentId": "PAT-001"
+    },
+    {
+      "id": "VAULT-EP-020",
+      "code": "VN",
+      "name": "VBIO Network & Certification",
+      "priority": "P2",
+      "status": "PLANNED"
+    }
+  ],
+  "features": {
+    "adopted": [
+      {
+        "id": "VAULT-F-BB-001",
+        "name": "Blue Button Upload → Identity Autofill",
+        "epicId": "VAULT-EP-007",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 2
+      },
+      {
+        "id": "VAULT-F-VC-002",
+        "name": "Battle Buddy Mode",
+        "epicId": "VAULT-EP-015",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 3
+      },
+      {
+        "id": "VAULT-F-EI-001",
+        "name": "Evidence OCR Intake (On-Device)",
+        "epicId": "VAULT-EP-012",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 4
+      },
+      {
+        "id": "VAULT-UI-WF-001",
+        "name": "Interactive Body Map UI",
+        "epicId": "VAULT-EP-006",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 3
+      },
+      {
+        "id": "VAULT-F-MR-001",
+        "name": "Narrative Mind Reader (Keyword Detection)",
+        "epicId": "VAULT-EP-002",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 5
+      },
+      {
+        "id": "VAULT-F-DG-001",
+        "name": "Buddy Statement Generator",
+        "epicId": "VAULT-EP-005",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 4
+      },
+      {
+        "id": "VAULT-NF-PW-001",
+        "name": "PWA Offline Caching & Installability",
+        "epicId": "VAULT-EP-008",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 1
+      },
+      {
+        "id": "VAULT-ACC-001",
+        "name": "Skip Link (Keyboard Navigation)",
+        "epicId": "VAULT-EP-014",
+        "status": "ADOPTED",
+        "adoptedAt": "2026-01-01T00:00:00Z",
+        "sprint": 1
+      }
+    ],
+    "active": [
+      {
+        "id": "VAULT-F-PF-001",
+        "name": "Identity Capture (Profile + Service History)",
+        "epicId": "VAULT-EP-001",
+        "status": "ACTIVE",
+        "sprint": 2
+      },
+      {
+        "id": "VAULT-F-MR-002",
+        "name": "Pattern Predictor (Related Condition Suggestions)",
+        "epicId": "VAULT-EP-002",
+        "status": "ACTIVE",
+        "sprint": 5
+      },
+      {
+        "id": "VAULT-F-DG-002",
+        "name": "Service Timeline Builder + Export",
+        "epicId": "VAULT-EP-005",
+        "status": "ACTIVE",
+        "sprint": 4
+      },
+      {
+        "id": "VAULT-F-VC-001",
+        "name": "Representation (POA) Capture",
+        "epicId": "VAULT-EP-015",
+        "status": "ACTIVE",
+        "sprint": 3
+      }
+    ],
+    "planned_count": 97,
+    "future_count": 80
+  },
+  "patents": [
+    {
+      "id": "PAT-001",
+      "name": "DEM Evidence Optimizer Algorithm",
+      "type": "Utility Patent",
+      "features": ["VAULT-F-EO-003"],
+      "filingTarget": "Week 20",
+      "status": "PLANNED",
+      "priority": "HIGH"
+    },
+    {
+      "id": "PAT-002",
+      "name": "Zero-Transmission Architecture Proof",
+      "type": "Design + Utility",
+      "features": ["VAULT-F-PW-002"],
+      "filingTarget": "Week 16",
+      "status": "PLANNED"
+    },
+    {
+      "id": "PAT-003",
+      "name": "Bilateral Factor Exact Calculator",
+      "type": "Provisional Patent",
+      "features": ["VAULT-F-ST-002"],
+      "filingTarget": "Week 12",
+      "status": "PLANNED"
+    },
+    {
+      "id": "PAT-004",
+      "name": "AR Conversational Entity (The Doctor)",
+      "type": "Provisional Patent",
+      "features": ["VAULT-F-TD-001"],
+      "filingTarget": "Phase 4+",
+      "status": "FUTURE"
+    }
+  ],
+  "statistics": {
+    "totals": {
+      "themes": 3,
+      "epics": 20,
+      "features_total": 189,
+      "features_adopted": 8,
+      "features_active": 4,
+      "features_planned": 97,
+      "features_future": 80
+    },
+    "adoptionRate": 0.195,
+    "completionRate": 0.063
+  },
+  "versionLock": {
+    "executionPlan": "6.1.0",
+    "registryId": "VAULT-FEATURE-REGISTRY-IMMUTABLE-002",
+    "corporateEntity": "VAULT LLC",
+    "parentCorporation": "Northstar|Insight Inc."
+  }
+}

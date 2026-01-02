@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/badge/platform-Web%20(PWA)-blue)](https://github.com/bhpb864dp9-ux/VAULT-Benefits-Strategist)
 [![Build](https://img.shields.io/badge/build-2026--01--02-blue)](https://github.com/bhpb864dp9-ux/VAULT-Benefits-Strategist/actions)
 
-**VAULT LLC** — A Northstar|Insight Inc. Company
+**VAULT LLC** — A Northstar|- Insight Inc. Company
 
 *Privacy-First Architecture • Security by Absence™ • Zero Data Transmission*
 
@@ -199,7 +199,7 @@ Veterans are strongly encouraged to consult with accredited Veterans Service Org
 
 ## 👥 Contact
 
-**VAULT LLC** — A Northstar|Insight Inc. Company
+**VAULT LLC** — A Northstar|- Insight Inc. Company
 
 - **General:** info@vault-benefits.com
 - **Technical:** tech@vault-benefits.com
@@ -224,6 +224,6 @@ Veterans are strongly encouraged to consult with accredited Veterans Service Org
 
 ---
 
-© 2026 VAULT LLC, A Northstar|Insight Inc. Company. All Rights Reserved.
+© 2026 VAULT LLC, A Northstar|- Insight Inc. Company. All Rights Reserved.
 
 **Security by Absence™** — Your data never leaves your device.

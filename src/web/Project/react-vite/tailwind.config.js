@@ -37,17 +37,8 @@ export default {
         serif: ['Instrument Serif', 'Georgia', 'serif']
       },
       transitionTimingFunction: {
-        'apple-ease': 'cubic-bezier(0.25, 1, 0.5, 1)', // The "Spring" feel
+        'apple-ease': 'cubic-bezier(0.25, 1, 0.5, 1)', // The "Spring" physics
         'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)'
-      },
-      animation: {
-        'glass-shimmer': 'shimmer 8s ease-in-out infinite',
-      },
-      keyframes: {
-        shimmer: {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '0.8' }
-        }
       }
     }
   },

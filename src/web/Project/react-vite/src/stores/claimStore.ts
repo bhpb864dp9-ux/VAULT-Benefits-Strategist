@@ -527,9 +527,9 @@ export const useClaimStore = create<ClaimStore>()(
       }
     }),
     {
-      name: 'vault-dem-claim',
-      storage: createJSONStorage(() => sessionStorage), // Tab closes = data vanishes (Zero-Knowledge)
-      version: 4,
+      name: 'vault-dem-session-secure',
+      storage: createJSONStorage(() => sessionStorage), // FIXED: Vanishes on tab close (Zero-Knowledge)
+      version: 5, // Bumped to force clear old localStorage data
       migrate: (persisted: any) => {
         const next = { ...persisted };
         if (!next?.data) return next;

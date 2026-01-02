@@ -29,7 +29,7 @@
   }
 
   /* Replace old classes with the Premium Engine */
-  .glass-panel, .card, .glass-chip, .glass-surface {
+  .glass-panel, .card, .glass-chip, .glass-surface, .glass-panel-tactical {
     @apply glass-premium rounded-3xl p-8 transition-all duration-500 ease-apple-ease;
   }
   
@@ -37,29 +37,54 @@
     @apply px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider;
   }
 
-  .glass-panel:hover, .card:hover {
+  .glass-panel:hover, .card:hover, .glass-panel-tactical:hover {
     transform: translateY(-2px) scale(1.002);
     box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.7);
     border-top-color: rgba(255, 255, 255, 0.2);
   }
 
-  .btn {
+  /* BUTTONS */
+  .btn, .btn-tactical {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl;
     @apply font-medium text-sm tracking-wide uppercase transition-all duration-300 ease-apple-ease;
   }
-  .btn-primary {
+  .btn-primary, .btn-tactical-advance {
     @apply bg-slate-50 text-slate-950;
     @apply hover:bg-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)];
   }
-  .btn-ghost {
+  .btn-ghost, .btn-tactical-retreat {
     @apply text-slate-300 border border-slate-700/50;
     @apply hover:bg-slate-800/40 hover:text-white hover:border-slate-500;
   }
 
+  /* INPUTS */
   .input, .textarea {
     @apply w-full bg-slate-900/30 border border-slate-700/50 rounded-xl px-4 py-3;
     @apply text-slate-100 placeholder-slate-600 outline-none;
     @apply focus:border-brass/50 focus:bg-slate-900/50 transition-all duration-300;
     backdrop-filter: blur(12px);
+  }
+
+  /* UTILITIES & MISC */
+  .container-wide { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .eyebrow { @apply glass-chip mb-4; }
+  .liquid-title { @apply font-serif text-slate-50 leading-tight tracking-tight; }
+
+  /* ANIMATIONS */
+  .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+  .animate-delay-500 { animation-delay: 0.5s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HERO ELEMENTS */
+  .hero-silhouette {
+    @apply absolute inset-0 z-0 pointer-events-none opacity-40;
   }
 }

@@ -13,6 +13,7 @@ import Header from './components/UI/Header';
 import Footer from './components/UI/Footer';
 import ToastContainer from './components/UI/Toast';
 import LoadingScreen from './components/UI/LoadingScreen';
+import FeedbackWidget from './components/UI/FeedbackWidget';
 
 const Landing = lazy(() => import('./pages/Landing'));
 const Workflow = lazy(() => import('./pages/Workflow'));
@@ -58,6 +59,9 @@ function App() {
 
       {/* Toast Notifications */}
       <ToastContainer />
+
+      {/* Feedback Widget */}
+      <FeedbackWidget />
     </div>
   );
 }
@@ -78,5 +82,3 @@ function NotFound() {
 }
 
 export default App;
-
-

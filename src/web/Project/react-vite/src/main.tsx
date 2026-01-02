@@ -8,7 +8,7 @@ import './styles/index.css';
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/sw.js')
+      .register('/VAULT-Benefits-Strategist/sw.js')
       .then((registration) => {
         console.log('SW registered:', registration.scope);
       })
@@ -24,7 +24,7 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="/VAULT-Benefits-Strategist">
         <App />
       </BrowserRouter>
     </React.StrictMode>
@@ -36,5 +36,3 @@ if (import.meta.env.DEV) {
   console.log('🔒 VAULT DEM Engine — Development Mode');
   console.log('📦 All data processed client-side only');
 }
-
-

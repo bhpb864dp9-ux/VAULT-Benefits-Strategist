@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-Beta%20v1.0-gold)
-![Release](https://img.shields.io/badge/release-Production%20Ready-brightgreen)
+![Version](https://img.shields.io/badge/version-v2.0.0-gold)
+![Release](https://img.shields.io/badge/release-Genesis%20Edition-brightgreen)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Production-green)
@@ -90,26 +90,26 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 
 ---
 
-## 🚀 What's New in Beta v1.0
-<a id="whats-new-in-beta-v10"></a>
+## 🚀 What's New in v2.0.0 (Genesis Edition)
+<a id="whats-new-in-v200"></a>
 
-### OPUS 4.5 Integration (Patent-Pending)
+### OPUS 5.0 Integration (Genesis)
 | Feature | Description |
 |---------|-------------|
-| **Neural Body Map™** | 25+ interactive anatomical zones with intent-weighted selection (mild/moderate/severe) |
-| **Temporal Intelligence** | State-aware breathing animations and intent decay over time |
-| **Causal Gravity** | Anatomically-aware priming that suggests related body areas |
-| **Progressive Disclosure** | Focus-based UI that fades irrelevant areas |
-| **Memory Bias Tracking** | Frequently-selected areas "warm up" visually |
+| **Paul Rand Glass Engine** | Enhanced saturation (180%) and high-end physics for "Apple Titanium" feel |
+| **Neural Body Map™** | Refined anatomical zones with intent-weighted selection and causal priming |
+| **Zero-Knowledge Privacy** | Hybrid persistence using `sessionStorage` (RAM-only) for sensitive claim data |
+| **OCR Evidence Intake** | On-device document processing with auto-tagging and legal citations |
+| **Genesis Workflow** | Streamlined 5-phase mission: Mission, Identity, Conditions, Narrative, Review |
 
 ### Stratospheric Tools Suite
 | Tool | Description |
 |------|-------------|
-| **Secondary Condition Mapper** | Visual graph showing 38 CFR § 3.310 secondary connections |
-| **Buddy Statement Generator** | Guided wizard for VA Form 21-10210 |
-| **Nexus Letter Template Engine** | Doctor-ready templates with VA-required legal language |
+| **Buddy Statement Generator** | Guided wizard for VA Form 21-10210 with evidence linking |
 | **Service Timeline Builder** | Visual evidence chain from service to current condition |
-| **Session Persistence** | Auto-save with encrypted localStorage and resume capability |
+| **Medical Citation Machine** | Real-time legal citations (38 CFR, M21-1) for every condition |
+| **Nexus Letter Template Engine** | Doctor-ready templates with VA-required legal language |
+| **Encrypted Session Persistence** | SECURE auto-save that vanishes when the tab closes |
 
 ### Enhanced Decision Engine
 - **50+ Conditions Mapped** to DBQ forms and diagnostic codes
@@ -472,17 +472,16 @@ Veterans are strongly encouraged to:
 
 ## 🛣️ Roadmap
 
-### Version 1.2 (Planned)
-- [ ] Expanded keyword matrix (50+ conditions)
-- [ ] DBQ form auto-population
-- [ ] Nexus letter templates
-- [ ] Buddy statement generator
-
-### Version 2.0 (Future)
-- [ ] Multi-claim management
-- [ ] Appeal tracking
-- [ ] C&P exam preparation
+### Version 2.1 (Planned)
 - [ ] Integration with VSO workflows
+- [ ] Multi-claim management tracking
+- [ ] C&P exam preparation simulator
+- [ ] Expanded medical citation database
+
+### Version 3.0 (Future)
+- [ ] Advanced Appeal tracking
+- [ ] Direct-to-VA filing assistance
+- [ ] BVA Decision analysis engine
 
 ---
 
@@ -501,6 +500,7 @@ For authorized inquiries only:
 
 | Version | Date | Description |
 |---------|------|-------------|
+| **v2.0.0** | 2026-01-02 | **GENESIS EDITION** - Paul Rand Glass Engine, Zero-Knowledge Privacy (sessionStorage), OCR Intake, Medical Citation Machine |
 | **Beta v1.0** | 2025-12-20 | **PRODUCTION RELEASE** - Titanium Slate Design System, Body System Navigation, VBIO Program, 4-Step Claim Flow |
 | v4.0 STRATOSPHERIC+ | 2025-12 | Enhanced with RFC-001 specification, Three Core Engines, 7-Phase Workflow |
 | 1.1 UNIFIED (Ashley) | 2025 | Enhanced documentation, comprehensive IP protection |

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "generatedNote": "This is a human-maintained capabilities catalog for the Web runtime. Keep it aligned with src/web/Project/react-vite implementation and VAULT_WEB_ROUTES/VAULT_WORKFLOW_PHASES.",
   "capabilities": [
     {

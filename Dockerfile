@@ -7,13 +7,12 @@
 # ALL RIGHTS RESERVED
 #
 # This Dockerfile creates a minimal, production-ready container for serving
-# the VAULT Progressive Web Application.
+# the VAULT React/Vite web app (built to static assets, served by nginx).
 #
 # ARCHITECTURE NOTES:
-# - VAULT is a static PWA (HTML + CSS + JavaScript)
-# - No server-side processing is needed (zero-trust architecture)
-# - Container only serves static files via nginx
-# - All application logic runs in the user's browser
+# - VAULT is a client-side web app (React/Vite)
+# - Build step produces static assets (dist/)
+# - nginx serves the built assets; no server-side processing needed
 #
 # SECURITY NOTES:
 # - Using nginx:alpine for minimal attack surface
@@ -32,6 +31,18 @@
 # - Performance (nginx is highly optimized for static content)
 # - No unnecessary packages or services
 #
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+# Install deps (workspace-local)
+COPY src/web/Project/react-vite/package.json src/web/Project/react-vite/package-lock.json ./
+RUN npm ci
+
+# Copy source and build
+COPY src/web/Project/react-vite ./
+RUN npm run build
+
 FROM nginx:alpine
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -47,19 +58,10 @@ LABEL org.opencontainers.image.licenses="Proprietary"
 LABEL org.opencontainers.image.source="[repository-url]"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# COPY STATIC ASSETS
+# COPY BUILT ASSETS
 # ─────────────────────────────────────────────────────────────────────────────
-# Copy the static PWA files to nginx's default public directory.
-#
-# FILES COPIED:
-# - index.html     : Main application (HTML + inline CSS + JavaScript)
-# - manifest.json  : PWA manifest for installation
-# - service-worker.js : Offline caching logic
-#
-# NOTE: All application logic is in these static files.
-#       No build step required - vanilla HTML/CSS/JS.
-#
-COPY src/main/public /usr/share/nginx/html
+# Copy Vite build output to nginx's default public directory.
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NGINX CONFIGURATION (Optional - using defaults)

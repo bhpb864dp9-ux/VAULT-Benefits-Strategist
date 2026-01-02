@@ -1,0 +1,1104 @@
+{
+  "meta": {
+    "id": "VAULT-FEATURE-REGISTRY-IMMUTABLE-001",
+    "name": "VAULT Immutable Feature Registry",
+    "schemaVersion": "1.0.0",
+    "exportedAt": "2026-01-01T00:00:00Z",
+    "exportedBy": "vault-registry-generator",
+    "checksum": "6a57635e745b821259a89d6e210fd03e3c4cdac95108c292ab40610808c5461a"
+  },
+  "themes": [
+    {
+      "id": "VAULT-TH-001",
+      "name": "Privacy-First, Offline by Default",
+      "tagline": "Everything stays on device",
+      "vision": "Enable veterans to build claims with zero cloud dependency and minimal privacy risk.",
+      "principles": [
+        "Local-first storage",
+        "No server-side processing",
+        "Deterministic outputs"
+      ],
+      "successMetrics": [
+        {
+          "name": "Network-free core workflow",
+          "target": "All workflow phases functional offline",
+          "current": null,
+          "unit": null
+        }
+      ],
+      "status": "ACTIVE",
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "cad0681fe7457b29b22c7dd1480af931d7ea73d2fdfcaa6c590c95056921fbbd"
+      }
+    },
+    {
+      "id": "VAULT-TH-002",
+      "name": "Claim Quality & Evidence Strength",
+      "tagline": "Make the claim legible, coherent, and complete",
+      "vision": "Help veterans build stronger submissions with structured narratives, evidence extraction, and consistent artifacts.",
+      "principles": [
+        "Clarity over complexity",
+        "Traceability from symptoms to conditions to evidence",
+        "Exportable artifacts"
+      ],
+      "successMetrics": [
+        {
+          "name": "Exportable artifacts",
+          "target": "Buddy statement + timeline export available",
+          "current": null,
+          "unit": null
+        }
+      ],
+      "status": "ACTIVE",
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "be08aaad51b698637035c481a9f55e6329f9d229b052bb0848443f3fce9ff8f1"
+      }
+    }
+  ],
+  "epics": [
+    {
+      "id": "VAULT-EP-001",
+      "code": "PF",
+      "name": "Profile & Service History",
+      "description": "Capture veteran identity and service context for consistent artifact generation.",
+      "owner": "product",
+      "themeIds": [
+        "VAULT-TH-001",
+        "VAULT-TH-002"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 1,
+        "end": 6
+      },
+      "featureStats": {
+        "total": 2,
+        "adopted": 1,
+        "active": 1,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "e24154b88a51114220a8e0f81155b5d3922e7e33f6bd431d3267be67089f0603"
+      }
+    },
+    {
+      "id": "VAULT-EP-002",
+      "code": "MR",
+      "name": "Mind Reader Engine",
+      "description": "Derive likely conditions and suggestions from narrative input.",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-002"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 3,
+        "end": 8
+      },
+      "featureStats": {
+        "total": 2,
+        "adopted": 1,
+        "active": 1,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "d58eaf0ff5d65a4afee4232f189b1cf812e31ea7abf320b0d405c986fd5db091"
+      }
+    },
+    {
+      "id": "VAULT-EP-005",
+      "code": "DG",
+      "name": "Document Generation",
+      "description": "Generate exportable claim artifacts locally (text/PDF).",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-002"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 2,
+        "end": 12
+      },
+      "featureStats": {
+        "total": 2,
+        "adopted": 1,
+        "active": 1,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "2e5aff5ffd74323de29b6cc1c0bedbd9565884686f0df61cb907d6354bfe075b"
+      }
+    },
+    {
+      "id": "VAULT-EP-006",
+      "code": "WF",
+      "name": "7-Phase Workflow",
+      "description": "End-to-end claim workflow (Mission → Identity → Conditions → Narrative → Review).",
+      "owner": "product",
+      "themeIds": [
+        "VAULT-TH-001",
+        "VAULT-TH-002"
+      ],
+      "priority": "P0",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 1,
+        "end": 12
+      },
+      "featureStats": {
+        "total": 5,
+        "adopted": 3,
+        "active": 2,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "8e60c1a9747ebc5992a4e4cd537c03a9e25e161b9c03f7287bbf5046558140a8"
+      }
+    },
+    {
+      "id": "VAULT-EP-007",
+      "code": "BB",
+      "name": "Blue Button Integration",
+      "description": "Import Blue Button records and extract identity details locally.",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-001",
+        "VAULT-TH-002"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 2,
+        "end": 6
+      },
+      "featureStats": {
+        "total": 1,
+        "adopted": 1,
+        "active": 0,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "283933deca4395611332c55ee02056829d9e0f415c3a5463b93bcf37f627ce48"
+      }
+    },
+    {
+      "id": "VAULT-EP-008",
+      "code": "PW",
+      "name": "PWA & Offline",
+      "description": "Offline caching and installability for web surfaces.",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-001"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 1,
+        "end": 10
+      },
+      "featureStats": {
+        "total": 1,
+        "adopted": 1,
+        "active": 0,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "999900352cb2e6369c73a0d31ec1cae502490eaeff6167b2bb704735baf347e0"
+      }
+    },
+    {
+      "id": "VAULT-EP-012",
+      "code": "EI",
+      "name": "Edge Intelligence",
+      "description": "On-device OCR and extraction of structured evidence data.",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-001",
+        "VAULT-TH-002"
+      ],
+      "priority": "P1",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 4,
+        "end": 12
+      },
+      "featureStats": {
+        "total": 1,
+        "adopted": 1,
+        "active": 0,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "37188adf9d874c6ff343c6b0d983e8c26ed3ff0f5cec2db5e4a99663c4a1d621"
+      }
+    },
+    {
+      "id": "VAULT-EP-013",
+      "code": "AC",
+      "name": "Accessibility",
+      "description": "Accessibility features and controls across the app.",
+      "owner": "engineering",
+      "themeIds": [
+        "VAULT-TH-001"
+      ],
+      "priority": "P2",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 1,
+        "end": 12
+      },
+      "featureStats": {
+        "total": 1,
+        "adopted": 1,
+        "active": 0,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "0c62764096f0fd8633806fe3545409052fb1a884c092128d170be0f413111ac1"
+      }
+    },
+    {
+      "id": "VAULT-EP-014",
+      "code": "VC",
+      "name": "VSO Collaboration",
+      "description": "Capture representation (POA) and enable helper workflows (Battle Buddy) while preserving offline privacy.",
+      "owner": "product",
+      "themeIds": [
+        "VAULT-TH-001",
+        "VAULT-TH-002"
+      ],
+      "priority": "P2",
+      "status": "ACTIVE",
+      "sprintRange": {
+        "start": 2,
+        "end": 12
+      },
+      "featureStats": {
+        "total": 2,
+        "adopted": 1,
+        "active": 1,
+        "planned": 0,
+        "deprecated": 0
+      },
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "b6c816860b95355e3fecb86d8746760edf39b244dcf09194554183d2f31ac353"
+      }
+    }
+  ],
+  "features": [
+    {
+      "id": "VAULT-F-PF-001",
+      "category": "F",
+      "epicId": "VAULT-EP-001",
+      "name": "Identity Capture (Profile + Service History)",
+      "description": "Capture identity/contact/service information locally to support consistent artifacts and workflow continuity.",
+      "userStory": {
+        "role": "veteran filing a claim",
+        "action": "enter my profile and service history once",
+        "benefit": "VAULT can reuse it to prefill outputs consistently",
+        "emotion": "in control"
+      },
+      "priority": "P1",
+      "status": "ACTIVE",
+      "adopted": false,
+      "adoptedAt": null,
+      "sprint": 2,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-009",
+          "requirement": "Identity form captures name, DOB, contact info, and service dates",
+          "validation": "Fields exist and persist locally between refreshes",
+          "testSpec": null,
+          "status": "PENDING",
+          "verifiedAt": null,
+          "verifiedBy": null
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+          "src/web/Project/react-vite/src/stores/claimStore.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "LocalStorage persistence via Zustand store.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "Local-first storage"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "d1f7993872805874a608ab9f9f1b7430a362d9cf80918d3190e75ea2450628c7"
+      }
+    },
+    {
+      "id": "VAULT-F-BB-001",
+      "category": "F",
+      "epicId": "VAULT-EP-007",
+      "name": "Blue Button Upload → Identity Autofill",
+      "description": "Upload Blue Button (XML/TXT/JSON) and auto-fill identity fields locally.",
+      "userStory": {
+        "role": "veteran filing a claim",
+        "action": "upload my Blue Button record",
+        "benefit": "my identity fields are prefilled quickly and accurately",
+        "emotion": "relieved"
+      },
+      "priority": "P0",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 2,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "requirement": "User can upload a Blue Button file from Identity phase",
+          "validation": "File input accepts .xml/.txt/.json and triggers local parsing",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+          "src/web/Project/react-vite/src/lib/blueButton.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Autofill only if fields are empty; stores locally.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "Offline/private processing"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "d29e04adbcc18da54bb956233245e6c36cf0490b69b7d3bae417c601c92cf82a"
+      }
+    },
+    {
+      "id": "VAULT-F-VC-001",
+      "category": "F",
+      "epicId": "VAULT-EP-014",
+      "name": "Representation (POA) Capture",
+      "description": "Capture representative type and organization details to support downstream form generation (21-22 / 21-22a).",
+      "userStory": {
+        "role": "veteran using a VSO/attorney/agent",
+        "action": "record my representative information once",
+        "benefit": "VAULT can generate consistent POA-related forms later",
+        "emotion": "prepared"
+      },
+      "priority": "P2",
+      "status": "ACTIVE",
+      "adopted": false,
+      "adoptedAt": null,
+      "sprint": 3,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-010",
+          "requirement": "POA section supports choosing rep type and optional details",
+          "validation": "UI persists locally and does not transmit data",
+          "testSpec": null,
+          "status": "PENDING",
+          "verifiedAt": null,
+          "verifiedBy": null
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+          "src/web/Project/react-vite/src/stores/claimStore.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Captured locally; future: generate VA Form 21-22/21-22a.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "Offline/private collaboration data"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "5fae473f08b2d638b439b6bcc48a1d56462193e25c72730aa317483f52aff0d7"
+      }
+    },
+    {
+      "id": "VAULT-F-VC-002",
+      "category": "F",
+      "epicId": "VAULT-EP-014",
+      "name": "Battle Buddy Mode",
+      "description": "Enable a trusted helper to assist with narratives and timelines while keeping all data local.",
+      "userStory": {
+        "role": "veteran with a caregiver/spouse/helper",
+        "action": "enable Battle Buddy Mode",
+        "benefit": "they can help me complete the workflow faster and more accurately",
+        "emotion": "supported"
+      },
+      "priority": "P2",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 3,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-011",
+          "requirement": "Toggle enables helper name/relationship capture",
+          "validation": "Battle buddy fields appear only when enabled and persist locally",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+          "src/web/Project/react-vite/src/stores/claimStore.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Local only; influences Tools prefill (buddy statement).",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Higher-quality narratives with assistance"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "2a2fc466d8b262e7981e71b44a0e87b684174bc3e414a157b5093d325a37370b"
+      }
+    },
+    {
+      "id": "VAULT-F-EI-001",
+      "category": "F",
+      "epicId": "VAULT-EP-012",
+      "name": "Evidence OCR Intake (On-Device)",
+      "description": "Upload evidence images/PDFs and extract structured text on device using OCR.",
+      "userStory": {
+        "role": "veteran submitting evidence",
+        "action": "upload my evidence documents",
+        "benefit": "VAULT extracts diagnoses/dates/codes to help strengthen my claim",
+        "emotion": "empowered"
+      },
+      "priority": "P1",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 4,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-002",
+          "requirement": "User can upload evidence and receive OCR results locally",
+          "validation": "OCR progress UI + results stored in local claim store",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Evidence/OCRIntake.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Evidence/OCRIntake.tsx",
+          "src/web/Project/react-vite/src/lib/ocrProcessor.ts",
+          "src/web/Project/react-vite/src/stores/claimStore.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Uses tesseract.js; persists results locally.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "On-device processing"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "bdec6fd296f37d615e67aa6e1beccc35684c0ce790772047204497b969e74c8f"
+      }
+    },
+    {
+      "id": "VAULT-UI-WF-001",
+      "category": "UI",
+      "epicId": "VAULT-EP-006",
+      "name": "Interactive Body Map UI",
+      "description": "Interactive body map to mark severity and auto-select relevant body systems.",
+      "userStory": {
+        "role": "veteran describing my conditions",
+        "action": "click on a body map to indicate affected areas and severity",
+        "benefit": "VAULT helps me select the right systems and conditions quickly",
+        "emotion": "guided"
+      },
+      "priority": "P1",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 3,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-003",
+          "requirement": "Clicking a body region cycles severity and persists selection",
+          "validation": "Intent levels cycle and are saved in local claim state",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Conditions/BodyMap.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Conditions/BodyMap.tsx",
+          "src/web/Project/react-vite/src/stores/claimStore.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Auto-selects systems when intent > 0.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Improve condition selection quality"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "61a5a3d93dc4b081e445a1a0112555ded369c334660bc4ace9bf8adc90fd1879"
+      }
+    },
+    {
+      "id": "VAULT-F-MR-001",
+      "category": "F",
+      "epicId": "VAULT-EP-002",
+      "name": "Narrative Mind Reader (Keyword Detection)",
+      "description": "Detect likely conditions from narrative text and suggest additions.",
+      "userStory": {
+        "role": "veteran writing my narrative",
+        "action": "type my symptoms in plain language",
+        "benefit": "VAULT suggests relevant conditions I may have missed",
+        "emotion": "understood"
+      },
+      "priority": "P0",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 5,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-004",
+          "requirement": "System suggests conditions based on narrative keywords",
+          "validation": "Mind Reader panel shows detected conditions and supports one-click add",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseNarrative.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseNarrative.tsx",
+          "src/web/Project/react-vite/src/lib/narrativeIntel.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Keyword detection + suggestion list.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Higher quality narratives"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "3c2426f7c9a7db93020712f221de354a738ccd04b6cfe715d36abc2b06799289"
+      }
+    },
+    {
+      "id": "VAULT-F-MR-002",
+      "category": "F",
+      "epicId": "VAULT-EP-002",
+      "name": "Pattern Predictor (Related Condition Suggestions)",
+      "description": "Suggest related conditions based on currently selected conditions and known linkages.",
+      "userStory": {
+        "role": "veteran selecting conditions",
+        "action": "review suggested related conditions",
+        "benefit": "I can avoid missing common secondary conditions",
+        "emotion": "confident"
+      },
+      "priority": "P1",
+      "status": "ACTIVE",
+      "adopted": false,
+      "adoptedAt": null,
+      "sprint": 5,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-012",
+          "requirement": "System suggests related conditions based on current selections",
+          "validation": "Pattern Predictor panel lists suggestions and supports adding them",
+          "testSpec": null,
+          "status": "PENDING",
+          "verifiedAt": null,
+          "verifiedBy": null
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/components/Workflow/PhaseNarrative.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/components/Workflow/PhaseNarrative.tsx",
+          "src/web/Project/react-vite/src/lib/narrativeIntel.ts",
+          "src/web/Project/react-vite/src/data/bodySystems.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Uses bodySystems secondary mapping.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Reduce missed secondaries"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "6674a3db6e83bb91d2d45423c087a6762e9f3867b1a56b0bd7f65b33d22d93a5"
+      }
+    },
+    {
+      "id": "VAULT-F-DG-001",
+      "category": "F",
+      "epicId": "VAULT-EP-005",
+      "name": "Buddy Statement Generator",
+      "description": "Generate a lay statement document locally for download.",
+      "userStory": {
+        "role": "veteran strengthening my claim",
+        "action": "generate a buddy statement template",
+        "benefit": "I can provide consistent supporting statements",
+        "emotion": "confident"
+      },
+      "priority": "P2",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 4,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-005",
+          "requirement": "User can download a buddy statement as a local file",
+          "validation": "Clicking Download creates a .txt file locally",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/pages/Tools.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/pages/Tools.tsx",
+          "src/web/Project/react-vite/src/lib/download.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Generates text content and triggers download.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Exportable artifacts"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "14a047d320fd3fca5c9a61661ca1229fa86e6ff4d392d3c1efa9733c608a0a74"
+      }
+    },
+    {
+      "id": "VAULT-F-DG-002",
+      "category": "F",
+      "epicId": "VAULT-EP-005",
+      "name": "Service Timeline Builder + Export",
+      "description": "Build a timeline of service/medical/life events and export locally.",
+      "userStory": {
+        "role": "veteran writing my claim",
+        "action": "build a timeline of events",
+        "benefit": "I can present a coherent chronology to the VA",
+        "emotion": "organized"
+      },
+      "priority": "P2",
+      "status": "ACTIVE",
+      "adopted": false,
+      "adoptedAt": null,
+      "sprint": 4,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-006",
+          "requirement": "User can add timeline events and export a timeline file",
+          "validation": "Events are stored locally and Export produces a .txt file",
+          "testSpec": null,
+          "status": "PENDING",
+          "verifiedAt": null,
+          "verifiedBy": null
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/pages/Tools.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/pages/Tools.tsx",
+          "src/web/Project/react-vite/src/lib/download.ts"
+        ],
+        "store": "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "notes": "Timeline stored in claimStore; export uses downloadTextFile.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-002",
+          "description": "Chronology strengthens claim"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "4a1ce8ca93a770423073e8d90c53598f7569ce370c9b661878ca519cbd384e23"
+      }
+    },
+    {
+      "id": "VAULT-NF-PW-001",
+      "category": "NF",
+      "epicId": "VAULT-EP-008",
+      "name": "PWA Offline Caching & Installability",
+      "description": "Enable offline caching and installability for web app surfaces.",
+      "userStory": {
+        "role": "veteran without reliable internet",
+        "action": "install VAULT as an app",
+        "benefit": "I can work offline and keep my data local",
+        "emotion": "safe"
+      },
+      "priority": "P1",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 1,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-007",
+          "requirement": "App provides PWA manifest and service worker integration",
+          "validation": "vite-plugin-pwa configured; manifest present",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/vite.config.ts",
+        "filePaths": [
+          "src/web/Project/react-vite/vite.config.ts",
+          "src/web/Project/react-vite/src/main.tsx"
+        ],
+        "store": null,
+        "notes": "VitePWA configured; SW registered in production only.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "Offline-first"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "3627af9284959bb9cb886eb8b36b126d8c4d8958efc063ca6b9cc9b302e47c4e"
+      }
+    },
+    {
+      "id": "VAULT-ACC-001",
+      "category": "ACC",
+      "epicId": "VAULT-EP-013",
+      "name": "Skip Link (Keyboard Navigation)",
+      "description": "Provide a skip link to jump to main content for keyboard users.",
+      "userStory": {
+        "role": "keyboard-only user",
+        "action": "skip repetitive navigation",
+        "benefit": "I can reach main content faster",
+        "emotion": "respected"
+      },
+      "priority": "P2",
+      "status": "ADOPTED",
+      "adopted": true,
+      "adoptedAt": "2026-01-01T00:00:00Z",
+      "sprint": 1,
+      "acceptanceCriteria": [
+        {
+          "id": "AC-008",
+          "requirement": "Skip link is present and focusable",
+          "validation": "Link appears on focus and anchors to #main-content",
+          "testSpec": null,
+          "status": "PASS",
+          "verifiedAt": "2026-01-01T00:00:00Z",
+          "verifiedBy": "vault-registry-generator"
+        }
+      ],
+      "implementation": {
+        "componentPath": "src/web/Project/react-vite/src/App.tsx",
+        "filePaths": [
+          "src/web/Project/react-vite/src/App.tsx"
+        ],
+        "store": null,
+        "notes": "Skip link anchored to main content region.",
+        "testCoverage": null
+      },
+      "dependencies": [],
+      "traceability": [
+        {
+          "type": "theme",
+          "refId": "VAULT-TH-001",
+          "description": "Accessibility baseline"
+        }
+      ],
+      "deprecation": null,
+      "lineage": null,
+      "schemaVersion": "1.0.0",
+      "metadata": {
+        "createdAt": "2026-01-01T00:00:00Z",
+        "createdBy": "vault-registry-generator",
+        "updatedAt": "2026-01-01T00:00:00Z",
+        "updatedBy": "vault-registry-generator",
+        "version": 1,
+        "checksum": "ebc091c92e70ebdc255bfc61ece801f186fda96ba94cebbe331023133ddc0648"
+      }
+    }
+  ],
+  "statistics": {
+    "totals": {
+      "themes": 2,
+      "epics": 9,
+      "features": 12,
+      "acceptanceCriteria": 12
+    },
+    "byStatus": {
+      "DRAFT": 0,
+      "PLANNED": 0,
+      "ACTIVE": 4,
+      "COMPLETE": 0,
+      "ADOPTED": 8,
+      "REJECTED": 0,
+      "DEFERRED": 0,
+      "SUPERSEDED": 0,
+      "CANCELLED": 0,
+      "DEPRECATED": 0
+    },
+    "byPriority": {
+      "P0": 2,
+      "P1": 5,
+      "P2": 5,
+      "P3": 0,
+      "P4": 0
+    },
+    "byEpic": {
+      "VAULT-EP-001": 1,
+      "VAULT-EP-002": 2,
+      "VAULT-EP-005": 2,
+      "VAULT-EP-006": 1,
+      "VAULT-EP-007": 1,
+      "VAULT-EP-008": 1,
+      "VAULT-EP-012": 1,
+      "VAULT-EP-013": 1,
+      "VAULT-EP-014": 2
+    },
+    "adoptionRate": 0.6666666667,
+    "completionRate": 0
+  }
+}

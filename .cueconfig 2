@@ -1,0 +1,8 @@
+{
+  "schemasDir": "schemas",
+  "docsMetadataDir": "data/docs",
+  "repoSchema": "schemas/structure.cue",
+  "mosaSpec": "ADH-MOSA.cue"
+}
+
+

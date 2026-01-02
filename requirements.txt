@@ -47,7 +47,7 @@
 #
 # Serving options:
 #   1. Python:  python -m http.server 8080
-#   2. Node.js: npx serve src/main/public
+#   2. Node.js: npx serve src/web/Project/static-pwa/public
 #   3. Docker:  docker run -p 80:80 vault-v1
 #   4. nginx:   Copy files to /usr/share/nginx/html
 #   5. Apache:  Copy files to /var/www/html

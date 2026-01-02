@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "generatedNote": "This is a human-maintained capabilities catalog for the Web runtime. Keep it aligned with src/web/Project/react-vite implementation and VAULT_WEB_ROUTES/VAULT_WORKFLOW_PHASES.",
+  "capabilities": [
+    {
+      "id": "vault.web.route.home",
+      "kind": "route",
+      "name": "Landing",
+      "description": "Centered hero + symbolic silhouette; entrypoint to claim flow and VBIO deep link.",
+      "routeId": "home",
+      "routePath": "/",
+      "implementationPaths": ["src/web/Project/react-vite/src/pages/Landing.tsx"]
+    },
+    {
+      "id": "vault.web.route.claim_workflow",
+      "kind": "route",
+      "name": "Claim Workflow Shell",
+      "description": "Wizard shell with phase routing, progress bar, and navigation controls.",
+      "routeId": "claim",
+      "routePath": "/claim/*",
+      "implementationPaths": ["src/web/Project/react-vite/src/pages/Workflow.tsx"]
+    },
+    {
+      "id": "vault.web.route.results",
+      "kind": "route",
+      "name": "Results",
+      "description": "Results view for the claim workflow outputs.",
+      "routeId": "results",
+      "routePath": "/results",
+      "implementationPaths": ["src/web/Project/react-vite/src/pages/Results.tsx"]
+    },
+    {
+      "id": "vault.web.route.calculator",
+      "kind": "route",
+      "name": "Calculator",
+      "description": "VASRD calculator and rating utilities.",
+      "routeId": "calculator",
+      "routePath": "/calculator",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/pages/Calculator.tsx",
+        "src/web/Project/react-vite/src/utils/vasrdCalculator.ts"
+      ]
+    },
+    {
+      "id": "vault.web.route.tools",
+      "kind": "route",
+      "name": "Tools Suite",
+      "description": "Utilities like Buddy Statement Generator and Service Timeline Builder.",
+      "routeId": "tools",
+      "routePath": "/tools",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/pages/Tools.tsx",
+        "src/web/Project/react-vite/src/lib/download.ts"
+      ]
+    },
+    {
+      "id": "vault.web.route.about",
+      "kind": "route",
+      "name": "About",
+      "description": "About page and product posture.",
+      "routeId": "about",
+      "routePath": "/about",
+      "implementationPaths": ["src/web/Project/react-vite/src/pages/About.tsx"]
+    },
+    {
+      "id": "vault.web.route.vbio",
+      "kind": "route",
+      "name": "VBIO",
+      "description": "VBIO network page (deep link from Landing).",
+      "routeId": "vbio",
+      "routePath": "/vbio",
+      "implementationPaths": ["src/web/Project/react-vite/src/pages/VBIO.tsx"]
+    },
+    {
+      "id": "vault.web.workflow.mission",
+      "kind": "workflow_phase",
+      "name": "Mission",
+      "description": "Mission selection + VA processing time estimate and timeline transparency.",
+      "workflowPhaseKey": "mission",
+      "routePath": "/claim/mission",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/components/Workflow/PhaseMission.tsx",
+        "src/web/Project/react-vite/src/lib/vaProcess.ts"
+      ]
+    },
+    {
+      "id": "vault.web.workflow.identity",
+      "kind": "workflow_phase",
+      "name": "Identity",
+      "description": "Blue Button upload + auto-fill; POA/VSO selection; Battle Buddy mode; audit trail updates.",
+      "workflowPhaseKey": "identity",
+      "routePath": "/claim/identity",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/components/Workflow/PhaseIdentity.tsx",
+        "src/web/Project/react-vite/src/lib/blueButton.ts",
+        "src/web/Project/react-vite/src/stores/claimStore.ts"
+      ]
+    },
+    {
+      "id": "vault.web.workflow.conditions",
+      "kind": "workflow_phase",
+      "name": "Conditions",
+      "description": "Interactive body map with intent levels; auto-selects related body systems.",
+      "workflowPhaseKey": "conditions",
+      "routePath": "/claim/conditions",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/components/Workflow/PhaseConditions.tsx",
+        "src/web/Project/react-vite/src/components/Conditions/BodyMap.tsx",
+        "src/web/Project/react-vite/src/data/bodySystems.ts"
+      ]
+    },
+    {
+      "id": "vault.web.workflow.narrative",
+      "kind": "workflow_phase",
+      "name": "Narrative",
+      "description": "Narrative builder + deterministic suggestions (Mind Reader + Pattern Predictor).",
+      "workflowPhaseKey": "narrative",
+      "routePath": "/claim/narrative",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/components/Workflow/PhaseNarrative.tsx",
+        "src/web/Project/react-vite/src/lib/narrativeIntel.ts"
+      ]
+    },
+    {
+      "id": "vault.web.workflow.review",
+      "kind": "workflow_phase",
+      "name": "Review",
+      "description": "Review + evidence intake including on-device OCR processing.",
+      "workflowPhaseKey": "review",
+      "routePath": "/claim/review",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/components/Workflow/PhaseReview.tsx",
+        "src/web/Project/react-vite/src/components/Evidence/OCRIntake.tsx",
+        "src/web/Project/react-vite/src/lib/ocrProcessor.ts"
+      ]
+    },
+    {
+      "id": "vault.web.subsystem.persistence",
+      "kind": "subsystem",
+      "name": "Local persistence (Zustand)",
+      "description": "Claim progress persists locally; includes versioned migrations to prevent crashes.",
+      "implementationPaths": ["src/web/Project/react-vite/src/stores/claimStore.ts"]
+    },
+    {
+      "id": "vault.web.subsystem.pwa",
+      "kind": "subsystem",
+      "name": "PWA/offline support (React)",
+      "description": "Vite PWA integration for offline caching in the React/Vite app.",
+      "implementationPaths": ["src/web/Project/react-vite/vite.config.ts"]
+    },
+    {
+      "id": "vault.web.subsystem.offline_localfirst",
+      "kind": "subsystem",
+      "name": "Local-first posture",
+      "description": "No required accounts; on-device processing and persistence by default.",
+      "implementationPaths": [
+        "src/web/Project/react-vite/src/stores/claimStore.ts",
+        "src/web/Project/react-vite/src/lib/ocrProcessor.ts",
+        "src/web/Project/react-vite/src/lib/blueButton.ts"
+      ]
+    }
+  ]
+}
+
+

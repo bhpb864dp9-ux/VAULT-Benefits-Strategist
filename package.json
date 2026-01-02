@@ -1,7 +1,7 @@
 {
   "name": "vault-veterans-benefits",
   "version": "1.1.0",
-  "description": "VAULT - Veterans Automated Universal Lookup Tool. A privacy-first, offline-capable Progressive Web Application for veterans benefits claim preparation.",
+  "description": "VAULT - Veterans Automated Universal Lookup Tool. A privacy-first, offline-capable web app for veterans benefits claim preparation.",
   "author": {
     "name": "Dontrell-Tate Intelligence LLC",
     "email": "info@[domain].com",
@@ -23,8 +23,7 @@
     "va-claims",
     "disability-benefits",
     "military",
-    "pwa",
-    "progressive-web-app",
+    "web-app",
     "offline-first",
     "zero-trust",
     "privacy",
@@ -41,22 +40,33 @@
     "not dead",
     "not ie 11"
   ],
-  "main": "src/main/public/index.html",
+  "main": "src/web/Project/react-vite/index.html",
   "scripts": {
-    "start": "npx serve src/main/public -l 8080",
-    "serve": "npx serve src/main/public -l 8080",
+    "start": "npm run web:dev",
+    "dev": "npm run web:dev",
+    "build": "npm run web:build",
+    "preview": "npm run web:preview",
+    "doctor": "node tools/repo-doctor/doctor.mjs",
+    "doctor:fix": "node tools/repo-doctor/doctor.mjs --fix",
+    "registry:validate": "node tools/feature-registry/validate.mjs",
+    "registry:reconcile": "node tools/feature-registry/vault_reconcile.mjs",
+    "registry:status": "node tools/feature-registry/vault_status.mjs",
+    "registry:scan": "node tools/feature-registry/scan-code.mjs",
+    "registry:plan:md": "node tools/feature-registry/print_plan_by_theme.mjs > docs/FEATURE_PLAN_BY_THEME.md",
+    "web:dev": "npm --prefix src/web/Project/react-vite run dev",
+    "web:build": "npm --prefix src/web/Project/react-vite run build",
+    "web:preview": "npm --prefix src/web/Project/react-vite run preview",
+    "web:test": "npm --prefix src/web/Project/react-vite run test",
+    "web:lint": "npm --prefix src/web/Project/react-vite run lint",
+    "web:typecheck": "npm --prefix src/web/Project/react-vite run typecheck",
     "build:docker": "docker build -t vault-v1 .",
-    "docker:run": "docker run -p 80:80 vault-v1",
-    "test": "echo \"No tests configured - static PWA\" && exit 0",
-    "lint": "echo \"No linting configured - vanilla JS\" && exit 0"
+    "docker:run": "docker run -p 8080:80 vault-v1",
+    "test": "npm run web:test",
+    "lint": "npm run web:lint"
   },
   "dependencies": {},
   "devDependencies": {},
-  "files": [
-    "src/main/public/**/*",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["LICENSE", "README.md"],
   "vault": {
     "codename": "Ashley",
     "releaseDate": "2025",
@@ -65,7 +75,7 @@
       "mindReader": true,
       "offlineMode": true,
       "zeroTrust": true,
-      "pwa": true
+      "pwa": false
     },
     "legal": {
       "copyright": "2025 Dontrell-Tate Intelligence LLC",

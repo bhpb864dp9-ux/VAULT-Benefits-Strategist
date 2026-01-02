@@ -5,7 +5,7 @@
 ![Version](https://img.shields.io/badge/version-Beta%20v1.0-gold)
 ![Release](https://img.shields.io/badge/release-Production%20Ready-brightgreen)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Platform](https://img.shields.io/badge/platform-Web%20(PWA)-blue)
+![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Production-green)
 ![Build](https://img.shields.io/badge/build-2025--12--20-blue)
 
@@ -13,9 +13,12 @@
 
 *Privacy-First Architecture • Body System Navigation • VBIO Training Program • Zero Data Transmission*
 
+<p><strong>Website:</strong> <a href="file:///Users/alfredhull/Downloads/vault-beta-v1.0_6.html">file:///Users/alfredhull/Downloads/vault-beta-v1.0_6.html</a></p>
+<p><em>Note: the Website link above is a local file URL; for shared access, run the web app locally via <code>npm run web:dev</code>.</em></p>
+
 ---
 
-[Features](#-key-features) • [RFC Specification](#-rfc-001-specification) • [Architecture](#-architecture) • [What's New](#-whats-new-in-v40) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Legal](#-legal-protection)
+[Features](#key-features) • [RFC Specification](#rfc-001-specification) • [Architecture](#architecture) • [What's New](#whats-new-in-beta-v10) • [Quick Start](#quick-start) • [Configuration](#configuration) • [Documentation](#documentation) • [Security](#security) • [Legal](#legal-protection)
 
 </div>
 
@@ -47,6 +50,7 @@ VAULT was created with the understanding that veterans have already sacrificed f
 ---
 
 ## 📜 RFC-001 Specification
+<a id="rfc-001-specification"></a>
 
 VAULT is built on the **RFC-001 Deterministic Veterans Benefits Claims Preparation System** specification v2.0, a comprehensive technical foundation that ensures reproducibility, auditability, and legal defensibility.
 
@@ -87,6 +91,7 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 ---
 
 ## 🚀 What's New in Beta v1.0
+<a id="whats-new-in-beta-v10"></a>
 
 ### OPUS 4.5 Integration (Patent-Pending)
 | Feature | Description |
@@ -116,6 +121,7 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 ---
 
 ## ✨ Key Features
+<a id="key-features"></a>
 
 ### 🔐 Zero-Trust Data Architecture
 - **No Server Backend:** Application consists entirely of static files
@@ -157,6 +163,7 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 ---
 
 ## 🏗️ Architecture
+<a id="architecture"></a>
 
 ### System Overview
 
@@ -166,7 +173,7 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 │  ┌────────────────────────────────────────────────────────────────────┐ │
 │  │                        WEB BROWSER                                  │ │
 │  │  ┌──────────────────────────────────────────────────────────────┐  │ │
-│  │  │                      VAULT PWA                                │  │ │
+│  │  │                      VAULT Web App                            │  │ │
 │  │  │                                                               │  │ │
 │  │  │  ┌─────────────┐  ┌─────────────┐  ┌──────────────────────┐  │  │ │
 │  │  │  │ TITANIUM    │  │ MIND READER │  │ MISSION PACKAGE      │  │  │ │
@@ -217,51 +224,91 @@ TACTICAL_MAPPING → EVIDENCE_FORTIFICATION → STRATEGIC_REVIEW → MISSION_EXE
 ---
 
 ## 🚀 Quick Start
+<a id="quick-start"></a>
 
-### Option 1: Local Development
+VAULT is organized as:
+
+- **`src/web/Project/react-vite/`**: React (Vite) web app (DEM engine UI)
+- **`src/web/Tabs/` + `src/web/Shared/`**: MOSA target structure for ongoing refactors
+
+### Authoritative run commands (no ambiguity)
+
+- **Web app (React/Vite)**:
+  - **Project**: `src/web/Project/react-vite/`
+  - **Run**: `npm run web:dev` → `http://localhost:3000`
+- **Repo cleanup / consolidation**:
+  - **Report**: `npm run doctor`
+  - **Safe auto-fix**: `npm run doctor:fix`
+
+### Where the URLs/routes are defined (source of truth)
+
+- **Top-level React routes**: `src/web/Project/react-vite/src/App.tsx`
+- **Claim phase URLs (`/claim/mission`, `/claim/identity`, …)**: `src/web/Project/react-vite/src/pages/Workflow.tsx` (driven by `VAULT_WEB_FEATURE_REGISTRY.workflowPhases`)
+- **Web route + phase metadata (MOSA runtime registry)**: `src/web/Shared/Core/Registry/featureRegistry.ts`
+- **Implemented web capability list (“every feature”)**: `src/web/Shared/Core/Registry/capabilities.v1.json`
+
+### Prerequisites
+
+- **Node.js >= 18**
+- **Docker** (optional for containerized serving)
+
+### Option 1: Local Development (recommended)
 
 ```bash
 # Clone the repository (if authorized)
 git clone [repository-url]
-cd vault-v1.1
+cd <repo-directory>
 
-# Serve the static files
-npx serve src/main/public
-
-# Or use Python
-python -m http.server 8080 --directory src/main/public
-
-# Or use PHP
-php -S localhost:8080 -t src/main/public
+# Run the web app (React/Vite)
+npm run web:dev
 ```
 
 ### Option 2: Docker Deployment
 
 ```bash
-# Build the container
+# Build the container (nginx serving built web assets)
 make build
 # or
 docker build -t vault-v1 .
 
 # Run the container
-docker run -p 80:80 vault-v1
+make run
+# or
+docker run -p 8080:80 vault-v1
 ```
 
-### Option 3: Static Hosting
+### Option 3: Web app build + preview
 
-Upload the contents of `src/main/public/` to any static web host:
-- AWS S3 + CloudFront
-- Netlify
-- Vercel
-- GitHub Pages
-- Any web server (nginx, Apache, IIS)
+```bash
+cd src/web/Project/react-vite
+npm install
+npm run build
+npm run preview
+```
+
+---
+
+## 🧩 Configuration
+<a id="configuration"></a>
+
+VAULT ships with type-checked configuration files under `config/`:
+
+- `config/dev.cue` (development defaults)
+- `config/prod.cue` (production defaults + recommended security posture)
+
+The repo also includes a CUE-based Docker Compose definition (`docker-compose.cue`). If you have `cue` installed, you can export it:
+
+```bash
+cue export docker-compose.cue --out yaml > docker-compose.yml
+docker compose up -d --build
+```
 
 ---
 
 ## 📁 Project Structure
 
 ```
-VAULT | Benefits Strategist, Ashley v1.1/
+./
 │
 ├── 📄 README.md                    # This file - comprehensive documentation
 ├── 📄 LICENSE                      # Proprietary license terms
@@ -269,7 +316,7 @@ VAULT | Benefits Strategist, Ashley v1.1/
 ├── 📄 Dockerfile                   # Container definition for deployment
 ├── 📄 docker-compose.cue           # CUE-based compose configuration
 ├── 📄 package.json                 # Node.js project metadata
-├── 📄 requirements.txt             # Python dependencies (if applicable)
+├── 📄 requirements.txt             # Optional tooling deps (VAULT itself is static)
 │
 ├── 📁 config/                      # Environment configurations
 │   ├── dev.cue                     # Development environment (CUE lang)
@@ -284,16 +331,19 @@ VAULT | Benefits Strategist, Ashley v1.1/
 │   └── COMPETITIVE_ANALYSIS.md     # Market comparison and positioning
 │
 └── 📁 src/                         # Source code
-    └── 📁 main/
-        └── 📁 public/              # Static assets (served to users)
-            ├── index.html          # Main application (HTML + CSS + JS)
-            ├── manifest.json       # PWA manifest for installation
-            └── service-worker.js   # Offline caching logic
+    ├── 📁 ios/                     # iOS platform (MOSA scaffolding)
+    ├── 📁 android/                 # Android platform (MOSA scaffolding)
+    └── 📁 web/                     # Web platform (MOSA)
+        ├── 📁 Project/             # Web project config
+        │   └── 📁 react-vite/      # React/Vite app (current DEM UI)
+        ├── 📁 Tabs/                # MOSA tabs (future refactor target)
+        └── 📁 Shared/              # MOSA shared (UI/Core/Extensions)
 ```
 
 ---
 
 ## 📖 Documentation
+<a id="documentation"></a>
 
 ### User Guide
 
@@ -321,7 +371,17 @@ See [SECURITY.md](docs/SECURITY.md) for:
 
 ---
 
+## 🔐 Security
+<a id="security"></a>
+
+- **Architecture + threat model**: [`docs/SECURITY.md`](docs/SECURITY.md)
+- **Third-party licenses**: [`docs/THIRD_PARTY_LICENSES.md`](docs/THIRD_PARTY_LICENSES.md)
+- **Operational note**: production deployments should add HTTPS + security headers at the edge (reverse proxy/CDN). See `config/prod.cue` for recommended CSP/HSTS settings.
+
+---
+
 ## 🔒 Legal Protection
+<a id="legal-protection"></a>
 
 ### Intellectual Property
 

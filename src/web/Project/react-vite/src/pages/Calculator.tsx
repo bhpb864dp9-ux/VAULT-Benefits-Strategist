@@ -1,22 +1,55 @@
 /**
  * VAULT DEM Engine — Standalone Calculator Page
- * Quick VASRD combined rating calculator
+ * VASRD-compliant combined rating calculator with severity-based ratings
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { calculateExactCombinedRating, calculateCompensation, COMPENSATION_RATES_2026 } from '../utils/vasrdCalculator';
-import { Plus, Minus, RotateCcw, Calculator as CalcIcon, DollarSign, Info } from 'lucide-react';
+import {
+  CONDITION_RATING_SCHEDULES,
+  SEVERITY_DISPLAY,
+  type SeverityLevel,
+  type ConditionRatingSchedule
+} from '../data/vasrdRatings';
+import { Plus, Minus, RotateCcw, Calculator as CalcIcon, DollarSign, Info, ChevronRight, Scale } from 'lucide-react';
 import type { RatingInput } from '../types';
 
-const RATING_OPTIONS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+interface ConditionEntry {
+  id: string;
+  conditionId: string;
+  severity: SeverityLevel;
+  customName?: string;
+}
+
+// Group conditions by category for the selector
+const CONDITION_CATEGORIES = CONDITION_RATING_SCHEDULES.reduce((acc, condition) => {
+  if (!acc[condition.category]) {
+    acc[condition.category] = [];
+  }
+  acc[condition.category].push(condition);
+  return acc;
+}, {} as Record<string, ConditionRatingSchedule[]>);
 
 export default function Calculator() {
-  const [ratings, setRatings] = useState<RatingInput[]>([
-    { id: '1', name: 'Condition 1', value: 50 },
-    { id: '2', name: 'Condition 2', value: 30 }
+  const [conditions, setConditions] = useState<ConditionEntry[]>([
+    { id: '1', conditionId: 'ptsd', severity: 'moderate' },
+    { id: '2', conditionId: 'lumbar', severity: 'mild' }
   ]);
   const [hasDependents, setHasDependents] = useState(false);
   const [showBreakdown, setShowBreakdown] = useState(false);
+
+  // Convert conditions to rating inputs for calculation
+  const ratings = useMemo((): RatingInput[] => {
+    return conditions.map(entry => {
+      const schedule = CONDITION_RATING_SCHEDULES.find(c => c.id === entry.conditionId);
+      const ratingCriteria = schedule?.ratings.find(r => r.level === entry.severity);
+      return {
+        id: entry.id,
+        name: entry.customName || schedule?.name || 'Unknown',
+        value: ratingCriteria?.rating ?? 0
+      };
+    });
+  }, [conditions]);
 
   const result = useMemo(() => {
     return calculateExactCombinedRating(ratings.filter(r => r.value > 0));
@@ -26,30 +59,44 @@ export default function Calculator() {
     return calculateCompensation(result.combined, { spouse: hasDependents });
   }, [result.combined, hasDependents]);
 
-  const addRating = () => {
+  const addCondition = () => {
     const newId = Date.now().toString();
-    setRatings([...ratings, { id: newId, name: `Condition ${ratings.length + 1}`, value: 10 }]);
+    setConditions([...conditions, { id: newId, conditionId: 'ptsd', severity: 'mild' }]);
   };
 
-  const removeRating = (id: string) => {
-    if (ratings.length > 1) {
-      setRatings(ratings.filter(r => r.id !== id));
+  const removeCondition = (id: string) => {
+    if (conditions.length > 1) {
+      setConditions(conditions.filter(c => c.id !== id));
     }
   };
 
-  const updateRating = (id: string, value: number) => {
-    setRatings(ratings.map(r => r.id === id ? { ...r, value } : r));
+  const updateCondition = (id: string, conditionId: string) => {
+    setConditions(conditions.map(c => c.id === id ? { ...c, conditionId, severity: 'mild' } : c));
   };
 
-  const updateName = (id: string, name: string) => {
-    setRatings(ratings.map(r => r.id === id ? { ...r, name } : r));
-  };
+  const handleCycleSeverity = useCallback((id: string) => {
+    setConditions(prev => prev.map(c => {
+      if (c.id !== id) return c;
+      const schedule = CONDITION_RATING_SCHEDULES.find(s => s.id === c.conditionId);
+      const availableLevels = schedule?.ratings.map(r => r.level) || ['none', 'mild', 'moderate', 'severe', 'total'];
+      const currentIndex = availableLevels.indexOf(c.severity);
+      const nextIndex = (currentIndex + 1) % availableLevels.length;
+      return { ...c, severity: availableLevels[nextIndex] };
+    }));
+  }, []);
 
   const reset = () => {
-    setRatings([
-      { id: '1', name: 'Condition 1', value: 50 },
-      { id: '2', name: 'Condition 2', value: 30 }
+    setConditions([
+      { id: '1', conditionId: 'ptsd', severity: 'moderate' },
+      { id: '2', conditionId: 'lumbar', severity: 'mild' }
     ]);
+  };
+
+  // Get schedule and criteria for a condition entry
+  const getConditionInfo = (entry: ConditionEntry) => {
+    const schedule = CONDITION_RATING_SCHEDULES.find(c => c.id === entry.conditionId);
+    const criteria = schedule?.ratings.find(r => r.level === entry.severity);
+    return { schedule, criteria };
   };
 
   return (
@@ -67,9 +114,9 @@ export default function Calculator() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {/* Left: Rating Inputs */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-2 lg:order-1">
             <div className="card">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-lg font-serif text-slate-100">
@@ -82,48 +129,125 @@ export default function Calculator() {
               </div>
 
               <div className="space-y-4">
-                {ratings.map((rating, index) => (
-                  <div 
-                    key={rating.id}
-                    className="flex items-center gap-4 p-4 bg-slate-800/50 border border-slate-700"
-                  >
-                    <span className="text-sm text-slate-500 w-6">#{index + 1}</span>
-                    
-                    <input
-                      type="text"
-                      className="flex-1 bg-transparent border-0 border-b border-slate-700 text-slate-200 focus:border-brass focus:outline-none px-0 py-1"
-                      value={rating.name}
-                      onChange={(e) => updateName(rating.id, e.target.value)}
-                      placeholder="Condition name"
-                    />
-                    
-                    <select
-                      className="bg-slate-700 border border-slate-600 text-slate-100 px-3 py-2"
-                      value={rating.value}
-                      onChange={(e) => updateRating(rating.id, Number(e.target.value))}
-                    >
-                      {RATING_OPTIONS.map(opt => (
-                        <option key={opt} value={opt}>{opt}%</option>
-                      ))}
-                    </select>
+                {conditions.map((entry, index) => {
+                  const { schedule, criteria } = getConditionInfo(entry);
+                  const severityInfo = SEVERITY_DISPLAY[entry.severity];
+                  const rating = criteria?.rating ?? 0;
 
-                    <button
-                      onClick={() => removeRating(rating.id)}
-                      disabled={ratings.length === 1}
-                      className="p-2 text-slate-500 hover:text-error disabled:opacity-30"
+                  return (
+                    <div
+                      key={entry.id}
+                      className="p-4 bg-slate-800/50 border border-slate-700 rounded-xl"
                     >
-                      <Minus className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
+                      {/* Header row: number, condition selector, severity badge, rating, remove */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                        <span className="text-sm text-slate-500 hidden sm:block w-6">#{index + 1}</span>
+
+                        {/* Mobile header */}
+                        <div className="flex items-center gap-3 sm:hidden">
+                          <span className="text-sm text-slate-500">#{index + 1}</span>
+                          <button
+                            onClick={() => handleCycleSeverity(entry.id)}
+                            className="px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider cursor-pointer transition-all hover:scale-105"
+                            style={{
+                              backgroundColor: entry.severity === 'mild' ? 'rgba(34, 197, 94, 0.25)'
+                                : entry.severity === 'moderate' ? 'rgba(245, 158, 11, 0.25)'
+                                : entry.severity === 'severe' ? 'rgba(239, 68, 68, 0.25)'
+                                : entry.severity === 'total' ? 'rgba(168, 85, 247, 0.25)'
+                                : 'rgba(71, 85, 105, 0.5)',
+                              color: entry.severity === 'mild' ? '#4ade80'
+                                : entry.severity === 'moderate' ? '#fbbf24'
+                                : entry.severity === 'severe' ? '#f87171'
+                                : entry.severity === 'total' ? '#c084fc'
+                                : '#94a3b8',
+                            }}
+                          >
+                            {severityInfo.label}
+                          </button>
+                          <span className="text-lg font-medium text-brass ml-auto">{rating}%</span>
+                          <button
+                            onClick={() => removeCondition(entry.id)}
+                            disabled={conditions.length === 1}
+                            className="p-2 text-slate-500 hover:text-error disabled:opacity-30"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                        {/* Condition selector */}
+                        <select
+                          className="flex-1 bg-slate-700 border border-slate-600 text-slate-100 px-3 py-2 rounded-lg text-sm"
+                          value={entry.conditionId}
+                          onChange={(e) => updateCondition(entry.id, e.target.value)}
+                        >
+                          {Object.entries(CONDITION_CATEGORIES).map(([category, conds]) => (
+                            <optgroup key={category} label={category}>
+                              {conds.map(c => (
+                                <option key={c.id} value={c.id}>{c.name}</option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+
+                        {/* Desktop: severity badge */}
+                        <button
+                          onClick={() => handleCycleSeverity(entry.id)}
+                          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider cursor-pointer transition-all hover:scale-105"
+                          style={{
+                            backgroundColor: entry.severity === 'mild' ? 'rgba(34, 197, 94, 0.25)'
+                              : entry.severity === 'moderate' ? 'rgba(245, 158, 11, 0.25)'
+                              : entry.severity === 'severe' ? 'rgba(239, 68, 68, 0.25)'
+                              : entry.severity === 'total' ? 'rgba(168, 85, 247, 0.25)'
+                              : 'rgba(71, 85, 105, 0.5)',
+                            color: entry.severity === 'mild' ? '#4ade80'
+                              : entry.severity === 'moderate' ? '#fbbf24'
+                              : entry.severity === 'severe' ? '#f87171'
+                              : entry.severity === 'total' ? '#c084fc'
+                              : '#94a3b8',
+                          }}
+                        >
+                          {severityInfo.label}
+                          <ChevronRight className="w-3 h-3" />
+                        </button>
+
+                        {/* Desktop: rating percentage */}
+                        <span className="hidden sm:block text-lg font-medium text-brass w-16 text-right">{rating}%</span>
+
+                        {/* Desktop: remove button */}
+                        <button
+                          onClick={() => removeCondition(entry.id)}
+                          disabled={conditions.length === 1}
+                          className="hidden sm:block p-2 text-slate-500 hover:text-error disabled:opacity-30"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      {/* Regulatory citation row */}
+                      {schedule && criteria && (
+                        <div className="mt-3 pt-3 border-t border-slate-700/50">
+                          <div className="flex items-start gap-2">
+                            <Scale className="w-3.5 h-3.5 text-brass flex-shrink-0 mt-0.5" />
+                            <div className="text-xs">
+                              <span className="text-brass font-medium">{schedule.cfrSection}</span>
+                              <span className="text-slate-500 mx-2">•</span>
+                              <span className="text-slate-400">{criteria.description}</span>
+                              <p className="text-slate-500 mt-1 leading-relaxed">{criteria.criteria}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <button
-                onClick={addRating}
+                onClick={addCondition}
                 className="mt-4 w-full py-3 border border-dashed border-slate-700 text-slate-400 hover:border-brass hover:text-brass transition-colors flex items-center justify-center gap-2"
               >
                 <Plus className="w-4 h-4" />
-                Add Another Rating
+                Add Another Condition
               </button>
 
               <div className="mt-6 pt-6 border-t border-slate-700">
@@ -154,9 +278,9 @@ export default function Calculator() {
             )}
           </div>
 
-          {/* Right: Results */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-32 space-y-4">
+          {/* Right: Results - Shows first on mobile */}
+          <div className="lg:col-span-1 order-1 lg:order-2">
+            <div className="lg:sticky lg:top-32 space-y-4">
               <div className="card text-center">
                 <CalcIcon className="w-8 h-8 mx-auto text-brass mb-4" />
                 <p className="text-sm text-slate-400 uppercase tracking-wider mb-2">

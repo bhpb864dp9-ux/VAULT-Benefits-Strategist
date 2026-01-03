@@ -49,7 +49,7 @@ export default function About() {
 
           <section className="mb-12">
             <h2 className="text-2xl font-serif text-slate-100 mb-4">Privacy Guarantee</h2>
-            <div className="p-6 bg-success/5 border border-success/20 rounded">
+            <div className="p-4 sm:p-6 bg-success/5 border border-success/20 rounded-xl">
               <div className="flex items-start gap-4">
                 <Lock className="w-8 h-8 text-success flex-shrink-0" />
                 <div>
@@ -182,7 +182,7 @@ export default function About() {
 
           <section className="mb-12">
             <h2 className="text-2xl font-serif text-slate-100 mb-4">Important Disclaimer</h2>
-            <div className="p-6 bg-slate-900 border border-slate-800">
+            <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-xl">
               <p className="text-sm text-slate-400 leading-relaxed">
                 VAULT is an educational tool, not a substitute for professional representation. 
                 We are NOT affiliated with the U.S. Department of Veterans Affairs or any 
@@ -199,7 +199,7 @@ export default function About() {
 
           <section className="mb-12">
             <h2 className="text-2xl font-serif text-slate-100 mb-4">Resources</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { name: 'VA.gov', url: 'https://www.va.gov/disability/', desc: 'Official VA disability info' },
                 { name: 'eCFR', url: 'https://www.ecfr.gov/current/title-38/chapter-I/part-4', desc: '38 CFR Part 4 (Rating Schedule)' },
@@ -211,7 +211,7 @@ export default function About() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 bg-slate-800/50 border border-slate-700 hover:border-brass transition-colors group"
+                  className="flex items-center justify-between p-4 bg-slate-800/50 border border-slate-700 hover:border-brass transition-colors group rounded-xl"
                 >
                   <div>
                     <p className="text-slate-200 group-hover:text-brass transition-colors">{link.name}</p>

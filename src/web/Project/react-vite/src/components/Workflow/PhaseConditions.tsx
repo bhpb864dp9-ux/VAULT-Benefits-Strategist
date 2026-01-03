@@ -3,17 +3,17 @@
  * Select body systems and conditions to claim
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useClaimStore, useConditions, useIntentLevels } from '../../stores/claimStore';
 import { BODY_SYSTEMS, searchConditions, getBestConditionMatch, getSystemById, getConditionById } from '../../data/bodySystems';
 import BodyMap from '../Conditions/BodyMap';
-import { 
+import {
   Search, Plus, X, ChevronRight, Brain, Heart, Eye, Ear,
   Wind, Bone, Activity, Droplet, Shield, Circle, Smile,
   Zap, AlertCircle
 } from 'lucide-react';
 import clsx from 'clsx';
-import type { SelectedCondition, Condition } from '../../types';
+import type { SelectedCondition, Condition, IntentLevel } from '../../types';
 import { getBodyMapSuggestions } from '../../lib/bodyMapSuggestions';
 
 const SYSTEM_ICONS: Record<string, React.ElementType> = {
@@ -34,13 +34,29 @@ const SYSTEM_ICONS: Record<string, React.ElementType> = {
   gynecological: Heart
 };
 
+// REL-019: Severity labels for display
+const SEVERITY_LABELS: Record<IntentLevel, string> = {
+  0: 'None',
+  1: 'Mild',
+  2: 'Moderate',
+  3: 'Severe',
+  4: 'Total'
+};
+
 export default function PhaseConditions() {
-  const { addCondition, removeCondition } = useClaimStore();
+  const { addCondition, removeCondition, updateCondition } = useClaimStore();
   const selectedConditions = useConditions();
   const intentLevels = useIntentLevels() || {};
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSystem, setExpandedSystem] = useState<string | null>(null);
+
+  // REL-019: Cycle severity level on condition cards (0-4: none, mild, moderate, severe, total)
+  const cycleSeverity = useCallback((conditionId: string, currentSeverity?: IntentLevel) => {
+    const current = currentSeverity ?? 0;
+    const next = ((current + 1) % 5) as IntentLevel;
+    updateCondition(conditionId, { severity: next });
+  }, [updateCondition]);
 
   const searchResults = useMemo(() => {
     if (searchQuery.length < 2) return [];
@@ -79,14 +95,15 @@ export default function PhaseConditions() {
     return list as Array<{ id: string; intent: number; partId: string; c: NonNullable<ReturnType<typeof getConditionById>> }>;
   }, [intentLevels, selectedConditions]);
 
-  const handleAddCondition = (condition: Condition & { system: string }) => {
+  const handleAddCondition = (condition: Condition & { system: string }, initialSeverity: IntentLevel = 1) => {
     const selected: SelectedCondition = {
       ...condition,
       system: condition.system as SelectedCondition['system'],
       selectedRating: undefined,
       side: undefined,
       isBilateral: false,
-      notes: ''
+      notes: '',
+      severity: initialSeverity  // REL-019: Default to Mild when adding manually
     };
     addCondition(selected);
     setSearchQuery('');
@@ -262,7 +279,7 @@ export default function PhaseConditions() {
                     {bodyMapSuggestions.map((s) => (
                       <button
                         key={s.id}
-                        onClick={() => handleAddCondition(s.c)}
+                        onClick={() => handleAddCondition(s.c, s.intent as IntentLevel)}
                         className={clsx(
                           'w-full text-left p-3 border transition-all flex items-center justify-between gap-3',
                           'hover:border-brass/60 hover:bg-brass/5',
@@ -319,10 +336,41 @@ export default function PhaseConditions() {
                 <div className="space-y-2 max-h-96 overflow-y-auto">
                   {selectedConditions.map((condition) => (
                     <div key={condition.id} className="group flex items-center justify-between p-3 bg-slate-800/40 border border-slate-700/60 rounded-xl backdrop-blur-sm transition-colors hover:border-slate-600/70">
-                      <div>
+                      <div className="flex-1 min-w-0">
                         <div className="text-sm text-slate-200">{condition.name}</div>
-                        <div className="text-xs text-slate-500">
-                          {getSystemById(condition.system)?.name}
+                        <div className="text-xs text-slate-500 flex items-center gap-2">
+                          <span>{getSystemById(condition.system)?.name}</span>
+                          {/* REL-019: Severity cycling badge */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              cycleSeverity(condition.id, condition.severity);
+                            }}
+                            style={{
+                              backgroundColor: condition.severity === 1 ? 'rgba(34, 197, 94, 0.25)'
+                                : condition.severity === 2 ? 'rgba(245, 158, 11, 0.25)'
+                                : condition.severity === 3 ? 'rgba(239, 68, 68, 0.25)'
+                                : condition.severity === 4 ? 'rgba(168, 85, 247, 0.25)'
+                                : 'rgba(71, 85, 105, 0.5)',
+                              color: condition.severity === 1 ? '#4ade80'
+                                : condition.severity === 2 ? '#fbbf24'
+                                : condition.severity === 3 ? '#f87171'
+                                : condition.severity === 4 ? '#c084fc'
+                                : '#94a3b8',
+                              borderColor: condition.severity === 1 ? 'rgba(34, 197, 94, 0.4)'
+                                : condition.severity === 2 ? 'rgba(245, 158, 11, 0.4)'
+                                : condition.severity === 3 ? 'rgba(239, 68, 68, 0.4)'
+                                : condition.severity === 4 ? 'rgba(168, 85, 247, 0.4)'
+                                : 'rgba(71, 85, 105, 0.6)'
+                            }}
+                            className={clsx(
+                              'px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider transition-all border',
+                              'hover:scale-105 active:scale-95'
+                            )}
+                            title="Click to cycle severity"
+                          >
+                            {SEVERITY_LABELS[condition.severity ?? 0]}
+                          </button>
                         </div>
                       </div>
                       <button

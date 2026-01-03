@@ -159,7 +159,7 @@ export default function Tools() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Buddy Statement */}
           <div className="card">
             <div className="flex items-start gap-3">
@@ -335,7 +335,7 @@ export default function Tools() {
             </div>
           )}
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {DBQ_TEMPLATES.map(dbq => (
               <div key={dbq.id} className="card">
                 <div className="flex items-start justify-between gap-3">

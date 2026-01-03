@@ -19,6 +19,7 @@ import PhaseIdentity from '../components/Workflow/PhaseIdentity';
 import PhaseConditions from '../components/Workflow/PhaseConditions';
 import PhaseNarrative from '../components/Workflow/PhaseNarrative';
 import PhaseReview from '../components/Workflow/PhaseReview';
+import ScrollDownIndicator from '../components/UI/ScrollDownIndicator';
 
 const PHASE_COMPONENTS: Record<VaultWorkflowPhaseKey, React.ComponentType> = {
   mission: PhaseMission,
@@ -104,6 +105,11 @@ export default function Workflow() {
 
   const handlePrev = () => {
     prevPhase();
+    const prevPhaseIndex = currentPhase - 1;
+    const prev = PHASES[prevPhaseIndex];
+    if (prev) {
+      navigate(`/claim/${prev.path}`);
+    }
   };
 
   const handleReset = () => {
@@ -115,6 +121,7 @@ export default function Workflow() {
 
   return (
     <div className="min-h-screen pt-32 pb-16">
+      <ScrollDownIndicator />
       <div className="container-wide">
         {/* Progress Bar — Glass Surface */}
         <div className="mb-8 glass-panel">

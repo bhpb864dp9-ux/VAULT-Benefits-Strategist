@@ -18,14 +18,15 @@ import type {
 // ═══════════════════════════════════════════════════════════════════
 
 /**
- * Maps IntentLevel (0-3) to approximate rating percentages
+ * Maps IntentLevel (0-4) to approximate rating percentages
  * Used when a specific rating hasn't been selected
  */
 export const INTENT_TO_RATING: Record<IntentLevel, number> = {
-  0: 0,   // none
-  1: 10,  // mild
-  2: 30,  // moderate
-  3: 50,  // severe
+  0: 0,    // none
+  1: 10,   // mild
+  2: 30,   // moderate
+  3: 50,   // severe
+  4: 100,  // total
 };
 
 // ═══════════════════════════════════════════════════════════════════

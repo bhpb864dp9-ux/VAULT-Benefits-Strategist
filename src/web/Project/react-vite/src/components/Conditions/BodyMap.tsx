@@ -14,6 +14,7 @@ const PART_TO_SYSTEM: Record<string, BodySystemId> = {
   head: 'mental',
   l_eye: 'vision',
   r_eye: 'vision',
+  mouth: 'dental',        // REL-023: TMJ, dental trauma
   l_ear: 'auditory',
   r_ear: 'auditory',
   neck: 'musculoskeletal',
@@ -51,6 +52,10 @@ const PART_TO_SYSTEM: Record<string, BodySystemId> = {
 // This ensures body-map interaction is reflected in the “Selected Conditions” list.
 // Note: we keep this conservative (mostly musculoskeletal) to avoid surprising auto-adds.
 const PART_TO_DEFAULT_CONDITION_ID: Partial<Record<keyof typeof PART_TO_SYSTEM, string>> = {
+  head: 'tbi',              // REL-023: Traumatic brain injury
+  l_eye: 'vision-loss',     // REL-023: Vision conditions
+  r_eye: 'vision-loss',
+  mouth: 'tmj',             // REL-023: TMJ disorder
   neck: 'cervical',
   upper_back: 'thoracic',
   lower_back: 'lumbar',
@@ -72,7 +77,7 @@ const PART_TO_DEFAULT_CONDITION_ID: Partial<Record<keyof typeof PART_TO_SYSTEM, 
 
 function cycleIntent(level: IntentLevel | undefined): IntentLevel {
   const current = level ?? 0;
-  return (((current + 1) % 4) as IntentLevel);
+  return (((current + 1) % 5) as IntentLevel);  // 0-4: none, mild, moderate, severe, total
 }
 
 function intentClass(level: IntentLevel | undefined): string {
@@ -111,7 +116,8 @@ export default function BodyMap() {
               selectedRating: undefined,
               side: undefined,
               isBilateral: false,
-              notes: ''
+              notes: '',
+              severity: next  // REL-019: Set initial severity from body map intent
             };
             addCondition(selected);
             showToast(`Added: ${found.name}`, 'success');
@@ -134,7 +140,8 @@ export default function BodyMap() {
           <p className="text-xs text-slate-500 mt-2">
             Click: <span className="text-intent-mild">1× Mild</span> →{' '}
             <span className="text-intent-moderate">2× Moderate</span> →{' '}
-            <span className="text-intent-severe">3× Severe</span> → 4× Reset
+            <span className="text-intent-severe">3× Severe</span> →{' '}
+            <span className="text-intent-total">4× Total</span> → 5× Reset
           </p>
         </div>
       </div>
@@ -222,8 +229,10 @@ export default function BodyMap() {
           <ellipse className={`body-part ${intentClass(intentLevels.head)}`} cx="100" cy="30" rx="20" ry="22" onClick={() => togglePart('head')} />
           <ellipse className={`body-part ${intentClass(intentLevels.l_ear)}`} cx="78" cy="30" rx="4" ry="7" onClick={() => togglePart('l_ear')} />
           <ellipse className={`body-part ${intentClass(intentLevels.r_ear)}`} cx="122" cy="30" rx="4" ry="7" onClick={() => togglePart('r_ear')} />
-          <circle className={`body-part ${intentClass(intentLevels.l_eye)}`} cx="92" cy="26" r="4" onClick={() => togglePart('l_eye')} />
-          <circle className={`body-part ${intentClass(intentLevels.r_eye)}`} cx="108" cy="26" r="4" onClick={() => togglePart('r_eye')} />
+          <circle className={`body-part ${intentClass(intentLevels.l_eye)}`} cx="92" cy="26" r="4" onClick={(e) => { e.stopPropagation(); togglePart('l_eye'); }} />
+          <circle className={`body-part ${intentClass(intentLevels.r_eye)}`} cx="108" cy="26" r="4" onClick={(e) => { e.stopPropagation(); togglePart('r_eye'); }} />
+          {/* REL-023: Mouth/jaw region for TMJ, dental conditions */}
+          <ellipse className={`body-part ${intentClass(intentLevels.mouth)}`} cx="100" cy="42" rx="8" ry="4" onClick={(e) => { e.stopPropagation(); togglePart('mouth'); }} />
 
           <rect className={`body-part ${intentClass(intentLevels.neck)}`} x="92" y="52" width="16" height="14" rx="2" onClick={() => togglePart('neck')} />
 
@@ -279,6 +288,9 @@ export default function BodyMap() {
         </div>
         <div className="flex items-center gap-2">
           <span className="intent-dot intent-dot-3" /> <span>Severe</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="intent-dot intent-dot-4" /> <span>Total</span>
         </div>
       </div>
     </div>

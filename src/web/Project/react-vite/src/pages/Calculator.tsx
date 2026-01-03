@@ -158,7 +158,7 @@ export default function Calculator() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-16">
+    <div className="pt-32 pb-16">
       <div className="container-wide">
         {/* ═══════════════════════════════════════════════════════════════════
             HEADER

@@ -72,34 +72,28 @@ export default function Landing() {
     <div className="min-h-screen">
       <section className="relative min-h-[92vh] flex items-center overflow-hidden pt-28 pb-16">
         {/* ═══════════════════════════════════════════════════════════════════
-            BACKGROUND LAYERS
-            Gradient base + radial accents for depth
-        ═══════════════════════════════════════════════════════════════════ */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-        <div className="absolute inset-0 bg-gradient-radial from-brass/10 via-transparent to-transparent opacity-70" />
-        <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent opacity-40 [background-position:10%_15%]" />
-
-        {/* ═══════════════════════════════════════════════════════════════════
-            3D WAVING FLAG
+            3D WAVING FLAG — CENTERED MONOCHROME
             WebGL rendered American flag with cloth physics
         ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] h-[60%] opacity-60 pointer-events-none"
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 0.6, x: 0 }}
-          transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 0.25, scale: 1 }}
+          transition={{ duration: 2, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
           aria-hidden="true"
         >
-          <WavingFlag
-            width={3}
-            height={1.8}
-            windSpeed={0.4}
-            waveIntensity={0.7}
-            color="#1a202c"
-            secondaryColor="#c9a227"
-            showPole={true}
-            enableControls={false}
-          />
+          <div className="w-[80%] h-[70%] max-w-[900px] max-h-[600px]">
+            <WavingFlag
+              width={4}
+              height={2.4}
+              windSpeed={0.3}
+              waveIntensity={0.6}
+              color="#f8fafc"
+              secondaryColor="#94a3b8"
+              showPole={false}
+              enableControls={false}
+            />
+          </div>
         </motion.div>
 
         {/* ═══════════════════════════════════════════════════════════════════
@@ -113,18 +107,11 @@ export default function Landing() {
             initial="hidden"
             animate="visible"
           >
-            {/* Eyebrow Badge */}
-            <motion.div variants={fadeUpVariant} custom={0}>
-              <span className="inline-block px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider bg-brass/10 text-brass border border-brass/20 backdrop-blur-sm">
-                VAULT DEM Engine
-              </span>
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
-              className="liquid-title text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-50 leading-tight mb-5 mt-4 text-balance"
+              className="liquid-title text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-50 leading-tight mb-5 text-balance"
               variants={fadeUpVariant}
-              custom={0.1}
+              custom={0}
             >
               {copy.headline}
             </motion.h1>
@@ -133,7 +120,7 @@ export default function Landing() {
             <motion.p
               className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl mb-9 text-balance"
               variants={fadeUpVariant}
-              custom={0.2}
+              custom={0.1}
             >
               {copy.subhead}
             </motion.p>
@@ -142,7 +129,7 @@ export default function Landing() {
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto"
               variants={fadeUpVariant}
-              custom={0.3}
+              custom={0.2}
             >
               <Link to="/claim">
                 <GlassButton
@@ -167,7 +154,7 @@ export default function Landing() {
             <motion.div
               className="mt-6"
               variants={fadeUpVariant}
-              custom={0.4}
+              custom={0.3}
             >
               <Link
                 to="/vbio"
@@ -182,7 +169,7 @@ export default function Landing() {
             <motion.div
               className="mt-10"
               variants={fadeUpVariant}
-              custom={0.5}
+              custom={0.4}
             >
               <GlassCard
                 variant="clear"

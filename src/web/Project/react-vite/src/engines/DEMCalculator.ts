@@ -103,7 +103,7 @@ export function identifyBilateralPairs(conditions: SelectedCondition[]): {
   const bilateralConditions: SelectedCondition[] = [];
   const nonBilateralConditions: SelectedCondition[] = [];
 
-  for (const [_limbType, groupConditions] of groups) {
+  for (const [, groupConditions] of groups) {
     const hasLeft = groupConditions.some(c => c.side === 'left');
     const hasRight = groupConditions.some(c => c.side === 'right');
     const hasBilateral = groupConditions.some(c => c.side === 'bilateral');

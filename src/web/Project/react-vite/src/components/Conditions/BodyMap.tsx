@@ -229,10 +229,10 @@ export default function BodyMap() {
           <ellipse className={`body-part ${intentClass(intentLevels.head)}`} cx="100" cy="30" rx="20" ry="22" onClick={() => togglePart('head')} />
           <ellipse className={`body-part ${intentClass(intentLevels.l_ear)}`} cx="78" cy="30" rx="4" ry="7" onClick={() => togglePart('l_ear')} />
           <ellipse className={`body-part ${intentClass(intentLevels.r_ear)}`} cx="122" cy="30" rx="4" ry="7" onClick={() => togglePart('r_ear')} />
-          <circle className={`body-part ${intentClass(intentLevels.l_eye)}`} cx="92" cy="26" r="4" onClick={(e) => { e.stopPropagation(); togglePart('l_eye'); }} />
-          <circle className={`body-part ${intentClass(intentLevels.r_eye)}`} cx="108" cy="26" r="4" onClick={(e) => { e.stopPropagation(); togglePart('r_eye'); }} />
-          {/* REL-023: Mouth/jaw region for TMJ, dental conditions */}
-          <ellipse className={`body-part ${intentClass(intentLevels.mouth)}`} cx="100" cy="42" rx="8" ry="4" onClick={(e) => { e.stopPropagation(); togglePart('mouth'); }} />
+          {/* REL-023: Face elements with enhanced visibility */}
+          <circle className={`body-part body-part-face ${intentClass(intentLevels.l_eye)}`} cx="92" cy="26" r="5" onClick={(e) => { e.stopPropagation(); togglePart('l_eye'); }} />
+          <circle className={`body-part body-part-face ${intentClass(intentLevels.r_eye)}`} cx="108" cy="26" r="5" onClick={(e) => { e.stopPropagation(); togglePart('r_eye'); }} />
+          <ellipse className={`body-part body-part-face ${intentClass(intentLevels.mouth)}`} cx="100" cy="42" rx="10" ry="5" onClick={(e) => { e.stopPropagation(); togglePart('mouth'); }} />
 
           <rect className={`body-part ${intentClass(intentLevels.neck)}`} x="92" y="52" width="16" height="14" rx="2" onClick={() => togglePart('neck')} />
 

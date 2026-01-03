@@ -6,6 +6,7 @@
 import { useEffect, useMemo } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useClaimStore } from '../stores/claimStore';
+import { useScrollTop } from '@/hooks/useScrollTop';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import clsx from 'clsx';
 import { VAULT_WEB_FEATURE_REGISTRY } from '@mosa/Core/Registry';
@@ -38,6 +39,9 @@ export default function Workflow() {
   const navigate = useNavigate();
   const location = useLocation();
   const { currentPhase, setPhase, canProceed, nextPhase, prevPhase, reset, data, showToast } = useClaimStore();
+
+  // Scroll to top when phase changes (REL-013)
+  useScrollTop(currentPhase);
 
   const blockingReason = useMemo(() => {
     switch (currentPhase) {

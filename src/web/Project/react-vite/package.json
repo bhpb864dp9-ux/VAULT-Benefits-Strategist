@@ -30,6 +30,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.0",
+    "tailwind-merge": "^3.4.0",
     "tesseract.js": "^5.0.4",
     "zustand": "^4.4.7"
   },

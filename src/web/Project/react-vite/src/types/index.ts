@@ -83,6 +83,22 @@ export interface VeteranIdentity {
   deployments?: string[];
 }
 
+/**
+ * Veteran Claims for Heroes & Hardship Program Eligibility
+ * Used to determine free access qualifications
+ */
+export interface VeteranClaimsStatus {
+  // Hardship indicators
+  isHomeless?: boolean;
+  rating?: number;
+  isPermanentTotal?: boolean;
+  isTDIU?: boolean;
+  isGoldStarFamily?: boolean;
+
+  // Valor awards (IDs match FREE_ACCESS_QUALIFICATIONS)
+  awards?: string[];
+}
+
 export interface Dependents {
   spouse: boolean;
   spouseName?: string;

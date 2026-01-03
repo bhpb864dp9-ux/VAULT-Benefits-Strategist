@@ -1,30 +1,44 @@
 /**
  * VAULT — Liquid Glass Scroll Down Indicator
- * Floating button to quickly scroll down on phase pages
+ * REL-022: Floating button to scroll to bottom of page
+ * Shows when not at bottom, complements scroll-to-top functionality
  */
 
 import { ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface ScrollDownIndicatorProps {
-  threshold?: number;  // Hide after scrolling this many pixels
+  threshold?: number;  // Buffer from bottom to consider "at bottom"
 }
 
-export default function ScrollDownIndicator({ threshold = 200 }: ScrollDownIndicatorProps) {
-  const [visible, setVisible] = useState(true);
+export default function ScrollDownIndicator({ threshold = 100 }: ScrollDownIndicatorProps) {
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY < threshold);
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const clientHeight = window.innerHeight;
+
+      // Show when not at bottom (with threshold buffer)
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - threshold;
+
+      // Show when there's content to scroll and not at bottom
+      setVisible(!isAtBottom && scrollHeight > clientHeight + 200);
     };
 
+    handleScroll(); // Check initial state
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, [threshold]);
 
-  const scrollDown = () => {
-    window.scrollBy({
-      top: window.innerHeight * 0.7,
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
       behavior: 'smooth'
     });
   };
@@ -33,9 +47,9 @@ export default function ScrollDownIndicator({ threshold = 200 }: ScrollDownIndic
 
   return (
     <button
-      onClick={scrollDown}
+      onClick={scrollToBottom}
       className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 group"
-      aria-label="Scroll down"
+      aria-label="Scroll to bottom"
     >
       <div className="relative flex flex-col items-center gap-2">
         {/* Glass pill container */}

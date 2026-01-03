@@ -373,9 +373,10 @@ export default function PhaseConditions() {
                           </button>
                         </div>
                       </div>
+                      {/* REL-016: Always visible X button for removing conditions */}
                       <button
                         onClick={() => removeCondition(condition.id)}
-                        className="p-1 text-slate-500 hover:text-error transition-colors opacity-0 group-hover:opacity-100"
+                        className="p-1.5 text-slate-400 hover:text-error hover:bg-error/10 rounded-lg transition-all"
                         aria-label={`Remove ${condition.name}`}
                       >
                         <X className="w-4 h-4" />

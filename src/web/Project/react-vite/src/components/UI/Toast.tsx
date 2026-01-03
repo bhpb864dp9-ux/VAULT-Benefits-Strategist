@@ -30,18 +30,20 @@ function Toast({ toast }: { toast: ToastMessage }) {
     info: Info
   } as const;
 
+  // REL-014: Solid backgrounds for better visibility
   const styles = {
-    success: 'border-success/30 bg-success/10',
-    error: 'border-error/30 bg-error/10',
-    warning: 'border-warning/30 bg-warning/10',
-    info: 'border-slate-600 bg-slate-800'
+    success: 'border-green-600 bg-green-700',
+    error: 'border-red-600 bg-red-700',
+    warning: 'border-amber-600 bg-amber-700',
+    info: 'border-blue-600 bg-blue-700'
   } as const;
 
+  // REL-014: White icons on solid backgrounds
   const iconStyles = {
-    success: 'text-success',
-    error: 'text-error',
-    warning: 'text-warning',
-    info: 'text-slate-400'
+    success: 'text-white',
+    error: 'text-white',
+    warning: 'text-white',
+    info: 'text-white'
   } as const;
 
   const Icon = icons[toast.type];
@@ -57,10 +59,10 @@ function Toast({ toast }: { toast: ToastMessage }) {
       aria-live="polite"
     >
       <Icon className={clsx('w-5 h-5 flex-shrink-0', iconStyles[toast.type])} />
-      <p className="text-sm text-slate-100 flex-1">{toast.message}</p>
+      <p className="text-sm text-white flex-1 font-medium">{toast.message}</p>
       <button
         onClick={() => dismissToast(toast.id)}
-        className="p-1 text-slate-500 hover:text-slate-200 transition-colors"
+        className="p-1 text-white/70 hover:text-white transition-colors"
         aria-label="Dismiss notification"
       >
         <X className="w-4 h-4" />

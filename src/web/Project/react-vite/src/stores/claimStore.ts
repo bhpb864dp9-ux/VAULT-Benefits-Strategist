@@ -458,7 +458,7 @@ export const useClaimStore = create<ClaimStore>()(
 
       getAuditTrail: () => get().data.auditTrail,
 
-      showToast: (message, type = 'info', duration = 3000) => {
+      showToast: (message, type = 'info', duration = 5000) => {  // REL-014: Extended to 5 seconds
         const id = generateId();
         const toast: ToastMessage = { id, message, type, duration };
 

@@ -3,10 +3,14 @@
  * Routes and layout management
  *
  * @vault-feature VAULT-ACC-001 Skip Link (Keyboard Navigation)
+ * @vault-feature VAULT-LG-001 Liquid Glass Design System
  */
 
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+
+// Liquid Glass Provider (wraps entire app)
+import { LiquidGlassProvider } from './components/LiquidGlass';
 
 // Layout Components
 import Header from './components/UI/Header';
@@ -25,44 +29,46 @@ const VBIO = lazy(() => import('./pages/VBIO'));
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col">
-      {/* Skip link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brass focus:text-slate-950"
-      >
-        Skip to main content
-      </a>
+    <LiquidGlassProvider>
+      <div className="min-h-screen bg-slate-950 flex flex-col">
+        {/* Skip link for accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brass focus:text-slate-950"
+        >
+          Skip to main content
+        </a>
 
-      {/* Header */}
-      <Header />
+        {/* Header */}
+        <Header />
 
-      {/* Main Content */}
-      <main id="main-content" className="flex-1">
-        <Suspense fallback={<LoadingScreen />}>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/claim/*" element={<Workflow />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/calculator" element={<Calculator />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/vbio" element={<VBIO />} />
-            {/* 404 fallback */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
+        {/* Main Content */}
+        <main id="main-content" className="flex-1">
+          <Suspense fallback={<LoadingScreen />}>
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/claim/*" element={<Workflow />} />
+              <Route path="/results" element={<Results />} />
+              <Route path="/calculator" element={<Calculator />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/vbio" element={<VBIO />} />
+              {/* 404 fallback */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
 
-      {/* Toast Notifications */}
-      <ToastContainer />
+        {/* Toast Notifications */}
+        <ToastContainer />
 
-      {/* Feedback Widget */}
-      <FeedbackWidget />
-    </div>
+        {/* Feedback Widget */}
+        <FeedbackWidget />
+      </div>
+    </LiquidGlassProvider>
   );
 }
 

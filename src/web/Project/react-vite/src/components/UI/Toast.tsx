@@ -4,7 +4,6 @@
 
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 import { useClaimStore, useToasts } from '../../stores/claimStore';
-import clsx from 'clsx';
 import type { ToastMessage } from '../../types';
 
 export default function ToastContainer() {
@@ -30,35 +29,41 @@ function Toast({ toast }: { toast: ToastMessage }) {
     info: Info
   } as const;
 
-  // REL-014: Solid backgrounds for better visibility
-  const styles = {
-    success: 'border-green-600 bg-green-700',
-    error: 'border-red-600 bg-red-700',
-    warning: 'border-amber-600 bg-amber-700',
-    info: 'border-blue-600 bg-blue-700'
-  } as const;
-
-  // REL-014: White icons on solid backgrounds
-  const iconStyles = {
-    success: 'text-white',
-    error: 'text-white',
-    warning: 'text-white',
-    info: 'text-white'
+  // Platform-consistent colors (matches body map, calculator, conditions)
+  // Success = Green (Mild), Error = Red (Severe), Warning = Amber (Moderate), Info = Blue
+  const colorStyles = {
+    success: {
+      background: 'rgb(22, 163, 74)',      // green-600
+      border: 'rgba(34, 197, 94, 0.8)',    // green-500
+    },
+    error: {
+      background: 'rgb(220, 38, 38)',      // red-600
+      border: 'rgba(239, 68, 68, 0.8)',    // red-500
+    },
+    warning: {
+      background: 'rgb(217, 119, 6)',      // amber-600
+      border: 'rgba(245, 158, 11, 0.8)',   // amber-500
+    },
+    info: {
+      background: 'rgb(37, 99, 235)',      // blue-600
+      border: 'rgba(59, 130, 246, 0.8)',   // blue-500
+    }
   } as const;
 
   const Icon = icons[toast.type];
+  const colors = colorStyles[toast.type];
 
   return (
     <div
-      className={clsx(
-        'flex items-center gap-3 px-4 py-3 border rounded-2xl shadow-lg',
-        'animate-slide-in min-w-[280px] max-w-[400px]',
-        styles[toast.type]
-      )}
+      className="flex items-center gap-3 px-4 py-3 rounded-2xl shadow-lg animate-slide-in min-w-[280px] max-w-[400px]"
+      style={{
+        backgroundColor: colors.background,
+        border: `1px solid ${colors.border}`,
+      }}
       role="alert"
       aria-live="polite"
     >
-      <Icon className={clsx('w-5 h-5 flex-shrink-0', iconStyles[toast.type])} />
+      <Icon className="w-5 h-5 flex-shrink-0 text-white" />
       <p className="text-sm text-white flex-1 font-medium">{toast.message}</p>
       <button
         onClick={() => dismissToast(toast.id)}

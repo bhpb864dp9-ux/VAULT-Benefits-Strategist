@@ -1,12 +1,68 @@
 /**
  * VAULT DEM Engine — Landing Page (Primary)
- * Centered, calm hero + symbolic silhouette (flag + veteran)
+ * Liquid Glass Edition with 3D Waving Flag
+ *
+ * Features:
+ * - 3D Waving American Flag with cloth physics
+ * - Apple Liquid Glass design system
+ * - Scroll-triggered framer-motion animations
+ *
+ * VAULT LLC — A Northstar|Insight Inc. Company
+ * © 2026 All Rights Reserved
  */
 
 import { Link } from 'react-router-dom';
 import { ArrowRight, Lock, Zap, Shield, GraduationCap } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useClaimStore } from '../stores/claimStore';
 import { getBiweeklySeasonalHeroCopy } from '../lib/seasonalCopy';
+import WavingFlag from '../components/3D/WavingFlag';
+import { GlassCard } from '../components/LiquidGlass/GlassCard';
+import { GlassButton } from '../components/LiquidGlass/GlassButton';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMATION VARIANTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (delay: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      delay,
+      ease: [0.16, 1, 0.3, 1] as const, // Apple ease
+    },
+  }),
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const trustPillVariant = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
 
 export default function Landing() {
   const { isClaimStarted } = useClaimStore();
@@ -15,94 +71,157 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       <section className="relative min-h-[92vh] flex items-center overflow-hidden pt-28 pb-16">
-        {/* Background gradient */}
+        {/* ═══════════════════════════════════════════════════════════════════
+            BACKGROUND LAYERS
+            Gradient base + radial accents for depth
+        ═══════════════════════════════════════════════════════════════════ */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
         <div className="absolute inset-0 bg-gradient-radial from-brass/10 via-transparent to-transparent opacity-70" />
         <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent opacity-40 [background-position:10%_15%]" />
 
-        {/* Flag + veteran silhouette */}
-        <div className="hero-silhouette" aria-hidden="true">
-          <svg viewBox="0 0 1200 800" width="100%" height="100%" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="sil" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stopColor="rgba(232,238,244,0.22)" />
-                <stop offset="0.55" stopColor="rgba(201,162,39,0.22)" />
-                <stop offset="1" stopColor="rgba(43,109,230,0.16)" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0 640 C260 610 420 690 650 650 C860 612 1010 610 1200 640 L1200 800 L0 800 Z"
-              fill="rgba(0,0,0,0.45)"
-            />
-            <g opacity="0.9">
-              <path
-                d="M560 520 C545 500 540 470 548 440 C560 395 602 370 640 384 C685 401 700 455 685 500
-                   C676 526 660 548 640 565 L650 640 L592 640 L600 575 C585 565 572 545 560 520 Z"
-                fill="url(#sil)"
-              />
-              <circle cx="625" cy="365" r="36" fill="rgba(232,238,244,0.18)" />
-            </g>
-            <rect x="710" y="210" width="14" height="470" rx="6" fill="rgba(232,238,244,0.20)" />
-            <g className="hero-flag" transform="translate(724 230)">
-              <path
-                d="M0 0 C85 10 155 -5 230 10 C310 26 380 10 460 20 L460 170
-                   C375 150 310 165 230 150 C150 134 90 158 0 140 Z"
-                fill="rgba(201,162,39,0.18)"
-              />
-              <path d="M0 18 C85 28 155 12 230 28 C310 44 380 28 460 38" stroke="rgba(232,238,244,0.18)" strokeWidth="6" fill="none" />
-              <path d="M0 70 C85 80 155 65 230 80 C310 96 380 80 460 90" stroke="rgba(43,109,230,0.14)" strokeWidth="6" fill="none" />
-            </g>
-          </svg>
-        </div>
+        {/* ═══════════════════════════════════════════════════════════════════
+            3D WAVING FLAG
+            WebGL rendered American flag with cloth physics
+        ═══════════════════════════════════════════════════════════════════ */}
+        <motion.div
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] h-[60%] opacity-60 pointer-events-none"
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 0.6, x: 0 }}
+          transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+          aria-hidden="true"
+        >
+          <WavingFlag
+            width={3}
+            height={1.8}
+            windSpeed={0.4}
+            waveIntensity={0.7}
+            color="#1a202c"
+            secondaryColor="#c9a227"
+            showPole={true}
+            enableControls={false}
+          />
+        </motion.div>
 
+        {/* ═══════════════════════════════════════════════════════════════════
+            HERO CONTENT
+            Centered with staggered animations
+        ═══════════════════════════════════════════════════════════════════ */}
         <div className="container-wide relative z-10">
-          <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-            <div className="animate-fade-up">
-              <span className="eyebrow glass-chip">VAULT DEM Engine</span>
-            </div>
+          <motion.div
+            className="max-w-3xl mx-auto text-center flex flex-col items-center"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Eyebrow Badge */}
+            <motion.div variants={fadeUpVariant} custom={0}>
+              <span className="inline-block px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider bg-brass/10 text-brass border border-brass/20 backdrop-blur-sm">
+                VAULT DEM Engine
+              </span>
+            </motion.div>
 
-            <h1 className="liquid-title text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-50 leading-tight mb-5 mt-4 animate-fade-up animate-delay-100 text-balance">
+            {/* Headline */}
+            <motion.h1
+              className="liquid-title text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-50 leading-tight mb-5 mt-4 text-balance"
+              variants={fadeUpVariant}
+              custom={0.1}
+            >
               {copy.headline}
-            </h1>
+            </motion.h1>
 
-            <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl mb-9 animate-fade-up animate-delay-200 text-balance">
+            {/* Subheadline */}
+            <motion.p
+              className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl mb-9 text-balance"
+              variants={fadeUpVariant}
+              custom={0.2}
+            >
               {copy.subhead}
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up animate-delay-300 w-full sm:w-auto">
-              <Link to="/claim" className="btn-tactical btn-tactical-advance group">
-                <span>{isClaimStarted() ? 'Continue Claim' : 'Start Claim'}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            {/* CTA Buttons */}
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto"
+              variants={fadeUpVariant}
+              custom={0.3}
+            >
+              <Link to="/claim">
+                <GlassButton
+                  variant="primary"
+                  size="lg"
+                  glow
+                  icon={<ArrowRight className="w-4 h-4" />}
+                  iconPosition="right"
+                  className="group"
+                >
+                  {isClaimStarted() ? 'Continue Claim' : 'Start Claim'}
+                </GlassButton>
               </Link>
-              <Link to="/calculator" className="btn-tactical btn-tactical-retreat">
-                <span>Try Calculator</span>
+              <Link to="/calculator">
+                <GlassButton variant="secondary" size="lg">
+                  Try Calculator
+                </GlassButton>
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="mt-6 animate-fade-up animate-delay-400">
-              <Link to="/vbio" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-brass transition-colors">
-                <GraduationCap className="w-4 h-4" />
+            {/* VBIO Link */}
+            <motion.div
+              className="mt-6"
+              variants={fadeUpVariant}
+              custom={0.4}
+            >
+              <Link
+                to="/vbio"
+                className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-brass transition-colors group"
+              >
+                <GraduationCap className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 VBIO lane (power users)
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="mt-10 animate-fade-up animate-delay-500">
-              <div className="card px-6 py-4 inline-flex flex-wrap justify-center gap-6 text-sm text-slate-300">
-                <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-success" />
-                  <span>Zero data transmission</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-brass" />
-                  <span>Instant calculations</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-intent-mild" />
-                  <span>Privacy first</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            {/* Trust Indicators */}
+            <motion.div
+              className="mt-10"
+              variants={fadeUpVariant}
+              custom={0.5}
+            >
+              <GlassCard
+                variant="clear"
+                size="sm"
+                padding="sm"
+                className="inline-flex"
+              >
+                <motion.div
+                  className="flex flex-wrap justify-center gap-6 text-sm text-slate-300 px-2"
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <motion.div
+                    className="flex items-center gap-2"
+                    variants={trustPillVariant}
+                  >
+                    <Lock className="w-4 h-4 text-emerald-400" />
+                    <span>Zero data transmission</span>
+                  </motion.div>
+                  <motion.div
+                    className="flex items-center gap-2"
+                    variants={trustPillVariant}
+                  >
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span>Instant calculations</span>
+                  </motion.div>
+                  <motion.div
+                    className="flex items-center gap-2"
+                    variants={trustPillVariant}
+                  >
+                    <Shield className="w-4 h-4 text-emerald-400" />
+                    <span>Privacy first</span>
+                  </motion.div>
+                </motion.div>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

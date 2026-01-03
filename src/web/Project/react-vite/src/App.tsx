@@ -4,6 +4,7 @@
  *
  * @vault-feature VAULT-ACC-001 Skip Link (Keyboard Navigation)
  * @vault-feature VAULT-LG-001 Liquid Glass Design System
+ * @vault-feature AUTH-001 OAuth 2.0 Authentication with PKCE
  */
 
 import { Routes, Route } from 'react-router-dom';
@@ -12,6 +13,9 @@ import { Suspense, lazy } from 'react';
 // Liquid Glass Provider and Layout (wraps entire app)
 import { LiquidGlassProvider, LiquidGlassLayout } from './components/LiquidGlass';
 
+// Authentication Provider
+import { AuthProvider } from './context/AuthContext';
+
 // Layout Components
 import Header from './components/UI/Header';
 import Footer from './components/UI/Footer';
@@ -19,6 +23,7 @@ import ToastContainer from './components/UI/Toast';
 import LoadingScreen from './components/UI/LoadingScreen';
 import FeedbackWidget from './components/UI/FeedbackWidget';
 
+// Lazy-loaded Pages
 const Landing = lazy(() => import('./pages/Landing'));
 const Workflow = lazy(() => import('./pages/Workflow'));
 const Results = lazy(() => import('./pages/Results'));
@@ -27,50 +32,62 @@ const About = lazy(() => import('./pages/About'));
 const Tools = lazy(() => import('./pages/Tools'));
 const VBIO = lazy(() => import('./pages/VBIO'));
 
+// Auth Pages
+const LoginPanel = lazy(() => import('./components/Auth/LoginPanel'));
+const AuthCallback = lazy(() => import('./components/Auth/AuthCallback'));
+
 function App() {
   return (
-    <LiquidGlassProvider>
-      <LiquidGlassLayout>
-        <div className="min-h-screen flex flex-col">
-          {/* Skip link for accessibility */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brass focus:text-slate-950"
-          >
-            Skip to main content
-          </a>
+    <AuthProvider>
+      <LiquidGlassProvider>
+        <LiquidGlassLayout>
+          <div className="min-h-screen flex flex-col">
+            {/* Skip link for accessibility */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brass focus:text-slate-950"
+            >
+              Skip to main content
+            </a>
 
-          {/* Header */}
-          <Header />
+            {/* Header */}
+            <Header />
 
-          {/* Main Content */}
-          <main id="main-content" className="flex-1">
-            <Suspense fallback={<LoadingScreen />}>
-              <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/claim/*" element={<Workflow />} />
-                <Route path="/results" element={<Results />} />
-                <Route path="/calculator" element={<Calculator />} />
-                <Route path="/tools" element={<Tools />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/vbio" element={<VBIO />} />
-                {/* 404 fallback */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </main>
+            {/* Main Content */}
+            <main id="main-content" className="flex-1">
+              <Suspense fallback={<LoadingScreen />}>
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/login" element={<LoginPanel />} />
+                  <Route path="/auth/callback/:provider" element={<AuthCallback />} />
+                  <Route path="/about" element={<About />} />
 
-          {/* Footer */}
-          <Footer />
+                  {/* Claim Workflow (currently public, can be protected later) */}
+                  <Route path="/claim/*" element={<Workflow />} />
+                  <Route path="/results" element={<Results />} />
+                  <Route path="/calculator" element={<Calculator />} />
+                  <Route path="/tools" element={<Tools />} />
+                  <Route path="/vbio" element={<VBIO />} />
 
-          {/* Toast Notifications */}
-          <ToastContainer />
+                  {/* 404 fallback */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </main>
 
-          {/* Feedback Widget */}
-          <FeedbackWidget />
-        </div>
-      </LiquidGlassLayout>
-    </LiquidGlassProvider>
+            {/* Footer */}
+            <Footer />
+
+            {/* Toast Notifications */}
+            <ToastContainer />
+
+            {/* Feedback Widget */}
+            <FeedbackWidget />
+          </div>
+        </LiquidGlassLayout>
+      </LiquidGlassProvider>
+    </AuthProvider>
   );
 }
 

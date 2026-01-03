@@ -13,6 +13,7 @@ import { Lock, AlertTriangle, Upload, FileText, Users, FileSignature, Info } fro
 import type { POAInfo, VeteranIdentity } from '../../types';
 import { extractIdentityFromBlueButton } from '../../lib/blueButton';
 import DatePicker from '../UI/DatePicker';
+import { GlassCard } from '../LiquidGlass/GlassCard';
 
 const BRANCHES = [
   'Army',
@@ -96,24 +97,26 @@ export default function PhaseIdentity() {
         </p>
       </div>
 
-      <div className="mb-8 p-4 bg-success/5 border border-success/20 flex items-start gap-3">
-        <Lock className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-        <div className="text-sm">
-          <p className="text-success font-medium">100% Private & Offline</p>
-          <p className="text-slate-400 mt-1">
-            All information is stored in your browser&apos;s local storage only. We never transmit any data to external servers.
-          </p>
+      <GlassCard variant="clear" size="sm" padding="md" className="mb-8 border-emerald-500/20">
+        <div className="flex items-start gap-3">
+          <Lock className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+          <div className="text-sm">
+            <p className="text-emerald-400 font-medium">100% Private & Offline</p>
+            <p className="text-slate-400 mt-1">
+              All information is stored in your browser&apos;s local storage only. We never transmit any data to external servers.
+            </p>
+          </div>
         </div>
-      </div>
+      </GlassCard>
 
-      <div className="max-w-2xl space-y-8">
-        <div className="card border-blue-500/30">
+      <div className="max-w-2xl space-y-6">
+        <GlassCard variant="regular" size="md" padding="md" className="border-blue-500/20">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 text-blue-300">
+            <div className="mt-0.5 text-blue-400">
               <FileText className="w-5 h-5" />
             </div>
             <div className="flex-1">
-              <p className="text-blue-200 font-medium text-sm uppercase tracking-wider">
+              <p className="text-blue-300 font-medium text-sm uppercase tracking-wider">
                 Quick Start: Upload Blue Button Record
               </p>
               <p className="text-slate-400 text-sm mt-2">
@@ -125,7 +128,7 @@ export default function PhaseIdentity() {
               </p>
 
               <div className="mt-4">
-                <label className="btn btn-va-blue w-full sm:w-auto">
+                <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-lg text-blue-300 text-sm font-medium cursor-pointer transition-all">
                   <Upload className="w-4 h-4" />
                   UPLOAD BLUE BUTTON FILE
                   <input
@@ -146,9 +149,9 @@ export default function PhaseIdentity() {
               </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
 
-        <div className="card">
+        <GlassCard variant="regular" size="md" padding="md">
           <div className="flex items-start gap-3">
             <FileSignature className="w-5 h-5 text-brass mt-0.5" />
             <div className="flex-1">
@@ -247,9 +250,9 @@ export default function PhaseIdentity() {
               </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
 
-        <div className="card">
+        <GlassCard variant="regular" size="md" padding="md">
           <div className="flex items-start gap-3">
             <Users className="w-5 h-5 text-brass mt-0.5" />
             <div className="flex-1">
@@ -300,7 +303,7 @@ export default function PhaseIdentity() {
               )}
             </div>
           </div>
-        </div>
+        </GlassCard>
 
         <div className="form-group">
           <label className="label">Full Legal Name *</label>

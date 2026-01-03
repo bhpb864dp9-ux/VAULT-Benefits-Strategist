@@ -70,14 +70,14 @@ function FlagMesh({
   const widthSegments = 40;
   const heightSegments = 30;
 
-  // Create custom shader material for American flag silhouette
+  // Create custom shader material for monochrome flag silhouette
   const material = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
         uColor: { value: new THREE.Color(color) },
         uSecondaryColor: { value: new THREE.Color(secondaryColor) },
-        uOpacity: { value: 0.85 },
+        uOpacity: { value: 0.9 },
       },
       vertexShader: `
         varying vec2 vUv;
@@ -99,32 +99,32 @@ function FlagMesh({
         varying float vWave;
 
         void main() {
-          // Create American flag pattern (simplified silhouette)
+          // Pure monochrome silhouette - subtle stripe pattern
           vec3 finalColor = uColor;
 
-          // Stripes (13 stripes)
+          // Stripes (13 stripes) - subtle variation only
           float stripeCount = 13.0;
           float stripeIndex = floor(vUv.y * stripeCount);
           bool isAlternate = mod(stripeIndex, 2.0) < 1.0;
 
-          // Union (blue canton) in top-left
+          // Union (canton) in top-left - slightly different shade
           bool isUnion = vUv.x < 0.4 && vUv.y > 0.538;
 
           if (isUnion) {
-            // Union area - darker tint
-            finalColor = uSecondaryColor * 0.7;
+            // Union area - subtle darker shade
+            finalColor = mix(uColor, uSecondaryColor, 0.4);
           } else if (isAlternate) {
-            // Alternate stripes - slightly different shade
-            finalColor = mix(uColor, uSecondaryColor, 0.3);
+            // Alternate stripes - very subtle variation
+            finalColor = mix(uColor, uSecondaryColor, 0.15);
           }
 
-          // Add subtle wave-based shading for depth
-          float shade = 0.9 + vWave * 0.5;
+          // Subtle wave-based shading for 3D depth
+          float shade = 0.95 + vWave * 0.15;
           finalColor *= shade;
 
-          // Edge fade for silhouette effect
-          float edgeFade = smoothstep(0.0, 0.02, vUv.x) * smoothstep(0.0, 0.02, 1.0 - vUv.x);
-          edgeFade *= smoothstep(0.0, 0.02, vUv.y) * smoothstep(0.0, 0.02, 1.0 - vUv.y);
+          // Soft edge fade for silhouette effect
+          float edgeFade = smoothstep(0.0, 0.03, vUv.x) * smoothstep(0.0, 0.03, 1.0 - vUv.x);
+          edgeFade *= smoothstep(0.0, 0.03, vUv.y) * smoothstep(0.0, 0.03, 1.0 - vUv.y);
 
           gl_FragColor = vec4(finalColor, uOpacity * edgeFade);
         }

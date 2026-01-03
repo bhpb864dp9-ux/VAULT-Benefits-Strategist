@@ -1,3 +1,6 @@
+/* Apple Liquid Glass Design System */
+@import './liquid-glass.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

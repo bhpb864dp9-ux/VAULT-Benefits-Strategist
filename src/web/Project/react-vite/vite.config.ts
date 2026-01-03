@@ -91,8 +91,7 @@ export default defineConfig({
     open: true
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'zustand', 'lucide-react'],
-    exclude: ['tesseract.js']
+    include: ['react', 'react-dom', 'react-router-dom', 'zustand', 'lucide-react', 'tesseract.js', 'pdfjs-dist']
   },
   test: {
     environment: 'jsdom',

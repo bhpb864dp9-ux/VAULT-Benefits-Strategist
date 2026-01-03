@@ -15,7 +15,7 @@ export type BodySystemId =
   | 'endocrine' | 'skin' | 'vision' | 'dental' | 'infectious'
   | 'hematologic' | 'gynecological';
 
-export type IntentLevel = 0 | 1 | 2 | 3; // none, mild, moderate, severe
+export type IntentLevel = 0 | 1 | 2 | 3 | 4; // none, mild, moderate, severe, total
 
 export type LimbSide = 'left' | 'right' | 'bilateral';
 
@@ -54,6 +54,7 @@ export interface SelectedCondition extends Condition {
   side?: LimbSide;
   isBilateral?: boolean;
   notes?: string;
+  severity?: IntentLevel;  // REL-019: Severity level (0=none, 1=mild, 2=moderate, 3=severe)
 }
 
 // ═══════════════════════════════════════════════════════════════════

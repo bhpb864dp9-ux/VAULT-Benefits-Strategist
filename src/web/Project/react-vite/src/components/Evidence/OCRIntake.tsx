@@ -74,7 +74,13 @@ export default function OCRIntake() {
         let result: OCRResult | null = null;
         try {
           result = await processDocument(file, (p) => setProgress(p));
-        } catch {
+        } catch (err) {
+          console.error('[OCRIntake] processDocument failed:', err);
+          console.error('[OCRIntake] Error details:', {
+            name: err instanceof Error ? err.name : 'unknown',
+            message: err instanceof Error ? err.message : String(err),
+            stack: err instanceof Error ? err.stack : undefined
+          });
           showToast(`OCR failed for ${file.name}. Try an image file (PNG/JPG/WebP) if this was a PDF.`, 'error');
           continue;
         }

@@ -5,16 +5,19 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Shield, Lock } from 'lucide-react';
+import { Menu, X, Shield, Lock, User, LogOut, LogIn } from 'lucide-react';
 import { useClaimStore } from '../../stores/claimStore';
+import { useAuth } from '../../context/AuthContext';
 import clsx from 'clsx';
 import { getHeaderNavRoutes, VAULT_WEB_FEATURE_REGISTRY } from '@mosa/Core/Registry';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
   const { currentPhase, isClaimStarted, data } = useClaimStore();
+  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,6 +122,49 @@ export default function Header() {
                   Start Free
                 </Link>
               )}
+
+              {/* Auth Button / User Menu */}
+              {isAuthenticated ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-brass/30 transition-colors"
+                  >
+                    {user?.picture ? (
+                      <img src={user.picture} alt="" className="w-6 h-6 rounded-full" />
+                    ) : (
+                      <User className="w-4 h-4 text-slate-400" />
+                    )}
+                    <span className="text-sm text-slate-300">{user?.givenName || 'Account'}</span>
+                    {user?.isVeteranVerified && (
+                      <span className="px-1.5 py-0.5 text-xs bg-green-500/20 text-green-400 rounded">Verified</span>
+                    )}
+                  </button>
+                  {userMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 py-2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-lg shadow-xl z-50">
+                      <div className="px-4 py-2 border-b border-slate-700/50">
+                        <p className="text-sm font-medium text-white">{user?.name}</p>
+                        <p className="text-xs text-slate-400">{user?.email}</p>
+                      </div>
+                      <button
+                        onClick={() => { logout(); setUserMenuOpen(false); }}
+                        className="w-full flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:bg-slate-800/50 hover:text-white transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-brass/30 hover:text-brass transition-colors text-sm text-slate-300"
+                >
+                  <LogIn className="w-4 h-4" />
+                  Sign In
+                </Link>
+              )}
             </nav>
 
             {/* Hide hamburger in claim workflow — lock focus on the mission */}
@@ -144,10 +190,41 @@ export default function Header() {
                   {r.label}
                 </MobileNavLink>
               ))}
-              <div className="pt-4 border-t border-slate-800">
+              <div className="pt-4 border-t border-slate-800 space-y-3">
                 <Link to={claimCtaHref} className="btn btn-primary w-full">
                   {isClaimStarted() ? 'Continue Claim' : 'Start Free Now'}
                 </Link>
+                {isAuthenticated ? (
+                  <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      {user?.picture ? (
+                        <img src={user.picture} alt="" className="w-8 h-8 rounded-full" />
+                      ) : (
+                        <User className="w-5 h-5 text-slate-400" />
+                      )}
+                      <div>
+                        <p className="text-sm text-white">{user?.name}</p>
+                        {user?.isVeteranVerified && (
+                          <span className="text-xs text-green-400">Verified Veteran</span>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => logout()}
+                      className="p-2 text-slate-400 hover:text-white"
+                    >
+                      <LogOut className="w-5 h-5" />
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-white transition-colors"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Sign In
+                  </Link>
+                )}
               </div>
             </div>
           </nav>

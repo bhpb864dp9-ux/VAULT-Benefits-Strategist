@@ -391,16 +391,17 @@ class AuthService {
         verificationSource: 'idme',
         verificationLevel: 'LOA2',
       },
-      logingov: {
-        id: 'logingov_demo_user_001',
-        email: 'veteran@login.gov',
-        name: 'Federal Veteran',
-        givenName: 'Federal',
-        familyName: 'Veteran',
-        isVeteranVerified: true,
-        verificationSource: 'logingov',
-        verificationLevel: 'IAL2',
-      },
+      // logingov DISABLED: Requires backend private_key_jwt service
+      // logingov: {
+      //   id: 'logingov_demo_user_001',
+      //   email: 'veteran@login.gov',
+      //   name: 'Federal Veteran',
+      //   givenName: 'Federal',
+      //   familyName: 'Veteran',
+      //   isVeteranVerified: true,
+      //   verificationSource: 'logingov',
+      //   verificationLevel: 'IAL2',
+      // },
     };
 
     const userData = demoUsers[provider];

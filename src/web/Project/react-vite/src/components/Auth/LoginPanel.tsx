@@ -8,7 +8,7 @@
 
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Apple, Chrome, ShieldCheck, Landmark, Lock, ArrowRight, AlertCircle } from 'lucide-react';
+import { Apple, Chrome, ShieldCheck, Lock, ArrowRight, AlertCircle, Clock } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { PROVIDER_DISPLAY, type AuthProvider } from '../../services/auth';
 import { GlassCard } from '../LiquidGlass/GlassCard';
@@ -58,7 +58,7 @@ const PROVIDER_ICONS: Record<AuthProvider, React.ReactNode> = {
   apple: <Apple className="w-6 h-6" />,
   google: <Chrome className="w-6 h-6" />,
   idme: <ShieldCheck className="w-6 h-6" />,
-  logingov: <Landmark className="w-6 h-6" />,
+  // logingov: <Landmark className="w-6 h-6" />,  // DISABLED: Backend required
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -198,6 +198,19 @@ export default function LoginPanel() {
               <div className="animate-spin w-6 h-6 border-2 border-brass border-t-transparent rounded-full" />
             </motion.div>
           )}
+
+          {/* Login.gov Coming Soon Notice */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-4 p-3 rounded-lg bg-slate-800/30 border border-slate-700/50"
+          >
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Clock className="w-4 h-4" />
+              <span>Login.gov support coming soon (requires backend service)</span>
+            </div>
+          </motion.div>
 
           {/* Privacy Notice */}
           <motion.div

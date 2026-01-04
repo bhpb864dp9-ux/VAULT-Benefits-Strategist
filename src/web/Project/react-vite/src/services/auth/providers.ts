@@ -10,7 +10,12 @@
 // TYPES
 // ═══════════════════════════════════════════════════════════════════════════════
 
-export type AuthProvider = 'apple' | 'google' | 'idme' | 'logingov';
+// Login.gov DISABLED: Requires backend private_key_jwt service for production
+// Will be re-enabled post-MVP when backend infrastructure is available
+export type AuthProvider = 'apple' | 'google' | 'idme';
+
+// Keeping type for future use
+export type AuthProviderFuture = 'apple' | 'google' | 'idme' | 'logingov';
 
 export interface ProviderConfig {
   id: AuthProvider;
@@ -105,23 +110,25 @@ export const idmeConfig: ProviderConfig = {
  * Login.gov Configuration (Federal Identity)
  * https://developers.login.gov/oidc/
  *
- * NOTE: Login.gov production requires private_key_jwt authentication
- * which needs a backend service. This config is for sandbox/development.
+ * DISABLED: Login.gov production requires private_key_jwt authentication
+ * which needs a backend service. Deferred to post-MVP.
+ *
+ * Re-enable when backend JWT signing service is available.
  */
-export const logingovConfig: ProviderConfig = {
-  id: 'logingov',
-  name: 'Login.gov',
-  clientId: import.meta.env.VITE_LOGINGOV_CLIENT_ID || '',
-  redirectUri: `${getBaseUrl()}/auth/callback/logingov`,
-  scope: 'openid email profile',
-  responseType: 'code',
-  authorizationEndpoint: 'https://secure.login.gov/openid_connect/authorize',
-  tokenEndpoint: 'https://secure.login.gov/api/openid_connect/token',
-  userInfoEndpoint: 'https://secure.login.gov/api/openid_connect/userinfo',
-  usePKCE: true,
-  codeChallengeMethod: 'S256',
-  acr_values: 'http://idmanagement.gov/ns/assurance/ial/2',  // IAL2 for verified identity
-};
+// export const logingovConfig: ProviderConfig = {
+//   id: 'logingov',
+//   name: 'Login.gov',
+//   clientId: import.meta.env.VITE_LOGINGOV_CLIENT_ID || '',
+//   redirectUri: `${getBaseUrl()}/auth/callback/logingov`,
+//   scope: 'openid email profile',
+//   responseType: 'code',
+//   authorizationEndpoint: 'https://secure.login.gov/openid_connect/authorize',
+//   tokenEndpoint: 'https://secure.login.gov/api/openid_connect/token',
+//   userInfoEndpoint: 'https://secure.login.gov/api/openid_connect/userinfo',
+//   usePKCE: true,
+//   codeChallengeMethod: 'S256',
+//   acr_values: 'http://idmanagement.gov/ns/assurance/ial/2',
+// };
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // PROVIDER REGISTRY
@@ -131,7 +138,7 @@ export const PROVIDER_CONFIGS: Record<AuthProvider, ProviderConfig> = {
   apple: appleConfig,
   google: googleConfig,
   idme: idmeConfig,
-  logingov: logingovConfig,
+  // logingov: logingovConfig,  // DISABLED: Backend required
 };
 
 export function getProviderConfig(provider: AuthProvider): ProviderConfig {
@@ -178,12 +185,13 @@ export const PROVIDER_DISPLAY: ProviderDisplayInfo[] = [
     badge: 'Veteran Verified',
     available: true,
   },
-  {
-    id: 'logingov',
-    name: 'Login.gov',
-    icon: 'landmark',
-    description: 'Federal identity verification',
-    badge: 'Federal Standard',
-    available: true,
-  },
+  // Login.gov DISABLED: Requires backend private_key_jwt service
+  // {
+  //   id: 'logingov',
+  //   name: 'Login.gov',
+  //   icon: 'landmark',
+  //   description: 'Federal identity verification',
+  //   badge: 'Federal Standard',
+  //   available: false,
+  // },
 ];

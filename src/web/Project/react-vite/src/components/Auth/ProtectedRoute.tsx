@@ -63,7 +63,7 @@ function VeteranVerificationRequired() {
               Veteran Verification Required
             </h2>
             <p className="text-slate-400 mb-6">
-              This feature requires verified veteran status. Please sign in with ID.me or Login.gov to verify your veteran status.
+              This feature requires verified veteran status. Please sign in with ID.me to verify your veteran status.
             </p>
 
             <div className="space-y-3">

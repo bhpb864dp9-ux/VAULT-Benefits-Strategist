@@ -1,6 +1,7 @@
 /**
  * VAULT — OAuth 2.0 / OpenID Connect Provider Configurations
- * Supports: Apple, Google, ID.me, Login.gov
+ * Active: Apple, Google, ID.me
+ * Deferred: Login.gov (requires backend private_key_jwt)
  *
  * VAULT LLC — A Northstar|Insight Inc. Company
  * © 2026 All Rights Reserved

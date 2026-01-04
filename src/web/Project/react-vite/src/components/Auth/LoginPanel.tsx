@@ -1,6 +1,7 @@
 /**
  * VAULT — Login Panel with Liquid Glass Styling
- * OAuth 2.0 provider selection with Apple, Google, ID.me, Login.gov
+ * OAuth 2.0 provider selection with Apple, Google, ID.me
+ * (Login.gov deferred - requires backend infrastructure)
  *
  * VAULT LLC — A Northstar|Insight Inc. Company
  * © 2026 All Rights Reserved

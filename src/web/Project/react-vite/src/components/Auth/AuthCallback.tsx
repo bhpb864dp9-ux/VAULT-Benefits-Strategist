@@ -33,8 +33,8 @@ export default function AuthCallback() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        // Validate provider
-        if (!provider || !['apple', 'google', 'idme', 'logingov'].includes(provider)) {
+        // Validate provider (Login.gov removed - requires backend)
+        if (!provider || !['apple', 'google', 'idme'].includes(provider)) {
           throw new Error('Invalid authentication provider');
         }
 

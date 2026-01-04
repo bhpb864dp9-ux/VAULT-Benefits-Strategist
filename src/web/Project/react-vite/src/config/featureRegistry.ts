@@ -138,7 +138,7 @@ export const TIER_DEFINITIONS: TierDefinition[] = [
       'FedRAMP compliance path',
       'IL4/IL5 support',
       'CAC/PIV authentication',
-      'Login.gov integration',
+      'Login.gov integration (coming soon)',
       'ITAR compliance',
       'Dedicated infrastructure',
       'Federal contract terms',

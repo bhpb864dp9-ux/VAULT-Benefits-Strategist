@@ -9,7 +9,9 @@
 
 ## Production URL
 
-**GitHub Pages:** https://[username].github.io/VAULT-Benefits-Strategist/
+**GitHub Pages:** https://bhpb864dp9-ux.github.io/VAULT-Benefits-Strategist/
+
+*(GitHub Actions workflow triggered - deployment in progress)*
 
 ---
 

@@ -12,7 +12,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { ArrowRight, Lock, Zap, Shield, GraduationCap } from 'lucide-react';
+import { ArrowRight, Lock, Zap, Shield, GraduationCap, Calculator, Map, FileText, Users, MessageSquare, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useClaimStore } from '../stores/claimStore';
 import { getBiweeklySeasonalHeroCopy } from '../lib/seasonalCopy';
@@ -107,11 +107,20 @@ export default function Landing() {
             initial="hidden"
             animate="visible"
           >
+            {/* Veteran Recognition Pre-headline */}
+            <motion.p
+              className="text-sm sm:text-base uppercase tracking-[0.25em] text-brass/80 font-medium mb-4"
+              variants={fadeUpVariant}
+              custom={0}
+            >
+              Thank You for Your Service
+            </motion.p>
+
             {/* Headline */}
             <motion.h1
               className="liquid-title text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-50 leading-tight mb-5 text-balance"
               variants={fadeUpVariant}
-              custom={0}
+              custom={0.05}
             >
               {copy.headline}
             </motion.h1>
@@ -208,6 +217,182 @@ export default function Landing() {
                 </motion.div>
               </GlassCard>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          FEATURES SECTION
+          Why Veterans Choose VAULT
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-20 relative">
+        <div className="container-wide">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl sm:text-3xl font-serif text-slate-100 mb-4">
+              Why Veterans Choose VAULT
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Built for privacy-conscious veterans who want control over their claim preparation.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid md:grid-cols-3 gap-6"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {/* Feature 1: Privacy First */}
+            <motion.div variants={fadeUpVariant} custom={0}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
+                  <Lock className="w-7 h-7 text-emerald-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  Privacy-First Architecture
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Zero data transmission. Everything stays on your device.
+                  No servers, no tracking, no compromises.
+                </p>
+              </GlassCard>
+            </motion.div>
+
+            {/* Feature 2: Instant Calculations */}
+            <motion.div variants={fadeUpVariant} custom={0.1}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-amber-500/10 flex items-center justify-center">
+                  <Calculator className="w-7 h-7 text-amber-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  Instant VASRD Calculations
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Combined rating, bilateral factor, TDIU, SMC — all calculated
+                  in seconds, 100% offline.
+                </p>
+              </GlassCard>
+            </motion.div>
+
+            {/* Feature 3: Interactive Body Map */}
+            <motion.div variants={fadeUpVariant} custom={0.2}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-blue-500/10 flex items-center justify-center">
+                  <Map className="w-7 h-7 text-blue-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  Interactive Body Map
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Click body parts to select conditions. Intuitive, not bureaucratic.
+                  15 body systems, 300+ conditions.
+                </p>
+              </GlassCard>
+            </motion.div>
+
+            {/* Feature 4: Evidence Intelligence */}
+            <motion.div variants={fadeUpVariant} custom={0.3}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-purple-500/10 flex items-center justify-center">
+                  <FileText className="w-7 h-7 text-purple-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  Evidence Intelligence
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  OCR document scanning, gap analysis, and nexus statement generation.
+                  Build an airtight case.
+                </p>
+              </GlassCard>
+            </motion.div>
+
+            {/* Feature 5: Expert Forms */}
+            <motion.div variants={fadeUpVariant} custom={0.4}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-red-500/10 flex items-center justify-center">
+                  <Star className="w-7 h-7 text-red-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  1776 Heritage Pricing
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Free for veterans with valor awards, 100% P&T, TDIU, or Gold Star families.
+                  Heroes deserve access.
+                </p>
+              </GlassCard>
+            </motion.div>
+
+            {/* Feature 6: Offline Ready */}
+            <motion.div variants={fadeUpVariant} custom={0.5}>
+              <GlassCard variant="regular" padding="lg" className="h-full text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-teal-500/10 flex items-center justify-center">
+                  <Zap className="w-7 h-7 text-teal-400" />
+                </div>
+                <h3 className="text-lg font-medium text-slate-100 mb-3">
+                  Works Offline
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Install as a PWA and use anywhere — no internet required.
+                  Your data never leaves your device.
+                </p>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          BETA CTA SECTION
+          Join the VAULT Community
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 relative">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <GlassCard variant="regular" padding="xl">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex items-center gap-3 justify-center md:justify-start mb-4">
+                    <Users className="w-6 h-6 text-brass" />
+                    <h3 className="text-xl font-serif text-slate-100">
+                      Join the VAULT Community
+                    </h3>
+                  </div>
+                  <p className="text-slate-400 mb-2">
+                    Help shape the future of veteran benefits tools.
+                    Get early access to new features and make your voice heard.
+                  </p>
+                  <p className="text-sm text-slate-500">
+                    Open to all veterans, VSO professionals, and advocates.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to="/about">
+                    <GlassButton variant="secondary" size="lg">
+                      <MessageSquare className="w-4 h-4 mr-2" />
+                      Share Feedback
+                    </GlassButton>
+                  </Link>
+                  <Link to="/tools">
+                    <GlassButton variant="primary" size="lg" glow>
+                      Explore Tools
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </GlassButton>
+                  </Link>
+                </div>
+              </div>
+            </GlassCard>
           </motion.div>
         </div>
       </section>

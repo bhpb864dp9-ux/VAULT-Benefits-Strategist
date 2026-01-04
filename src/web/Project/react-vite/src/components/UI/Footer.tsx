@@ -3,8 +3,9 @@
  * Legal disclaimers and links
  */
 
-import { Shield, Lock, Heart } from 'lucide-react';
+import { Shield, Lock, Heart, MessageSquare, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import FeedbackWidget from './FeedbackWidget';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -77,9 +78,10 @@ export default function Footer() {
                   href="https://www.veteranscrisisline.net/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-brass transition-colors"
+                  className="text-slate-400 hover:text-brass transition-colors inline-flex items-center gap-1"
                 >
                   Veterans Crisis Line
+                  <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li>
@@ -92,14 +94,29 @@ export default function Footer() {
                   href="https://www.va.gov/vso/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-brass transition-colors"
+                  className="text-slate-400 hover:text-brass transition-colors inline-flex items-center gap-1"
                 >
                   Find a VSO
+                  <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
             </ul>
+
+            {/* Feedback Section */}
+            <div className="mt-6 pt-4 border-t border-slate-800">
+              <h5 className="text-xs font-medium text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <MessageSquare className="w-3 h-3" />
+                Help Us Improve
+              </h5>
+              <p className="text-xs text-slate-500 mb-3">
+                Your feedback shapes VAULT's future.
+              </p>
+            </div>
           </div>
         </div>
+
+        {/* Feedback Widget - Floating */}
+        <FeedbackWidget />
 
         <div className="mt-10 pt-8 border-t border-slate-800">
           <p className="text-xs text-slate-500 leading-relaxed">
